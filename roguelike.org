@@ -1,49 +1,7 @@
-# Created 2018-11-14 mié 12:37
+# Created 2018-11-14 mié 12:52
 #+TITLE: 
 #+AUTHOR: erretres
 * GRAPH
-
-#+BEGIN_SRC dot
-  digraph {
-      bgcolor=transparent
-      fontcolor=white
-      color=white
-  
-      node [shape=record color=yellow fontcolor=yellow]
-      edge [color=orange fontcolor=orange]
-  
-      subgraph  cluster_3 {
-  	label="PROGRAM"
-  	INTERFACE         
-  	INPUTHANDLER
-  	EVENTHANDLER 
-  	UPDATER
-      } 
-  
-  
-      subgraph  cluster_2 {
-  	label="GLOBAL" 
-  	STATE
-  	RULES 
-  	OBJS
-  	ACTIONS
-       }
-       subgraph  cluster_1 {
-  	label="WORLD"
-  	FRAME
-      } 
-  
-  EVENTHANDLER  -> STATE           [label="update" dir="both" ] 
-  STATE         -> UPDATER         [label="data"] 
-  UPDATER       -> FRAME           [label="update"] 
-  RULES         -> EVENTHANDLER
-  OBJS          -> INTERFACE 
-  ACTIONS       -> INTERFACE
-  
-  INTERFACE    ->  INPUTHANDLER [label="input"] 
-  INPUTHANDLER ->  EVENTHANDLER [label="event"]
-  }
-#+END_SRC
 
 #+RESULTS: 
 [[file:testing_dot.png]]
