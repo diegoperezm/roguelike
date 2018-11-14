@@ -1,0 +1,288 @@
+# Created 2018-11-14 mié 12:37
+#+TITLE: 
+#+AUTHOR: erretres
+* GRAPH
+
+#+BEGIN_SRC dot
+  digraph {
+      bgcolor=transparent
+      fontcolor=white
+      color=white
+  
+      node [shape=record color=yellow fontcolor=yellow]
+      edge [color=orange fontcolor=orange]
+  
+      subgraph  cluster_3 {
+  	label="PROGRAM"
+  	INTERFACE         
+  	INPUTHANDLER
+  	EVENTHANDLER 
+  	UPDATER
+      } 
+  
+  
+      subgraph  cluster_2 {
+  	label="GLOBAL" 
+  	STATE
+  	RULES 
+  	OBJS
+  	ACTIONS
+       }
+       subgraph  cluster_1 {
+  	label="WORLD"
+  	FRAME
+      } 
+  
+  EVENTHANDLER  -> STATE           [label="update" dir="both" ] 
+  STATE         -> UPDATER         [label="data"] 
+  UPDATER       -> FRAME           [label="update"] 
+  RULES         -> EVENTHANDLER
+  OBJS          -> INTERFACE 
+  ACTIONS       -> INTERFACE
+  
+  INTERFACE    ->  INPUTHANDLER [label="input"] 
+  INPUTHANDLER ->  EVENTHANDLER [label="event"]
+  }
+#+END_SRC
+
+#+RESULTS: 
+[[file:testing_dot.png]]
+
+
+
+* IMPLEMENTATION
+
+** first GOAL make the player move (any direction)
+
+*** variables
+
+**** state
+
+#+NAME: state
+#+BEGIN_SRC js
+  /*
+   list of objects  and his positions x y
+   ,*/
+  
+  let state = {
+       "id": "humanInstance",
+       "pos": {
+         "x": 0,
+         "y": 0
+        }   
+    };
+#+END_SRC
+
+
+**** objects
+
+#+NAME: objects
+#+BEGIN_SRC js
+  const objects = [
+   {
+     "id": "human",
+     "parts": {
+  	       "head": true,
+  	       "arms": true,
+  	       "legs": true
+     },
+     "HP": 10
+   }
+  ]; 
+#+END_SRC
+
+
+**** actions
+
+#+NAME: actions
+#+BEGIN_SRC js
+  const actions = ["walk"]
+#+END_SRC
+
+
+**** rules
+
+#+NAME: rules
+#+BEGIN_SRC js
+  const rules = [
+     {
+      "action": "walk",
+      "what":  objects[0].parts.legs, // todo: check the object instance
+      "condition": true,
+      "operator": "=",
+      "sideEffect": "xPlusOne", 
+     },
+     {
+      "action": "attack",
+      "what":  [ objects[0].HP, 11],
+      "condition": true,
+      "operator": ">",
+      "sideEffect": "attackEnemy" 
+     },
+  ];
+#+END_SRC
+
+
+*** interface and handlers
+
+#+NAME: interface
+#+BEGIN_SRC js
+   /* 
+         id , action => input { id: id , action: action}
+    ,*/
+  function INTERFACE(id, action ) {
+     let input = Object.assign({"id":id}, {"action":action}, {});
+     INPUTHANDLER(input); 
+   }
+#+END_SRC
+
+#+NAME: inputhandler
+#+BEGIN_SRC js
+  /*
+    input  = event
+  ,*/
+  
+  function INPUTHANDLER(input) {
+    let event = input; 
+  
+  //  console.log('inputhandler => event', event); 
+    EVENTHANDLER(event); 
+  }
+#+END_SRC
+
+#+NAME: eventhandler
+#+BEGIN_SRC js
+  function EVENTHANDLER(event) {
+  
+  // event { id: 'human', action: 'walk' }
+  
+   let rule          =   rules.filter(el => el.action === event.action);
+   let fnName        =   rule[0].sideEffect; 
+   let what          =   rule[0].what; 
+   let condition     =   rule[0].condition; 
+  
+   eval(`${fnName}(${what},${condition})`); 
+  
+  }
+#+END_SRC
+
+
+*** functions
+
+#+NAME: xplusone
+#+BEGIN_SRC js
+  let xPlusOne = (a,b) =>  {
+   let  newState = Object
+  		       .assign(
+  			{},
+  			state,
+  			 {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
+    ); 
+  state = newState;
+  console.log(state);
+  };
+#+END_SRC
+
+
+#+NAME: attackenemy
+#+BEGIN_SRC js
+  let attackEnemy = () => { return 2;};
+#+END_SRC
+
+
+
+
+** MAIN FUNCTION
+
+#+NAME: main
+#+BEGIN_SRC js
+  /*
+   list of objects  and his positions x y
+   ,*/
+  
+  let state = {
+       "id": "humanInstance",
+       "pos": {
+         "x": 0,
+         "y": 0
+        }   
+    };
+  const objects = [
+   {
+     "id": "human",
+     "parts": {
+  	       "head": true,
+  	       "arms": true,
+  	       "legs": true
+     },
+     "HP": 10
+   }
+  ]; 
+  const actions = ["walk"]
+  const rules = [
+     {
+      "action": "walk",
+      "what":  objects[0].parts.legs, // todo: check the object instance
+      "condition": true,
+      "operator": "=",
+      "sideEffect": "xPlusOne", 
+     },
+     {
+      "action": "attack",
+      "what":  [ objects[0].HP, 11],
+      "condition": true,
+      "operator": ">",
+      "sideEffect": "attackEnemy" 
+     },
+  ];
+  let xPlusOne = (a,b) =>  {
+   let  newState = Object
+  		       .assign(
+  			{},
+  			state,
+  			 {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
+    ); 
+  state = newState;
+  console.log(state);
+  };
+  let attackEnemy = () => { return 2;};
+   /* 
+         id , action => input { id: id , action: action}
+    ,*/
+  function INTERFACE(id, action ) {
+     let input = Object.assign({"id":id}, {"action":action}, {});
+     INPUTHANDLER(input); 
+   }
+  /*
+    input  = event
+  ,*/
+  
+  function INPUTHANDLER(input) {
+    let event = input; 
+  
+  //  console.log('inputhandler => event', event); 
+    EVENTHANDLER(event); 
+  }
+  function EVENTHANDLER(event) {
+  
+  // event { id: 'human', action: 'walk' }
+  
+   let rule          =   rules.filter(el => el.action === event.action);
+   let fnName        =   rule[0].sideEffect; 
+   let what          =   rule[0].what; 
+   let condition     =   rule[0].condition; 
+  
+   eval(`${fnName}(${what},${condition})`); 
+  
+  }
+  
+  INTERFACE("human" ,  "walk");
+  INTERFACE("human" ,  "walk");
+#+END_SRC
+
+Result:
+
+#+RESULTS: main
+: { id: 'humanInstance', pos: { x: 1, y: 0 } }
+: { id: 'humanInstance', pos: { x: 2, y: 0 } }
+: undefined
