@@ -10,8 +10,8 @@ let state = {
        "x": 60,
        "y": 50
       },
-      "width": 20,
-      "height": 20
+      "width": 10,
+      "height": 10
   };
 const objects = [
  {
@@ -42,13 +42,12 @@ const rules = [
     "sideEffect": "attackEnemy" 
    },
 ];
-
 let xPlusOne = (a,b) =>  {
  let  newState = Object
-                       .assign(
-                        {},
-                        state,
-                         {"pos": {"x": state.pos.x + 1, "y": state.pos.y}} 
+		       .assign(
+			{},
+			state,
+			 {"pos": {"x": state.pos.x + 1, "y": state.pos.y}} 
   ); 
 state = newState;
 console.log('xplusone',state);
@@ -79,18 +78,18 @@ function EVENTHANDLER(event) {
  let what          =   rule[0].what; 
  let condition     =   rule[0].condition; 
 
-// update  state 
- eval(`${fnName}(${what},${condition})`); 
 
-// update frame
- UPDATER();
+ eval(`${fnName}(${what},${condition})`); // update  state 
+
+
+ UPDATER(); // update frame
 
 // console.log(state);
 }
 
 function UPDATER() {
 
-ctx.clearRect(0,0, 150,150);
+draw();
 ctx.strokeRect(state.pos.x,
                state.pos.y,
                state.width,
@@ -98,5 +97,57 @@ ctx.strokeRect(state.pos.x,
 };
 
 
+let w = 150;
+let h = 150;
+let tileSize = 10;
+
+
+/*
+  0 : walkable
+  1 : not walkable (a wall)
+ */ 
+// canvas 150x150 , tileSize 10
+var map = [
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
+  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
+  [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
+  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,1,1,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
+];
+
+  
+function draw (){
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = "rgba(255,0,0,0.6)";
+
+  map.forEach(function(row,i){
+    row.forEach(function(tile,j){
+      if(tile !== 0){ //if tile is not walkable
+       drawTile(j,i); //draw a rectangle at j,i
+      }
+    });
+  });
+
+}
+
+
+
+function drawTile (x,y){
+  ctx.fillRect(
+    x * tileSize, y * tileSize,
+    tileSize, tileSize
+  );
+}
 
 INTERFACE("human" ,  "walk");
