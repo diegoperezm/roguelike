@@ -7,8 +7,8 @@ const ctx = canvas.getContext("2d");
 let state = {
      "id": "humanInstance",
      "pos": {
-       "x": 60,
-       "y": 50
+       "x": 6,
+       "y": 5
       },
       "width": 10,
       "height": 10
@@ -44,13 +44,14 @@ const rules = [
 ];
 let xPlusOne = (a,b) =>  {
  let  newState = Object
-		       .assign(
-			{},
-			state,
-			 {"pos": {"x": state.pos.x + 1, "y": state.pos.y}} 
+  		     .assign(
+  		      {},
+  		      state,
+  		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
   ); 
+
 state = newState;
-console.log('xplusone',state);
+console.log(state);
 };
 let attackEnemy = () => { return 2;};
  /* 
@@ -78,22 +79,32 @@ function EVENTHANDLER(event) {
  let what          =   rule[0].what; 
  let condition     =   rule[0].condition; 
 
+// collision detection 
+if (map[state.pos.x + 1][state.pos.y] === 0) {
 
+map[state.pos.x][state.pos.y] = 0;
+ 
  eval(`${fnName}(${what},${condition})`); // update  state 
 
-
  UPDATER(); // update frame
+} else {
+  console.log("collision detected");
+}
 
-// console.log(state);
+ console.log(state);
 }
 
 function UPDATER() {
-
-draw();
+/*
 ctx.strokeRect(state.pos.x,
                state.pos.y,
                state.width,
                state.height);
+ */
+
+map[state.pos.x][state.pos.y] = 1;// update map
+
+draw();
 };
 
 
@@ -118,10 +129,10 @@ var map = [
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
   [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,1,1,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 
 ];
@@ -142,7 +153,6 @@ function draw (){
 }
 
 
-
 function drawTile (x,y){
   ctx.fillRect(
     x * tileSize, y * tileSize,
@@ -150,4 +160,6 @@ function drawTile (x,y){
   );
 }
 
-INTERFACE("human" ,  "walk");
+draw();
+
+//INTERFACE("human" ,  "walk");
