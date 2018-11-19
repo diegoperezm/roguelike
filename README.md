@@ -1,23 +1,33 @@
-- [GRAPH](#org8cdb803)
-- [IMPLEMENTATION HTML](#org55b33de)
-- [IMPLEMENTATION JS](#orgbbe2ef9)
-  - [first GOAL make the player move (any direction)](#org0f1c81f)
-    - [canvas](#orgb42826a)
-    - [variables](#org7a94a2b)
-    - [map](#org5b3f741)
-    - [interface and handlers](#org8a74c20)
-    - [functions](#org0c2e661)
-    - [MAIN FUNCTION](#orge71b7fa)
+- [GRAPH](#orgf03f662)
+- [IMPLEMENTATION HTML](#org2c03062)
+- [IMPLEMENTATION JS](#orgad4355a)
+  - [first GOAL make the player move (any direction)](#org5ccdd18)
+    - [canvas](#orgb1dab23)
+    - [variables](#org43e2b9b)
+    - [map](#orgc71883c)
+    - [interface and handlers](#orgae833c6)
+    - [functions](#org3ffc606)
+    - [MAIN FUNCTION](#org4edd569)
+- [DRAFTS](#org99c4ff9)
+  - [GRAPH](#org13cd95e)
 
 
-<a id="org8cdb803"></a>
+<a id="orgf03f662"></a>
 
 # GRAPH
 
-![img](testing_dot.png)
+> <https://stackoverflow.com/questions/2012036/graphviz-how-to-connect-subgraphs>
+> 
+> digraph { compound=true
+> 
+> subgraph example ID -> EVENTHANDLER [ ltail="cluster<sub>2</sub><sub>1</sub>" lhead="cluster<sub>4</sub>" label="reference" color="green" fontcolor="green" ]
+> 
+> }
+
+![img](updaterupdating.png)
 
 
-<a id="org55b33de"></a>
+<a id="org2c03062"></a>
 
 # IMPLEMENTATION HTML
 
@@ -49,17 +59,17 @@
 ```
 
 
-<a id="orgbbe2ef9"></a>
+<a id="orgad4355a"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org0f1c81f"></a>
+<a id="org5ccdd18"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgb42826a"></a>
+<a id="orgb1dab23"></a>
 
 ### canvas
 
@@ -69,12 +79,12 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org7a94a2b"></a>
+<a id="org43e2b9b"></a>
 
 ### variables
 
 
-<a id="org5b3f741"></a>
+<a id="orgc71883c"></a>
 
 ### map
 
@@ -236,7 +246,7 @@ var map = [
     ```
 
 
-<a id="org8a74c20"></a>
+<a id="orgae833c6"></a>
 
 ### interface and handlers
 
@@ -306,7 +316,7 @@ draw();
 ```
 
 
-<a id="org0c2e661"></a>
+<a id="org3ffc606"></a>
 
 ### functions
 
@@ -329,7 +339,7 @@ let attackEnemy = () => { return 2;};
 ```
 
 
-<a id="orge71b7fa"></a>
+<a id="org4edd569"></a>
 
 ### MAIN FUNCTION
 
@@ -500,3 +510,15 @@ draw();
 
 //INTERFACE("human" ,  "walk");
 ```
+
+
+<a id="org99c4ff9"></a>
+
+# DRAFTS
+
+
+<a id="org13cd95e"></a>
+
+## GRAPH
+
+![img](eventhanlderupdating.png)
