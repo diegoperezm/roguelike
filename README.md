@@ -1,33 +1,23 @@
-- [GRAPH](#orgf03f662)
-- [IMPLEMENTATION HTML](#org2c03062)
-- [IMPLEMENTATION JS](#orgad4355a)
-  - [first GOAL make the player move (any direction)](#org5ccdd18)
-    - [canvas](#orgb1dab23)
-    - [variables](#org43e2b9b)
-    - [map](#orgc71883c)
-    - [interface and handlers](#orgae833c6)
-    - [functions](#org3ffc606)
-    - [MAIN FUNCTION](#org4edd569)
-- [DRAFTS](#org99c4ff9)
-  - [GRAPH](#org13cd95e)
+- [GRAPH](#org665b1e1)
+- [IMPLEMENTATION HTML](#orgaa56b56)
+- [IMPLEMENTATION JS](#org2c37872)
+  - [first GOAL make the player move (any direction)](#org78ae59c)
+    - [canvas](#org7a1655d)
+    - [variables](#orgb744b7b)
+    - [map](#org8ae9064)
+    - [interface and handlers](#org2434cad)
+    - [functions](#org8c4b5cd)
+    - [MAIN FUNCTION](#org98ab3fb)
 
 
-<a id="orgf03f662"></a>
+<a id="org665b1e1"></a>
 
 # GRAPH
-
-> <https://stackoverflow.com/questions/2012036/graphviz-how-to-connect-subgraphs>
-> 
-> digraph { compound=true
-> 
-> subgraph example ID -> EVENTHANDLER [ ltail="cluster<sub>2</sub><sub>1</sub>" lhead="cluster<sub>4</sub>" label="reference" color="green" fontcolor="green" ]
-> 
-> }
 
 ![img](updaterupdating.png)
 
 
-<a id="org2c03062"></a>
+<a id="orgaa56b56"></a>
 
 # IMPLEMENTATION HTML
 
@@ -59,17 +49,17 @@
 ```
 
 
-<a id="orgad4355a"></a>
+<a id="org2c37872"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org5ccdd18"></a>
+<a id="org78ae59c"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgb1dab23"></a>
+<a id="org7a1655d"></a>
 
 ### canvas
 
@@ -79,46 +69,14 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org43e2b9b"></a>
+<a id="orgb744b7b"></a>
 
 ### variables
 
 
-<a id="orgc71883c"></a>
+<a id="org8ae9064"></a>
 
 ### map
-
-> x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14
-> 
-> y0 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-> 
-> y1 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-> 
-> y2 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-> 
-> y3 [1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-> 
-> y4 [1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-> 
-> y5 [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-> 
-> y6 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-> 
-> y7 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-> 
-> y8 [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1],
-> 
-> y9 [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1],
-> 
-> y10 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1],
-> 
-> y11 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-> 
-> y12 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-> 
-> y13 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-> 
-> y14 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 |     | x0 | x1 | x2 | x3 | x4 | x5 | x6 | x7 | x8 | x9 | x10 | x11 | x12 | x13 | x14 |
 |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
@@ -138,25 +96,23 @@ const ctx = canvas.getContext("2d");
 | y13 | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
 | y14 | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1   | 1   | 1   | 1   | 1   |
 
-map[y][x]
-
-|         | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
-|------- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-| map[0]  | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
-| map[1]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-| map[2]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-| map[3]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
-| map[4]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
-| map[5]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-| map[6]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-| map[7]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-| map[8]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
-| map[9]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
-| map[10] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1  | 1  | 0  | 0  | 1  |
-| map[11] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-| map[12] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-| map[13] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-| map[14] | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
+| map[y][x]  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+|---------- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
+| map[0][x]  | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
+| map[1][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+| map[2][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+| map[3][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
+| map[4][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
+| map[5][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+| map[6][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+| map[7][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+| map[8][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
+| map[9][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
+| map[10][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1  | 1  | 0  | 0  | 1  |
+| map[11][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+| map[12][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+| map[13][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+| map[14][x] | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
 
 ```js
 var map = [
@@ -246,7 +202,7 @@ var map = [
     ```
 
 
-<a id="orgae833c6"></a>
+<a id="org2434cad"></a>
 
 ### interface and handlers
 
@@ -316,7 +272,7 @@ draw();
 ```
 
 
-<a id="org3ffc606"></a>
+<a id="org8c4b5cd"></a>
 
 ### functions
 
@@ -339,7 +295,7 @@ let attackEnemy = () => { return 2;};
 ```
 
 
-<a id="org4edd569"></a>
+<a id="org98ab3fb"></a>
 
 ### MAIN FUNCTION
 
@@ -510,15 +466,3 @@ draw();
 
 //INTERFACE("human" ,  "walk");
 ```
-
-
-<a id="org99c4ff9"></a>
-
-# DRAFTS
-
-
-<a id="org13cd95e"></a>
-
-## GRAPH
-
-![img](eventhanlderupdating.png)
