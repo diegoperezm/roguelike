@@ -1,23 +1,105 @@
-- [GRAPH](#org665b1e1)
-- [IMPLEMENTATION HTML](#orgaa56b56)
-- [IMPLEMENTATION JS](#org2c37872)
-  - [first GOAL make the player move (any direction)](#org78ae59c)
-    - [canvas](#org7a1655d)
-    - [variables](#orgb744b7b)
-    - [map](#org8ae9064)
-    - [interface and handlers](#org2434cad)
-    - [functions](#org8c4b5cd)
-    - [MAIN FUNCTION](#org98ab3fb)
+- [GRAPH](#orgaed7e6d)
+- [GRAPH EXPLANATION](#org57f3503)
+  - [GLOBAL:](#org3508039)
+  - [PROGRAM](#org472c21a)
+  - [WORLD](#orgd70e526)
+  - [ORDER OF EXECUTION  [N]](#org6e586d1)
+- [IMPLEMENTATION HTML](#org70275ee)
+- [IMPLEMENTATION JS](#org246e898)
+  - [first GOAL make the player move (any direction)](#org9472ad9)
+    - [canvas](#org66c0de7)
+    - [variables](#orge42b9f9)
+    - [map](#org0bf9664)
+    - [interface and handlers](#org75a6ff2)
+    - [functions](#org2cd1dd3)
+    - [MAIN FUNCTION](#orgb5a8ceb)
 
 
-<a id="org665b1e1"></a>
+<a id="orgaed7e6d"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orgaa56b56"></a>
+<a id="org57f3503"></a>
+
+# GRAPH EXPLANATION
+
+
+<a id="org3508039"></a>
+
+## GLOBAL:
+
+-   GLOBAL
+
+From [MDN documentation:](https://developer.mozilla.org/en-US/docs/Glossary/Global_variable)
+
+> A global variable is a variable that is declared in the global scope in other words, a variable that is visible from all other scopes.
+> 
+> In JavaScript it is a property of the global object.
+
+From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
+
+> In computer programming, a global variable is a variable with global scope, meaning that it is visible (hence accessible) throughout the program, unless shadowed. The set of all global variables is known as the global environment or global state. In compiled languages, global variables are generally static variables, whose extent (lifetime) is the entire runtime of the program, though in interpreted languages (including command-line interpreters), global variables are generally dynamically allocated when declared, since they are not known ahead of time.
+
+-   OBJS
+
+-   ACTIONS
+
+-   RULES
+
+> A rule is one or more condition applied to an event.
+
+-   STATE
+    
+    From [Wikipedia:](https://en.wikipedia.org/wiki/State_(computer_science))
+
+> In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
+
+
+<a id="org472c21a"></a>
+
+## PROGRAM
+
+-   INTERFACE
+
+-   INPUTHANDLER
+
+-   EVENTHANDLER
+
+-   UPDATER
+
+-   DRAW
+
+
+<a id="orgd70e526"></a>
+
+## WORLD
+
+-   CANVAS
+
+
+<a id="org6e586d1"></a>
+
+## ORDER OF EXECUTION  [N]
+
+-   [1] INTERFACE
+
+-   [2] INPUTHANDLER
+
+-   [3] EVENTHANDLER
+
+-   [4] UPDATER
+
+-   [5] GLOBAL STATE
+
+-   [6] DRAW
+
+-   [7] CANVAS
+
+
+<a id="org70275ee"></a>
 
 # IMPLEMENTATION HTML
 
@@ -49,17 +131,17 @@
 ```
 
 
-<a id="org2c37872"></a>
+<a id="org246e898"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org78ae59c"></a>
+<a id="org9472ad9"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org7a1655d"></a>
+<a id="org66c0de7"></a>
 
 ### canvas
 
@@ -69,12 +151,12 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgb744b7b"></a>
+<a id="orge42b9f9"></a>
 
 ### variables
 
 
-<a id="org8ae9064"></a>
+<a id="org0bf9664"></a>
 
 ### map
 
@@ -202,7 +284,7 @@ var map = [
     ```
 
 
-<a id="org2434cad"></a>
+<a id="org75a6ff2"></a>
 
 ### interface and handlers
 
@@ -272,7 +354,7 @@ draw();
 ```
 
 
-<a id="org8c4b5cd"></a>
+<a id="org2cd1dd3"></a>
 
 ### functions
 
@@ -295,7 +377,7 @@ let attackEnemy = () => { return 2;};
 ```
 
 
-<a id="org98ab3fb"></a>
+<a id="orgb5a8ceb"></a>
 
 ### MAIN FUNCTION
 
