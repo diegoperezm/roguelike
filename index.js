@@ -71,27 +71,22 @@ function INTERFACE(id, action ) {
     EVENTHANDLER(event); 
   }
 function EVENTHANDLER(event) {
+  // event { id: 'human', action: 'walk' }
 
-// event { id: 'human', action: 'walk' }
+  let rule = rules.filter(el => el.action === event.action);
+  let fnName = rule[0].sideEffect;
+  let what = rule[0].what;
+  let condition = rule[0].condition;
 
- let rule          =   rules.filter(el => el.action === event.action);
- let fnName        =   rule[0].sideEffect; 
- let what          =   rule[0].what; 
- let condition     =   rule[0].condition; 
+  // collision detection
+  if (map[state.pos.x + 1][state.pos.y] === 0) {
+    let newState = eval(`${fnName}(${what},${condition})`); // return newState
+    UPDATER(newState); // update frame
+  } else {
+    console.log("collision detected");
+  }
 
-// collision detection 
-if (map[state.pos.x + 1][state.pos.y] === 0) {
-
-map[state.pos.x][state.pos.y] = 0;
- 
- eval(`${fnName}(${what},${condition})`); // update  state 
-
- UPDATER(); // update frame
-} else {
-  console.log("collision detected");
-}
-
- console.log(state);
+  console.log(state);
 }
 
 function UPDATER() {

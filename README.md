@@ -1,33 +1,33 @@
-- [GRAPH](#orgaed7e6d)
-- [GRAPH EXPLANATION](#org57f3503)
-  - [GLOBAL:](#org3508039)
-  - [PROGRAM](#org472c21a)
-  - [WORLD](#orgd70e526)
-  - [ORDER OF EXECUTION  [N]](#org6e586d1)
-- [IMPLEMENTATION HTML](#org70275ee)
-- [IMPLEMENTATION JS](#org246e898)
-  - [first GOAL make the player move (any direction)](#org9472ad9)
-    - [canvas](#org66c0de7)
-    - [variables](#orge42b9f9)
-    - [map](#org0bf9664)
-    - [interface and handlers](#org75a6ff2)
-    - [functions](#org2cd1dd3)
-    - [MAIN FUNCTION](#orgb5a8ceb)
+- [GRAPH](#org334b7e1)
+- [GRAPH EXPLANATION](#org94f29a0)
+  - [GLOBAL:](#org3e47c5f)
+  - [PROGRAM](#org62dd35a)
+  - [WORLD](#org1d83c67)
+  - [ORDER OF EXECUTION  [N]](#org94dee7c)
+- [IMPLEMENTATION HTML](#org158d4fc)
+- [IMPLEMENTATION JS](#org08be86e)
+  - [first GOAL make the player move (any direction)](#orgb92f330)
+    - [canvas](#org76d7592)
+    - [variables](#org43f58f6)
+    - [map](#org7ef0ea2)
+    - [interface and handlers](#org6a6782d)
+    - [functions](#org59048c5)
+    - [MAIN FUNCTION](#org3e7e731)
 
 
-<a id="orgaed7e6d"></a>
+<a id="org334b7e1"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org57f3503"></a>
+<a id="org94f29a0"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org3508039"></a>
+<a id="org3e47c5f"></a>
 
 ## GLOBAL:
 
@@ -58,7 +58,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org472c21a"></a>
+<a id="org62dd35a"></a>
 
 ## PROGRAM
 
@@ -73,14 +73,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="orgd70e526"></a>
+<a id="org1d83c67"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org6e586d1"></a>
+<a id="org94dee7c"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -99,7 +99,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org70275ee"></a>
+<a id="org158d4fc"></a>
 
 # IMPLEMENTATION HTML
 
@@ -131,17 +131,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org246e898"></a>
+<a id="org08be86e"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org9472ad9"></a>
+<a id="orgb92f330"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org66c0de7"></a>
+<a id="org76d7592"></a>
 
 ### canvas
 
@@ -151,12 +151,12 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orge42b9f9"></a>
+<a id="org43f58f6"></a>
 
 ### variables
 
 
-<a id="org0bf9664"></a>
+<a id="org7ef0ea2"></a>
 
 ### map
 
@@ -284,77 +284,88 @@ var map = [
     ```
 
 
-<a id="org75a6ff2"></a>
+<a id="org6a6782d"></a>
 
 ### interface and handlers
 
-```js
- /* 
-       id , action => input { id: id , action: action}
-  */
-function INTERFACE(id, action ) {
-   let input = Object.assign({"id":id}, {"action":action}, {});
-   INPUTHANDLER(input); 
- }
-```
+1.  INTERFACE
 
-```js
-  /*
-    input  = event
-  */
+    ```js
+     /* 
+           id , action => input { id: id , action: action}
+      */
+    function INTERFACE(id, action ) {
+       let input = Object.assign({"id":id}, {"action":action}, {});
+       INPUTHANDLER(input); 
+     }
+    ```
 
-  function INPUTHANDLER(input) {
-    let event = input; 
-//  console.log('inputhandler => event', event); 
-    EVENTHANDLER(event); 
-  }
-```
+2.  INPUTHANDLER
 
-```js
-function EVENTHANDLER(event) {
+    ```js
+      /*
+        input  = event
+      */
+    
+      function INPUTHANDLER(input) {
+        let event = input; 
+    //  console.log('inputhandler => event', event); 
+        EVENTHANDLER(event); 
+      }
+    ```
 
-// event { id: 'human', action: 'walk' }
+3.  EVENTHANDLER
 
- let rule          =   rules.filter(el => el.action === event.action);
- let fnName        =   rule[0].sideEffect; 
- let what          =   rule[0].what; 
- let condition     =   rule[0].condition; 
+    -   select:
+        -   rule
+        -   fn
+        -   what
+        -   condition
+    
+    -   collision detection
+    
+    -   send newState to UPDATER
+    
+    ```js
+    function EVENTHANDLER(event) {
+      // event { id: 'human', action: 'walk' }
+    
+      let rule = rules.filter(el => el.action === event.action);
+      let fnName = rule[0].sideEffect;
+      let what = rule[0].what;
+      let condition = rule[0].condition;
+    
+      // collision detection
+      if (map[state.pos.x + 1][state.pos.y] === 0) {
+        let newState = eval(`${fnName}(${what},${condition})`); // return newState
+        UPDATER(newState); // update frame
+      } else {
+        console.log("collision detected");
+      }
+    
+      console.log(state);
+    }
+    ```
+    
+    ```js
+    
+    function UPDATER() {
+    /*
+    ctx.strokeRect(state.pos.x,
+    	       state.pos.y,
+    	       state.width,
+    	       state.height);
+     */
+    
+    map[state.pos.x][state.pos.y] = 1;// update map
+    
+    draw();
+    };
+    
+    ```
 
-// collision detection 
-if (map[state.pos.x + 1][state.pos.y] === 0) {
 
-map[state.pos.x][state.pos.y] = 0;
-
- eval(`${fnName}(${what},${condition})`); // update  state 
-
- UPDATER(); // update frame
-} else {
-  console.log("collision detected");
-}
-
- console.log(state);
-}
-```
-
-```js
-
-function UPDATER() {
-/*
-ctx.strokeRect(state.pos.x,
-	       state.pos.y,
-	       state.width,
-	       state.height);
- */
-
-map[state.pos.x][state.pos.y] = 1;// update map
-
-draw();
-};
-
-```
-
-
-<a id="org2cd1dd3"></a>
+<a id="org59048c5"></a>
 
 ### functions
 
@@ -377,7 +388,7 @@ let attackEnemy = () => { return 2;};
 ```
 
 
-<a id="orgb5a8ceb"></a>
+<a id="org3e7e731"></a>
 
 ### MAIN FUNCTION
 
@@ -455,27 +466,22 @@ function INTERFACE(id, action ) {
     EVENTHANDLER(event); 
   }
 function EVENTHANDLER(event) {
+  // event { id: 'human', action: 'walk' }
 
-// event { id: 'human', action: 'walk' }
+  let rule = rules.filter(el => el.action === event.action);
+  let fnName = rule[0].sideEffect;
+  let what = rule[0].what;
+  let condition = rule[0].condition;
 
- let rule          =   rules.filter(el => el.action === event.action);
- let fnName        =   rule[0].sideEffect; 
- let what          =   rule[0].what; 
- let condition     =   rule[0].condition; 
+  // collision detection
+  if (map[state.pos.x + 1][state.pos.y] === 0) {
+    let newState = eval(`${fnName}(${what},${condition})`); // return newState
+    UPDATER(newState); // update frame
+  } else {
+    console.log("collision detected");
+  }
 
-// collision detection 
-if (map[state.pos.x + 1][state.pos.y] === 0) {
-
-map[state.pos.x][state.pos.y] = 0;
-
- eval(`${fnName}(${what},${condition})`); // update  state 
-
- UPDATER(); // update frame
-} else {
-  console.log("collision detected");
-}
-
- console.log(state);
+  console.log(state);
 }
 
 function UPDATER() {
