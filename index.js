@@ -76,16 +76,16 @@ function EVENTHANDLER(event) {
   let fnName = rule[0].sideEffect;
   let what = rule[0].what;
   let condition = rule[0].condition;
+  let newState = eval(`${fnName}(${what},${condition})`); 
 
   // collision detection
-  if (map[state.pos.x + 1][state.pos.y] === 0) {
-    let newState = eval(`${fnName}(${what},${condition})`); // return newState
-    UPDATER(newState); // update frame
+  if (map[newState.pos.y][newState.pos.x] === 0) {
+    UPDATER(newState); // update state
   } else {
     console.log("collision detected");
   }
 
-  console.log(state);
+
 }
 
 function UPDATER(newState) {
@@ -118,7 +118,7 @@ var map = [
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
   [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],

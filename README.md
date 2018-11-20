@@ -1,33 +1,33 @@
-- [GRAPH](#org0b771cc)
-- [GRAPH EXPLANATION](#org43beb26)
-  - [GLOBAL:](#orgaddb7f8)
-  - [PROGRAM](#org1e701d9)
-  - [WORLD](#org05a142d)
-  - [ORDER OF EXECUTION  [N]](#org8824ab0)
-- [IMPLEMENTATION HTML](#org038b4c8)
-- [IMPLEMENTATION JS](#orgb410db2)
-  - [first GOAL make the player move (any direction)](#org2a98a49)
-    - [canvas](#org597a741)
-    - [variables](#org9576f0b)
-    - [map](#org6b1a7b4)
-    - [interface and handlers](#orgb210a80)
-    - [functions](#org1518a24)
-    - [MAIN FUNCTION](#org63e9618)
+- [GRAPH](#org1b4b94d)
+- [GRAPH EXPLANATION](#orgdd41ff2)
+  - [GLOBAL:](#orgeb805f4)
+  - [PROGRAM](#orgb17c24c)
+  - [WORLD](#orgfe7e8e6)
+  - [ORDER OF EXECUTION  [N]](#orgcee330a)
+- [IMPLEMENTATION HTML](#orgf8268a8)
+- [IMPLEMENTATION JS](#orga174368)
+  - [first GOAL make the player move (any direction)](#orga1cbddc)
+    - [canvas](#orgf7d608d)
+    - [variables](#org9dd5107)
+    - [map](#org3ad584d)
+    - [interface and handlers](#org2dd7713)
+    - [functions](#org1d5562d)
+    - [MAIN FUNCTION](#org0c49f94)
 
 
-<a id="org0b771cc"></a>
+<a id="org1b4b94d"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org43beb26"></a>
+<a id="orgdd41ff2"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="orgaddb7f8"></a>
+<a id="orgeb805f4"></a>
 
 ## GLOBAL:
 
@@ -58,7 +58,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org1e701d9"></a>
+<a id="orgb17c24c"></a>
 
 ## PROGRAM
 
@@ -73,14 +73,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org05a142d"></a>
+<a id="orgfe7e8e6"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org8824ab0"></a>
+<a id="orgcee330a"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -99,7 +99,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org038b4c8"></a>
+<a id="orgf8268a8"></a>
 
 # IMPLEMENTATION HTML
 
@@ -131,17 +131,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgb410db2"></a>
+<a id="orga174368"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org2a98a49"></a>
+<a id="orga1cbddc"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org597a741"></a>
+<a id="orgf7d608d"></a>
 
 ### canvas
 
@@ -151,12 +151,12 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org9576f0b"></a>
+<a id="org9dd5107"></a>
 
 ### variables
 
 
-<a id="org6b1a7b4"></a>
+<a id="org3ad584d"></a>
 
 ### map
 
@@ -284,7 +284,7 @@ var map = [
     ```
 
 
-<a id="orgb210a80"></a>
+<a id="org2dd7713"></a>
 
 ### interface and handlers
 
@@ -334,16 +334,16 @@ var map = [
       let fnName = rule[0].sideEffect;
       let what = rule[0].what;
       let condition = rule[0].condition;
+      let newState = eval(`${fnName}(${what},${condition})`); 
     
       // collision detection
-      if (map[state.pos.x + 1][state.pos.y] === 0) {
-        let newState = eval(`${fnName}(${what},${condition})`); // return newState
-        UPDATER(newState); // update frame
+      if (map[newState.pos.y][newState.pos.x] === 0) {
+        UPDATER(newState); // update state
       } else {
         console.log("collision detected");
       }
     
-      console.log(state);
+    
     }
     ```
 
@@ -373,7 +373,7 @@ var map = [
     ```
 
 
-<a id="org1518a24"></a>
+<a id="org1d5562d"></a>
 
 ### functions
 
@@ -395,7 +395,7 @@ let attackEnemy = () => { return 2;};
 ```
 
 
-<a id="org63e9618"></a>
+<a id="org0c49f94"></a>
 
 ### MAIN FUNCTION
 
@@ -478,16 +478,16 @@ function EVENTHANDLER(event) {
   let fnName = rule[0].sideEffect;
   let what = rule[0].what;
   let condition = rule[0].condition;
+  let newState = eval(`${fnName}(${what},${condition})`); 
 
   // collision detection
-  if (map[state.pos.x + 1][state.pos.y] === 0) {
-    let newState = eval(`${fnName}(${what},${condition})`); // return newState
-    UPDATER(newState); // update frame
+  if (map[newState.pos.y][newState.pos.x] === 0) {
+    UPDATER(newState); // update state
   } else {
     console.log("collision detected");
   }
 
-  console.log(state);
+
 }
 
 function UPDATER(newState) {
@@ -520,7 +520,7 @@ var map = [
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
   [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
