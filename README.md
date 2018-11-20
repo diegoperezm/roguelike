@@ -1,33 +1,33 @@
-- [GRAPH](#org334b7e1)
-- [GRAPH EXPLANATION](#org94f29a0)
-  - [GLOBAL:](#org3e47c5f)
-  - [PROGRAM](#org62dd35a)
-  - [WORLD](#org1d83c67)
-  - [ORDER OF EXECUTION  [N]](#org94dee7c)
-- [IMPLEMENTATION HTML](#org158d4fc)
-- [IMPLEMENTATION JS](#org08be86e)
-  - [first GOAL make the player move (any direction)](#orgb92f330)
-    - [canvas](#org76d7592)
-    - [variables](#org43f58f6)
-    - [map](#org7ef0ea2)
-    - [interface and handlers](#org6a6782d)
-    - [functions](#org59048c5)
-    - [MAIN FUNCTION](#org3e7e731)
+- [GRAPH](#org5fb7731)
+- [GRAPH EXPLANATION](#org026adea)
+  - [GLOBAL:](#orgefb7597)
+  - [PROGRAM](#org6c05200)
+  - [WORLD](#org78c1aa6)
+  - [ORDER OF EXECUTION  [N]](#org9e71c15)
+- [IMPLEMENTATION HTML](#orgccbed6c)
+- [IMPLEMENTATION JS](#org8b1f952)
+  - [first GOAL make the player move (any direction)](#org473ff67)
+    - [canvas](#orgffb08e6)
+    - [variables](#orgab67cbe)
+    - [map](#org98a4072)
+    - [interface and handlers](#orgff3e0bf)
+    - [functions](#orgaf2cb4c)
+    - [MAIN FUNCTION](#orgfc65c54)
 
 
-<a id="org334b7e1"></a>
+<a id="org5fb7731"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org94f29a0"></a>
+<a id="org026adea"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org3e47c5f"></a>
+<a id="orgefb7597"></a>
 
 ## GLOBAL:
 
@@ -58,7 +58,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org62dd35a"></a>
+<a id="org6c05200"></a>
 
 ## PROGRAM
 
@@ -73,14 +73,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org1d83c67"></a>
+<a id="org78c1aa6"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org94dee7c"></a>
+<a id="org9e71c15"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -99,7 +99,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org158d4fc"></a>
+<a id="orgccbed6c"></a>
 
 # IMPLEMENTATION HTML
 
@@ -131,17 +131,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org08be86e"></a>
+<a id="org8b1f952"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="orgb92f330"></a>
+<a id="org473ff67"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org76d7592"></a>
+<a id="orgffb08e6"></a>
 
 ### canvas
 
@@ -151,12 +151,12 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org43f58f6"></a>
+<a id="orgab67cbe"></a>
 
 ### variables
 
 
-<a id="org7ef0ea2"></a>
+<a id="org98a4072"></a>
 
 ### map
 
@@ -284,7 +284,7 @@ var map = [
     ```
 
 
-<a id="org6a6782d"></a>
+<a id="orgff3e0bf"></a>
 
 ### interface and handlers
 
@@ -346,7 +346,9 @@ var map = [
       console.log(state);
     }
     ```
-    
+
+4.  
+
     ```js
     
     function UPDATER() {
@@ -365,7 +367,7 @@ var map = [
     ```
 
 
-<a id="org59048c5"></a>
+<a id="orgaf2cb4c"></a>
 
 ### functions
 
@@ -378,8 +380,7 @@ let xPlusOne = (a,b) =>  {
 		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
   ); 
 
-state = newState;
-console.log(state);
+return newState;
 };
 ```
 
@@ -388,7 +389,7 @@ let attackEnemy = () => { return 2;};
 ```
 
 
-<a id="org3e7e731"></a>
+<a id="orgfc65c54"></a>
 
 ### MAIN FUNCTION
 
@@ -445,8 +446,7 @@ let xPlusOne = (a,b) =>  {
 		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
   ); 
 
-state = newState;
-console.log(state);
+return newState;
 };
 let attackEnemy = () => { return 2;};
  /* 

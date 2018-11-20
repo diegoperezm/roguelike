@@ -50,8 +50,7 @@ let xPlusOne = (a,b) =>  {
   		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
   ); 
 
-state = newState;
-console.log(state);
+return newState;
 };
 let attackEnemy = () => { return 2;};
  /* 
