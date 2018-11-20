@@ -1,33 +1,33 @@
-- [GRAPH](#org5fb7731)
-- [GRAPH EXPLANATION](#org026adea)
-  - [GLOBAL:](#orgefb7597)
-  - [PROGRAM](#org6c05200)
-  - [WORLD](#org78c1aa6)
-  - [ORDER OF EXECUTION  [N]](#org9e71c15)
-- [IMPLEMENTATION HTML](#orgccbed6c)
-- [IMPLEMENTATION JS](#org8b1f952)
-  - [first GOAL make the player move (any direction)](#org473ff67)
-    - [canvas](#orgffb08e6)
-    - [variables](#orgab67cbe)
-    - [map](#org98a4072)
-    - [interface and handlers](#orgff3e0bf)
-    - [functions](#orgaf2cb4c)
-    - [MAIN FUNCTION](#orgfc65c54)
+- [GRAPH](#org0b771cc)
+- [GRAPH EXPLANATION](#org43beb26)
+  - [GLOBAL:](#orgaddb7f8)
+  - [PROGRAM](#org1e701d9)
+  - [WORLD](#org05a142d)
+  - [ORDER OF EXECUTION  [N]](#org8824ab0)
+- [IMPLEMENTATION HTML](#org038b4c8)
+- [IMPLEMENTATION JS](#orgb410db2)
+  - [first GOAL make the player move (any direction)](#org2a98a49)
+    - [canvas](#org597a741)
+    - [variables](#org9576f0b)
+    - [map](#org6b1a7b4)
+    - [interface and handlers](#orgb210a80)
+    - [functions](#org1518a24)
+    - [MAIN FUNCTION](#org63e9618)
 
 
-<a id="org5fb7731"></a>
+<a id="org0b771cc"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org026adea"></a>
+<a id="org43beb26"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="orgefb7597"></a>
+<a id="orgaddb7f8"></a>
 
 ## GLOBAL:
 
@@ -58,7 +58,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org6c05200"></a>
+<a id="org1e701d9"></a>
 
 ## PROGRAM
 
@@ -73,14 +73,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org78c1aa6"></a>
+<a id="org05a142d"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org9e71c15"></a>
+<a id="org8824ab0"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -99,7 +99,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgccbed6c"></a>
+<a id="org038b4c8"></a>
 
 # IMPLEMENTATION HTML
 
@@ -131,17 +131,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org8b1f952"></a>
+<a id="orgb410db2"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org473ff67"></a>
+<a id="org2a98a49"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgffb08e6"></a>
+<a id="org597a741"></a>
 
 ### canvas
 
@@ -151,12 +151,12 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgab67cbe"></a>
+<a id="org9576f0b"></a>
 
 ### variables
 
 
-<a id="org98a4072"></a>
+<a id="org6b1a7b4"></a>
 
 ### map
 
@@ -284,7 +284,7 @@ var map = [
     ```
 
 
-<a id="orgff3e0bf"></a>
+<a id="orgb210a80"></a>
 
 ### interface and handlers
 
@@ -347,27 +347,33 @@ var map = [
     }
     ```
 
-4.  
+4.  UPDATER
 
+    -   Update:
+        -   state
+    
+    -   Call:
+        -   draw
+    
     ```js
     
-    function UPDATER() {
-    /*
-    ctx.strokeRect(state.pos.x,
-    	       state.pos.y,
-    	       state.width,
-    	       state.height);
-     */
+    function UPDATER(newState) {
+     let prevState = state;
     
-    map[state.pos.x][state.pos.y] = 1;// update map
+      map[prevState.pos.y][prevState.pos.x] = 0; // update map
+      map[newState.pos.y][newState.pos.x] = 1;  // update map
     
-    draw();
+      state = newState;
+    
+      draw();
+    
     };
+    
     
     ```
 
 
-<a id="orgaf2cb4c"></a>
+<a id="org1518a24"></a>
 
 ### functions
 
@@ -389,7 +395,7 @@ let attackEnemy = () => { return 2;};
 ```
 
 
-<a id="orgfc65c54"></a>
+<a id="org63e9618"></a>
 
 ### MAIN FUNCTION
 
@@ -484,18 +490,18 @@ function EVENTHANDLER(event) {
   console.log(state);
 }
 
-function UPDATER() {
-/*
-ctx.strokeRect(state.pos.x,
-	       state.pos.y,
-	       state.width,
-	       state.height);
- */
+function UPDATER(newState) {
+ let prevState = state;
 
-map[state.pos.x][state.pos.y] = 1;// update map
+  map[prevState.pos.y][prevState.pos.x] = 0; // update map
+  map[newState.pos.y][newState.pos.x] = 1;  // update map
 
-draw();
+  state = newState;
+
+  draw();
+
 };
+
 
 
 let w = 150;

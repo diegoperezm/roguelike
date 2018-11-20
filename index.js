@@ -88,18 +88,18 @@ function EVENTHANDLER(event) {
   console.log(state);
 }
 
-function UPDATER() {
-/*
-ctx.strokeRect(state.pos.x,
-               state.pos.y,
-               state.width,
-               state.height);
- */
+function UPDATER(newState) {
+ let prevState = state;
 
-map[state.pos.x][state.pos.y] = 1;// update map
+  map[prevState.pos.y][prevState.pos.x] = 0; // update map
+  map[newState.pos.y][newState.pos.x] = 1;  // update map
+   
+  state = newState;
 
-draw();
+  draw();
+
 };
+
 
 
 let w = 150;
