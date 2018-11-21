@@ -1,35 +1,35 @@
-- [GRAPH](#org6bfd55f)
-- [GRAPH EXPLANATION](#org4922900)
-  - [GLOBAL:](#org5ccb166)
-  - [PROGRAM](#orgdc09002)
-  - [WORLD](#org13a6f2b)
-  - [ORDER OF EXECUTION  [N]](#orgd52f93b)
-- [SETUP](#org665c268)
-  - [Dependencies](#org3487511)
-- [IMPLEMENTATION HTML](#orgf44c5e5)
-- [IMPLEMENTATION JS](#org558faa5)
-  - [first GOAL make the player move (any direction)](#org8802030)
-    - [canvas](#org1cf58c9)
-    - [variables](#orgaf725ba)
-    - [interface and handlers](#orgcddb24f)
-    - [functions](#org5f97edb)
-    - [MAIN FUNCTION](#org2307700)
+- [GRAPH](#org6eaa1b7)
+- [GRAPH EXPLANATION](#orga1083f0)
+  - [GLOBAL:](#orgb4e39de)
+  - [PROGRAM](#org39416f1)
+  - [WORLD](#org71c1bd6)
+  - [ORDER OF EXECUTION  [N]](#org813acb9)
+- [SETUP](#orge1205bc)
+  - [Dependencies](#orgaa29f9b)
+- [IMPLEMENTATION HTML](#orgfc1c62f)
+- [IMPLEMENTATION JS](#org248c172)
+  - [first GOAL make the player move (any direction)](#org3b5ebb1)
+    - [canvas](#org2a84267)
+    - [variables](#orge36aa4a)
+    - [interface and handlers](#orgb94721c)
+    - [functions](#org7d777af)
+    - [MAIN FUNCTION](#org5c2d5d2)
 
 
 
-<a id="org6bfd55f"></a>
+<a id="org6eaa1b7"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org4922900"></a>
+<a id="orga1083f0"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org5ccb166"></a>
+<a id="orgb4e39de"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgdc09002"></a>
+<a id="org39416f1"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org13a6f2b"></a>
+<a id="org71c1bd6"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="orgd52f93b"></a>
+<a id="org813acb9"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org665c268"></a>
+<a id="orge1205bc"></a>
 
 # SETUP
 
 
-<a id="org3487511"></a>
+<a id="orgaa29f9b"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orgf44c5e5"></a>
+<a id="orgfc1c62f"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org558faa5"></a>
+<a id="org248c172"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org8802030"></a>
+<a id="org3b5ebb1"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org1cf58c9"></a>
+<a id="org2a84267"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgaf725ba"></a>
+<a id="orge36aa4a"></a>
 
 ### variables
 
@@ -305,7 +305,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgcddb24f"></a>
+<a id="orgb94721c"></a>
 
 ### interface and handlers
 
@@ -395,7 +395,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org5f97edb"></a>
+<a id="org7d777af"></a>
 
 ### functions
 
@@ -424,6 +424,46 @@ const ctx = canvas.getContext("2d");
         // Draw map
          draw();
         }
+        ```
+    
+    2.  Test
+    
+        ```js
+        var test = require("tape");
+        const jsdom = require("jsdom");
+        const sinon = require("sinon");
+        const { JSDOM } = jsdom;
+        const dom = new JSDOM(`<!doctype html><html><head></head><body></body></html>`);
+        const document = dom.window.document;
+        const ArrowUp = new dom.window.KeyboardEvent('keydown', {keyCode: 38});
+        
+        const INTERFACE = sinon.spy(); 
+        const draw      = sinon.spy();
+        
+        function START() {
+        // LISTENER
+         document.addEventListener("keydown", function(keyDown) {
+           INTERFACE(keyDown.keyCode);
+          });
+        
+        // Draw map
+         draw();
+        }
+        
+        START();
+        
+        dom.window.document.dispatchEvent(ArrowUp);
+        
+        
+        
+        test("START test", function(t){
+          t.plan(3);
+          t.equal(INTERFACE.callCount, 1,"START() should call INTERFACE only once" );
+          t.equal(INTERFACE.calledWith(38), true, "START() should call INTERFACE with argument 38" );
+          t.equal(draw.callCount, 1,"START() should call draw only once" );
+          t.end();
+        });
+        
         ```
 
 2.  xPlusOne
@@ -500,7 +540,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="org2307700"></a>
+<a id="org5c2d5d2"></a>
 
 ### MAIN FUNCTION
 
