@@ -1,33 +1,33 @@
-- [GRAPH](#org46bd6d5)
-- [GRAPH EXPLANATION](#orgc9fcac1)
-  - [GLOBAL:](#org7ac081a)
-  - [PROGRAM](#orgd3bf67c)
-  - [WORLD](#org4f57050)
-  - [ORDER OF EXECUTION  [N]](#orgd88f976)
-- [IMPLEMENTATION HTML](#org85e9061)
-- [IMPLEMENTATION JS](#orgd03ea2a)
-  - [first GOAL make the player move (any direction)](#org33038ef)
-    - [canvas](#orgca2f6a0)
-    - [variables](#orgbb5594a)
-    - [interface and handlers](#org8cfca58)
-    - [functions](#org1709883)
-    - [MAIN FUNCTION](#org52fc4f6)
+- [GRAPH](#org389ada7)
+- [GRAPH EXPLANATION](#orgdb7242b)
+  - [GLOBAL:](#org9f16387)
+  - [PROGRAM](#orgc3d49e9)
+  - [WORLD](#org11581ce)
+  - [ORDER OF EXECUTION  [N]](#org5a5f617)
+- [IMPLEMENTATION HTML](#orge51385e)
+- [IMPLEMENTATION JS](#org403ea6d)
+  - [first GOAL make the player move (any direction)](#org000d2d4)
+    - [canvas](#orgaed324e)
+    - [variables](#orga175509)
+    - [interface and handlers](#orgb0d1fad)
+    - [functions](#org69886ae)
+    - [MAIN FUNCTION](#org3ab4855)
 
 
 
-<a id="org46bd6d5"></a>
+<a id="org389ada7"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orgc9fcac1"></a>
+<a id="orgdb7242b"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org7ac081a"></a>
+<a id="org9f16387"></a>
 
 ## GLOBAL:
 
@@ -58,7 +58,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgd3bf67c"></a>
+<a id="orgc3d49e9"></a>
 
 ## PROGRAM
 
@@ -73,14 +73,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org4f57050"></a>
+<a id="org11581ce"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="orgd88f976"></a>
+<a id="org5a5f617"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -99,7 +99,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org85e9061"></a>
+<a id="orge51385e"></a>
 
 # IMPLEMENTATION HTML
 
@@ -131,17 +131,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgd03ea2a"></a>
+<a id="org403ea6d"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org33038ef"></a>
+<a id="org000d2d4"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgca2f6a0"></a>
+<a id="orgaed324e"></a>
 
 ### canvas
 
@@ -151,7 +151,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgbb5594a"></a>
+<a id="orga175509"></a>
 
 ### variables
 
@@ -287,7 +287,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org8cfca58"></a>
+<a id="orgb0d1fad"></a>
 
 ### interface and handlers
 
@@ -297,6 +297,7 @@ const ctx = canvas.getContext("2d");
      /* 
            id , action => input { id: id , action: action}
       */
+    
     function INTERFACE(id, action ) {
        let input = Object.assign({"id":id}, {"action":action}, {});
        INPUTHANDLER(input); 
@@ -376,11 +377,34 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org1709883"></a>
+<a id="org69886ae"></a>
 
 ### functions
 
-1.  xPlusOne
+1.  START
+
+    -   Add to DOM:
+        -   Event listener
+    
+    -   Call:
+        -   INTERFACE
+        
+        -   draw
+    
+    ```js
+    function START() {
+    
+    // LISTENER
+     document.addEventListener("keydown", function(keyDown) {
+       INTERFACE('human','walk');
+      });
+    
+    // Draw map
+     draw();
+    }
+    ```
+
+2.  xPlusOne
 
     1.  Declaration
     
@@ -432,7 +456,7 @@ const ctx = canvas.getContext("2d");
         });
         ```
 
-2.  attackEnemy
+3.  attackEnemy
 
     1.  Declaration
     
@@ -454,7 +478,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="org52fc4f6"></a>
+<a id="org3ab4855"></a>
 
 ### MAIN FUNCTION
 
@@ -517,6 +541,7 @@ let attackEnemy = () => { return 2;};
  /* 
        id , action => input { id: id , action: action}
   */
+
 function INTERFACE(id, action ) {
    let input = Object.assign({"id":id}, {"action":action}, {});
    INPUTHANDLER(input); 
@@ -562,6 +587,16 @@ function UPDATER(newState) {
 };
 
 
+function START() {
+
+// LISTENER
+ document.addEventListener("keydown", function(keyDown) {
+   INTERFACE('human','walk');
+  });
+
+// Draw map
+ draw();
+}
 
 let w = 150;
 let h = 150;
@@ -615,7 +650,7 @@ function drawTile (x,y){
   );
 }
 
-draw();
+START();
 
 //INTERFACE("human" ,  "walk");
 ```
