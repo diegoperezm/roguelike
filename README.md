@@ -1,35 +1,35 @@
-- [GRAPH](#orgd7da562)
-- [GRAPH EXPLANATION](#orga61da82)
-  - [GLOBAL:](#org7abe49e)
-  - [PROGRAM](#orgfcc828d)
-  - [WORLD](#org8a3b545)
-  - [ORDER OF EXECUTION  [N]](#org2b997ba)
-- [SETUP](#org225c7b2)
-  - [package.json](#orgd71592d)
-- [IMPLEMENTATION HTML](#org7a3b869)
-- [IMPLEMENTATION JS](#orgcd88bab)
-  - [first GOAL make the player move (any direction)](#orgbd821c0)
-    - [canvas](#org55034d9)
-    - [variables](#orgfb45ac3)
-    - [interface and handlers](#org334db2c)
-    - [functions](#orgedcdfef)
-    - [MAIN FUNCTION](#orgf2dffb8)
+- [GRAPH](#org6bfd55f)
+- [GRAPH EXPLANATION](#org4922900)
+  - [GLOBAL:](#org5ccb166)
+  - [PROGRAM](#orgdc09002)
+  - [WORLD](#org13a6f2b)
+  - [ORDER OF EXECUTION  [N]](#orgd52f93b)
+- [SETUP](#org665c268)
+  - [Dependencies](#org3487511)
+- [IMPLEMENTATION HTML](#orgf44c5e5)
+- [IMPLEMENTATION JS](#org558faa5)
+  - [first GOAL make the player move (any direction)](#org8802030)
+    - [canvas](#org1cf58c9)
+    - [variables](#orgaf725ba)
+    - [interface and handlers](#orgcddb24f)
+    - [functions](#org5f97edb)
+    - [MAIN FUNCTION](#org2307700)
 
 
 
-<a id="orgd7da562"></a>
+<a id="org6bfd55f"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orga61da82"></a>
+<a id="org4922900"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org7abe49e"></a>
+<a id="org5ccb166"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgfcc828d"></a>
+<a id="orgdc09002"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org8a3b545"></a>
+<a id="org13a6f2b"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org2b997ba"></a>
+<a id="orgd52f93b"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,48 +101,23 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org225c7b2"></a>
+<a id="org665c268"></a>
 
 # SETUP
 
 
-<a id="orgd71592d"></a>
+<a id="org3487511"></a>
 
-## package.json
+## Dependencies
 
-```js
-{
-  "name": "roguelike",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/diegoperezm/roguelike.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "jsdom": "13.0.0",
-    "sinon": "5.0.7",
-    "tape": "4.9.1"
-  },
-  "bugs": {
-    "url": "https://github.com/diegoperezm/roguelike/issues"
-  },
-  "homepage": "https://github.com/diegoperezm/roguelike#readme"
-}
-```
+-   jsdom
+
+-   sinon
+
+-   tape
 
 
-<a id="org7a3b869"></a>
+<a id="orgf44c5e5"></a>
 
 # IMPLEMENTATION HTML
 
@@ -174,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgcd88bab"></a>
+<a id="org558faa5"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="orgbd821c0"></a>
+<a id="org8802030"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org55034d9"></a>
+<a id="org1cf58c9"></a>
 
 ### canvas
 
@@ -194,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgfb45ac3"></a>
+<a id="orgaf725ba"></a>
 
 ### variables
 
@@ -330,7 +305,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org334db2c"></a>
+<a id="orgcddb24f"></a>
 
 ### interface and handlers
 
@@ -420,7 +395,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgedcdfef"></a>
+<a id="org5f97edb"></a>
 
 ### functions
 
@@ -525,7 +500,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orgf2dffb8"></a>
+<a id="org2307700"></a>
 
 ### MAIN FUNCTION
 
