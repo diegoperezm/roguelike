@@ -17,6 +17,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jsdom": "13.0.0",
+    "sinon": "5.0.7",
     "tape": "4.9.1"
   },
   "bugs": {
@@ -24,4 +26,3 @@
   },
   "homepage": "https://github.com/diegoperezm/roguelike#readme"
 }
- 
