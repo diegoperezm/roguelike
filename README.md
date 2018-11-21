@@ -1,33 +1,104 @@
-- [GRAPH](#org1b4b94d)
-- [GRAPH EXPLANATION](#orgdd41ff2)
-  - [GLOBAL:](#orgeb805f4)
-  - [PROGRAM](#orgb17c24c)
-  - [WORLD](#orgfe7e8e6)
-  - [ORDER OF EXECUTION  [N]](#orgcee330a)
-- [IMPLEMENTATION HTML](#orgf8268a8)
-- [IMPLEMENTATION JS](#orga174368)
-  - [first GOAL make the player move (any direction)](#orga1cbddc)
-    - [canvas](#orgf7d608d)
-    - [variables](#org9dd5107)
-    - [map](#org3ad584d)
-    - [interface and handlers](#org2dd7713)
-    - [functions](#org1d5562d)
-    - [MAIN FUNCTION](#org0c49f94)
+- [:noexport:](#orgb4860ab)
+- [GRAPH](#org07309cc)
+- [GRAPH EXPLANATION](#orged1342c)
+  - [GLOBAL:](#org8216afd)
+  - [PROGRAM](#org0e54d39)
+  - [WORLD](#orgf1b765c)
+  - [ORDER OF EXECUTION  [N]](#org2ce9c7a)
+- [IMPLEMENTATION HTML](#orgd8533f0)
+- [IMPLEMENTATION JS](#org57effb7)
+  - [first GOAL make the player move (any direction)](#orgba65f68)
+    - [canvas](#orgc6941cc)
+    - [variables](#orgbb0f1d7)
+    - [map](#org56e180d)
+    - [interface and handlers](#org7a31b0a)
+    - [functions](#orgfd5d60d)
+    - [MAIN FUNCTION](#org3458ee7)
 
 
-<a id="org1b4b94d"></a>
+
+<a id="orgb4860ab"></a>
+
+# TODO :noexport:
+
+-   <code>[1/4]</code> GENERAL TODO
+    -   [ ] Interactivity:
+        -   [ ] remove? INPUTHANDLER
+        -   [ ] make INTERFACE interactive
+            -   [ ] Add document.eventListner
+    -   [ ] complete objects:
+        -   [ ] obj
+        -   [ ] actions
+        -   [ ] rules
+        -   [ ] state
+            -   [ ] 
+            
+            -   [ ]
+    -   [ ] clean the README
+        -   [ ] -   [ ] 
+            
+            -   [ ] 
+            
+            -   [ ] 
+            
+            -   [ ]
+    -   [X] Add testing
+        -   [X] change folder structure
+            -   [X] add src folder
+            -   [X] add test folder
+        -   [X] add package.json
+            -   [X] add tapejs
+        -   [X] modify literate document:
+            -   [X] modify tangle paths
+            -   [X] add a test section for every function
+
+-   <code>[0/3]</code> roguelike: implement player movements
+    -   [ ] INTERFACE and INPUTHANDLER
+        -   [ ] pass direction to EVENTHANDLER
+    -   [ ] EVENTHANDLER
+        -   [ ] pass direction to move fn
+    -   [ ] create a move fn:
+        -   [ ] arguments:
+            -   [ ] dir
+
+-   [ ] refactor rules object:
+    -   [ ] action.acttack, sideEffect:move
+
+-   [ ] move function
+    -   [ ] 
+    
+    -   [ ] 
+    
+    -   [ ] 
+    
+    -   [ ]
+
+testing workflow:
+
+1.  tangle fn to test to src/file
+2.  use nodemon on a terminal emulator
+3.  only check map[array] (not canvas)
+
+action: if not movement is attack INTERFACE, need to pass:
+
+-   id
+-   action
+-   direction
+
+
+<a id="org07309cc"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orgdd41ff2"></a>
+<a id="orged1342c"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="orgeb805f4"></a>
+<a id="org8216afd"></a>
 
 ## GLOBAL:
 
@@ -58,7 +129,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgb17c24c"></a>
+<a id="org0e54d39"></a>
 
 ## PROGRAM
 
@@ -73,14 +144,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="orgfe7e8e6"></a>
+<a id="orgf1b765c"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="orgcee330a"></a>
+<a id="org2ce9c7a"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -99,7 +170,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgf8268a8"></a>
+<a id="orgd8533f0"></a>
 
 # IMPLEMENTATION HTML
 
@@ -131,17 +202,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orga174368"></a>
+<a id="org57effb7"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="orga1cbddc"></a>
+<a id="orgba65f68"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgf7d608d"></a>
+<a id="orgc6941cc"></a>
 
 ### canvas
 
@@ -151,12 +222,12 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org9dd5107"></a>
+<a id="orgbb0f1d7"></a>
 
 ### variables
 
 
-<a id="org3ad584d"></a>
+<a id="org56e180d"></a>
 
 ### map
 
@@ -284,7 +355,7 @@ var map = [
     ```
 
 
-<a id="org2dd7713"></a>
+<a id="org7a31b0a"></a>
 
 ### interface and handlers
 
@@ -373,29 +444,85 @@ var map = [
     ```
 
 
-<a id="org1d5562d"></a>
+<a id="orgfd5d60d"></a>
 
 ### functions
 
-```js
-let xPlusOne = (a,b) =>  {
- let  newState = Object
-		     .assign(
-		      {},
-		      state,
-		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
-  ); 
+1.  xPlusOne
 
-return newState;
-};
-```
+    1.  Declaration
+    
+        ```js
+        let xPlusOne = (a,b) =>  {
+         let  newState = Object
+        		     .assign(
+        		      {},
+        		      state,
+        		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
+          ); 
+        
+        return newState;
+        };
+        ```
+    
+    2.  Test
+    
+        ```js
+        var test = require("tape");
+        /*
+         list of objects  and his positions x y
+         */
+        
+        let state = {
+             "id": "humanInstance",
+             "pos": {
+               "x": 6,
+               "y": 5
+              },
+              "width": 10,
+              "height": 10
+          };
+        let xPlusOne = (a,b) =>  {
+         let  newState = Object
+        		     .assign(
+        		      {},
+        		      state,
+        		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
+          ); 
+        
+        return newState;
+        };
+        
+        test("xPlusOne test", function(t){
+           t.plan(1);
+           t.equal(typeof xPlusOne(), "object","xPlusOne() should return an object." );
+           t.end();
+        });
+        ```
 
-```js
-let attackEnemy = () => { return 2;};
-```
+2.  attackEnemy
+
+    1.  Declaration
+    
+        ```js
+        let attackEnemy = () => { return 2;};
+        ```
+    
+    2.  Test
+    
+        ```js
+        let attackEnemy = () => { return 2;}; 
+        var test = require("tape");
+        
+        test("attackEnemy test", function(t){
+            t.plan(1);
+            t.equal(typeof attackEnemy(),"number","attackEnemy() should return a number." );
+            t.end();
+        });
+        ```
 
 
-<a id="org0c49f94"></a>
+<a id="org3458ee7"></a>
 
 ### MAIN FUNCTION
 
