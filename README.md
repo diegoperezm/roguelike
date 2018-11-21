@@ -1,35 +1,35 @@
-- [GRAPH](#org6eaa1b7)
-- [GRAPH EXPLANATION](#orga1083f0)
-  - [GLOBAL:](#orgb4e39de)
-  - [PROGRAM](#org39416f1)
-  - [WORLD](#org71c1bd6)
-  - [ORDER OF EXECUTION  [N]](#org813acb9)
-- [SETUP](#orge1205bc)
-  - [Dependencies](#orgaa29f9b)
-- [IMPLEMENTATION HTML](#orgfc1c62f)
-- [IMPLEMENTATION JS](#org248c172)
-  - [first GOAL make the player move (any direction)](#org3b5ebb1)
-    - [canvas](#org2a84267)
-    - [variables](#orge36aa4a)
-    - [interface and handlers](#orgb94721c)
-    - [functions](#org7d777af)
-    - [MAIN FUNCTION](#org5c2d5d2)
+- [GRAPH](#orgc2a2a7f)
+- [GRAPH EXPLANATION](#org73982a6)
+  - [GLOBAL:](#org8e12cbd)
+  - [PROGRAM](#org6198ba8)
+  - [WORLD](#orgef30372)
+  - [ORDER OF EXECUTION  [N]](#org7a1d9b0)
+- [SETUP](#org9f82356)
+  - [Dependencies](#org6284899)
+- [IMPLEMENTATION HTML](#org7a861f3)
+- [IMPLEMENTATION JS](#org94339d1)
+  - [first GOAL make the player move (any direction)](#orge0e6b15)
+    - [canvas](#org9edd74a)
+    - [variables](#orgbc00d29)
+    - [interface and handlers](#org09513fd)
+    - [functions](#org12f3526)
+    - [MAIN FUNCTION](#org4b0adfd)
 
 
 
-<a id="org6eaa1b7"></a>
+<a id="orgc2a2a7f"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orga1083f0"></a>
+<a id="org73982a6"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="orgb4e39de"></a>
+<a id="org8e12cbd"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org39416f1"></a>
+<a id="org6198ba8"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org71c1bd6"></a>
+<a id="orgef30372"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org813acb9"></a>
+<a id="org7a1d9b0"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orge1205bc"></a>
+<a id="org9f82356"></a>
 
 # SETUP
 
 
-<a id="orgaa29f9b"></a>
+<a id="org6284899"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orgfc1c62f"></a>
+<a id="org7a861f3"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org248c172"></a>
+<a id="org94339d1"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org3b5ebb1"></a>
+<a id="orge0e6b15"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org2a84267"></a>
+<a id="org9edd74a"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orge36aa4a"></a>
+<a id="orgbc00d29"></a>
 
 ### variables
 
@@ -305,7 +305,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgb94721c"></a>
+<a id="org09513fd"></a>
 
 ### interface and handlers
 
@@ -395,7 +395,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org7d777af"></a>
+<a id="org12f3526"></a>
 
 ### functions
 
@@ -459,7 +459,7 @@ const ctx = canvas.getContext("2d");
         test("START test", function(t){
           t.plan(3);
           t.equal(INTERFACE.callCount, 1,"START() should call INTERFACE only once" );
-          t.equal(INTERFACE.calledWith(38), true, "START() should call INTERFACE with argument 38" );
+          t.equal(INTERFACE.calledWith(), true, "START() should call INTERFACE with argument 38" );
           t.equal(draw.callCount, 1,"START() should call draw only once" );
           t.end();
         });
@@ -540,7 +540,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="org5c2d5d2"></a>
+<a id="org4b0adfd"></a>
 
 ### MAIN FUNCTION
 

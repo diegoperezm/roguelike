@@ -28,7 +28,7 @@ dom.window.document.dispatchEvent(ArrowUp);
 test("START test", function(t){
   t.plan(3);
   t.equal(INTERFACE.callCount, 1,"START() should call INTERFACE only once" );
-  t.equal(INTERFACE.calledWith(38), true, "START() should call INTERFACE with argument 38" );
+  t.equal(INTERFACE.calledWith(), true, "START() should call INTERFACE with argument 38" );
   t.equal(draw.callCount, 1,"START() should call draw only once" );
   t.end();
 });
