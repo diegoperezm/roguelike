@@ -1,104 +1,34 @@
-- [:noexport:](#orgb4860ab)
-- [GRAPH](#org07309cc)
-- [GRAPH EXPLANATION](#orged1342c)
-  - [GLOBAL:](#org8216afd)
-  - [PROGRAM](#org0e54d39)
-  - [WORLD](#orgf1b765c)
-  - [ORDER OF EXECUTION  [N]](#org2ce9c7a)
-- [IMPLEMENTATION HTML](#orgd8533f0)
-- [IMPLEMENTATION JS](#org57effb7)
-  - [first GOAL make the player move (any direction)](#orgba65f68)
-    - [canvas](#orgc6941cc)
-    - [variables](#orgbb0f1d7)
-    - [map](#org56e180d)
-    - [interface and handlers](#org7a31b0a)
-    - [functions](#orgfd5d60d)
-    - [MAIN FUNCTION](#org3458ee7)
+- [GRAPH](#org12c7ac8)
+- [GRAPH EXPLANATION](#orgb16ac5a)
+  - [GLOBAL:](#org0ca95e6)
+  - [PROGRAM](#orga3db1a9)
+  - [WORLD](#org7c5b27b)
+  - [ORDER OF EXECUTION  [N]](#orge87359d)
+- [IMPLEMENTATION HTML](#org10fea37)
+- [IMPLEMENTATION JS](#org5a07510)
+  - [first GOAL make the player move (any direction)](#orge65bffa)
+    - [canvas](#orgf8582f6)
+    - [variables](#org05d0678)
+    - [map](#org45054fd)
+    - [interface and handlers](#org3101525)
+    - [functions](#org727275d)
+    - [MAIN FUNCTION](#org4f1c169)
 
 
 
-<a id="orgb4860ab"></a>
-
-# TODO :noexport:
-
--   <code>[1/4]</code> GENERAL TODO
-    -   [ ] Interactivity:
-        -   [ ] remove? INPUTHANDLER
-        -   [ ] make INTERFACE interactive
-            -   [ ] Add document.eventListner
-    -   [ ] complete objects:
-        -   [ ] obj
-        -   [ ] actions
-        -   [ ] rules
-        -   [ ] state
-            -   [ ] 
-            
-            -   [ ]
-    -   [ ] clean the README
-        -   [ ] -   [ ] 
-            
-            -   [ ] 
-            
-            -   [ ] 
-            
-            -   [ ]
-    -   [X] Add testing
-        -   [X] change folder structure
-            -   [X] add src folder
-            -   [X] add test folder
-        -   [X] add package.json
-            -   [X] add tapejs
-        -   [X] modify literate document:
-            -   [X] modify tangle paths
-            -   [X] add a test section for every function
-
--   <code>[0/3]</code> roguelike: implement player movements
-    -   [ ] INTERFACE and INPUTHANDLER
-        -   [ ] pass direction to EVENTHANDLER
-    -   [ ] EVENTHANDLER
-        -   [ ] pass direction to move fn
-    -   [ ] create a move fn:
-        -   [ ] arguments:
-            -   [ ] dir
-
--   [ ] refactor rules object:
-    -   [ ] action.acttack, sideEffect:move
-
--   [ ] move function
-    -   [ ] 
-    
-    -   [ ] 
-    
-    -   [ ] 
-    
-    -   [ ]
-
-testing workflow:
-
-1.  tangle fn to test to src/file
-2.  use nodemon on a terminal emulator
-3.  only check map[array] (not canvas)
-
-action: if not movement is attack INTERFACE, need to pass:
-
--   id
--   action
--   direction
-
-
-<a id="org07309cc"></a>
+<a id="org12c7ac8"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orged1342c"></a>
+<a id="orgb16ac5a"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org8216afd"></a>
+<a id="org0ca95e6"></a>
 
 ## GLOBAL:
 
@@ -129,7 +59,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org0e54d39"></a>
+<a id="orga3db1a9"></a>
 
 ## PROGRAM
 
@@ -144,14 +74,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="orgf1b765c"></a>
+<a id="org7c5b27b"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org2ce9c7a"></a>
+<a id="orge87359d"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -170,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgd8533f0"></a>
+<a id="org10fea37"></a>
 
 # IMPLEMENTATION HTML
 
@@ -202,17 +132,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org57effb7"></a>
+<a id="org5a07510"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="orgba65f68"></a>
+<a id="orge65bffa"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgc6941cc"></a>
+<a id="orgf8582f6"></a>
 
 ### canvas
 
@@ -222,12 +152,12 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgbb0f1d7"></a>
+<a id="org05d0678"></a>
 
 ### variables
 
 
-<a id="org56e180d"></a>
+<a id="org45054fd"></a>
 
 ### map
 
@@ -355,7 +285,7 @@ var map = [
     ```
 
 
-<a id="org7a31b0a"></a>
+<a id="org3101525"></a>
 
 ### interface and handlers
 
@@ -444,7 +374,7 @@ var map = [
     ```
 
 
-<a id="orgfd5d60d"></a>
+<a id="org727275d"></a>
 
 ### functions
 
@@ -522,7 +452,7 @@ var map = [
         ```
 
 
-<a id="org3458ee7"></a>
+<a id="org4f1c169"></a>
 
 ### MAIN FUNCTION
 
