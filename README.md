@@ -1,33 +1,33 @@
-- [GRAPH](#orgdc26b55)
-- [GRAPH EXPLANATION](#org921ed91)
-  - [GLOBAL:](#org2923d98)
-  - [PROGRAM](#org2d38cc9)
-  - [WORLD](#org585691a)
-  - [ORDER OF EXECUTION  [N]](#orga9f1508)
-- [IMPLEMENTATION HTML](#orga5d16fa)
-- [IMPLEMENTATION JS](#orga22fb5a)
-  - [first GOAL make the player move (any direction)](#org7d17964)
-    - [canvas](#org40efa50)
-    - [variables](#orgd7a0924)
-    - [interface and handlers](#org954547b)
-    - [functions](#org01d6b18)
-    - [MAIN FUNCTION](#orgb9140d4)
+- [GRAPH](#org46bd6d5)
+- [GRAPH EXPLANATION](#orgc9fcac1)
+  - [GLOBAL:](#org7ac081a)
+  - [PROGRAM](#orgd3bf67c)
+  - [WORLD](#org4f57050)
+  - [ORDER OF EXECUTION  [N]](#orgd88f976)
+- [IMPLEMENTATION HTML](#org85e9061)
+- [IMPLEMENTATION JS](#orgd03ea2a)
+  - [first GOAL make the player move (any direction)](#org33038ef)
+    - [canvas](#orgca2f6a0)
+    - [variables](#orgbb5594a)
+    - [interface and handlers](#org8cfca58)
+    - [functions](#org1709883)
+    - [MAIN FUNCTION](#org52fc4f6)
 
 
 
-<a id="orgdc26b55"></a>
+<a id="org46bd6d5"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org921ed91"></a>
+<a id="orgc9fcac1"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org2923d98"></a>
+<a id="org7ac081a"></a>
 
 ## GLOBAL:
 
@@ -58,7 +58,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org2d38cc9"></a>
+<a id="orgd3bf67c"></a>
 
 ## PROGRAM
 
@@ -73,14 +73,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org585691a"></a>
+<a id="org4f57050"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="orga9f1508"></a>
+<a id="orgd88f976"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -99,7 +99,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orga5d16fa"></a>
+<a id="org85e9061"></a>
 
 # IMPLEMENTATION HTML
 
@@ -131,17 +131,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orga22fb5a"></a>
+<a id="orgd03ea2a"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org7d17964"></a>
+<a id="org33038ef"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org40efa50"></a>
+<a id="orgca2f6a0"></a>
 
 ### canvas
 
@@ -151,7 +151,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgd7a0924"></a>
+<a id="orgbb5594a"></a>
 
 ### variables
 
@@ -177,25 +177,25 @@ const ctx = canvas.getContext("2d");
         | y13 | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
         | y14 | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1   | 1   | 1   | 1   | 1   |
     
-    -Table example B:
-    
-    | map[y][x]  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
-    |---------- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-    | map[0][x]  | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
-    | map[1][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-    | map[2][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-    | map[3][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
-    | map[4][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
-    | map[5][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-    | map[6][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-    | map[7][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-    | map[8][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
-    | map[9][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
-    | map[10][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1  | 1  | 0  | 0  | 1  |
-    | map[11][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-    | map[12][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-    | map[13][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-    | map[14][x] | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
+    -   Table example B:
+        
+        | map[y][x]  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+        |---------- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
+        | map[0][x]  | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
+        | map[1][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+        | map[2][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+        | map[3][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
+        | map[4][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
+        | map[5][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+        | map[6][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+        | map[7][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+        | map[8][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
+        | map[9][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
+        | map[10][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1  | 1  | 0  | 0  | 1  |
+        | map[11][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+        | map[12][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+        | map[13][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
+        | map[14][x] | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
     
     -   Code example:
     
@@ -287,7 +287,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org954547b"></a>
+<a id="org8cfca58"></a>
 
 ### interface and handlers
 
@@ -376,7 +376,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org01d6b18"></a>
+<a id="org1709883"></a>
 
 ### functions
 
@@ -454,7 +454,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orgb9140d4"></a>
+<a id="org52fc4f6"></a>
 
 ### MAIN FUNCTION
 
