@@ -1,33 +1,33 @@
-- [GRAPH](#org389ada7)
-- [GRAPH EXPLANATION](#orgdb7242b)
-  - [GLOBAL:](#org9f16387)
-  - [PROGRAM](#orgc3d49e9)
-  - [WORLD](#org11581ce)
-  - [ORDER OF EXECUTION  [N]](#org5a5f617)
-- [IMPLEMENTATION HTML](#orge51385e)
-- [IMPLEMENTATION JS](#org403ea6d)
-  - [first GOAL make the player move (any direction)](#org000d2d4)
-    - [canvas](#orgaed324e)
-    - [variables](#orga175509)
-    - [interface and handlers](#orgb0d1fad)
-    - [functions](#org69886ae)
-    - [MAIN FUNCTION](#org3ab4855)
+- [GRAPH](#org1298d73)
+- [GRAPH EXPLANATION](#org21f0d04)
+  - [GLOBAL:](#orgef21de8)
+  - [PROGRAM](#orga72eb21)
+  - [WORLD](#orge65215d)
+  - [ORDER OF EXECUTION  [N]](#org3b41900)
+- [IMPLEMENTATION HTML](#orga809970)
+- [IMPLEMENTATION JS](#org20247eb)
+  - [first GOAL make the player move (any direction)](#org2a0a455)
+    - [canvas](#org763143d)
+    - [variables](#org3da78ad)
+    - [interface and handlers](#orgae90c3a)
+    - [functions](#orgdda5126)
+    - [MAIN FUNCTION](#orgabe5350)
 
 
 
-<a id="org389ada7"></a>
+<a id="org1298d73"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orgdb7242b"></a>
+<a id="org21f0d04"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org9f16387"></a>
+<a id="orgef21de8"></a>
 
 ## GLOBAL:
 
@@ -58,7 +58,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgc3d49e9"></a>
+<a id="orga72eb21"></a>
 
 ## PROGRAM
 
@@ -73,14 +73,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org11581ce"></a>
+<a id="orge65215d"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org5a5f617"></a>
+<a id="org3b41900"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -99,7 +99,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orge51385e"></a>
+<a id="orga809970"></a>
 
 # IMPLEMENTATION HTML
 
@@ -131,17 +131,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org403ea6d"></a>
+<a id="org20247eb"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org000d2d4"></a>
+<a id="org2a0a455"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgaed324e"></a>
+<a id="org763143d"></a>
 
 ### canvas
 
@@ -151,7 +151,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orga175509"></a>
+<a id="org3da78ad"></a>
 
 ### variables
 
@@ -287,7 +287,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgb0d1fad"></a>
+<a id="orgae90c3a"></a>
 
 ### interface and handlers
 
@@ -377,7 +377,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org69886ae"></a>
+<a id="orgdda5126"></a>
 
 ### functions
 
@@ -391,18 +391,22 @@ const ctx = canvas.getContext("2d");
         
         -   draw
     
-    ```js
-    function START() {
+    -   Send:
+        -   keyCode to INTERFACE
     
-    // LISTENER
-     document.addEventListener("keydown", function(keyDown) {
-       INTERFACE('human','walk');
-      });
+    1.  Declaration
     
-    // Draw map
-     draw();
-    }
-    ```
+        ```js
+        function START() {
+        // LISTENER
+         document.addEventListener("keydown", function(keyDown) {
+           INTERFACE(keyDown.keyCode);
+          });
+        
+        // Draw map
+         draw();
+        }
+        ```
 
 2.  xPlusOne
 
@@ -478,7 +482,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="org3ab4855"></a>
+<a id="orgabe5350"></a>
 
 ### MAIN FUNCTION
 
@@ -588,10 +592,9 @@ function UPDATER(newState) {
 
 
 function START() {
-
 // LISTENER
  document.addEventListener("keydown", function(keyDown) {
-   INTERFACE('human','walk');
+   INTERFACE(keyDown.keyCode);
   });
 
 // Draw map

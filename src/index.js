@@ -106,7 +106,7 @@ function START() {
 
 // LISTENER
  document.addEventListener("keydown", function(keyDown) {
-   INTERFACE('human','walk');
+   INTERFACE(keyDown.keyCode);
   });
   
 // Draw map
