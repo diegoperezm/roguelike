@@ -5,7 +5,7 @@ const ctx = canvas.getContext("2d");
  */
 
 let state = {
-     "id": "humanInstance",
+     "id": "player",
      "pos": {
        "x": 6,
        "y": 5
@@ -42,8 +42,7 @@ const rules = [
     "sideEffect": "attackEnemy" 
    },
 ];
-
-let move = ( id, direction) => {
+let move = (id, direction) => {
 let x;
 let y;
 
@@ -71,23 +70,15 @@ switch (direction) {
    break;
 }
 
- let newState = Object.assign({}, state, {"pos": {"x": x , "y": y}}); 
+ let newState = Object.assign({}, state, {"id": id, "pos": {"x": x , "y": y}}); 
 
  return newState;
 };
 let attackEnemy = () => { return 2;};
- /* 
-       id , action => input { id: id , action: action}
-  */
-
 function INTERFACE(id, keyCode ) {
    let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
    INPUTHANDLER(input); 
  }
-  /*
-    input  = event
-  */
-
 function INPUTHANDLER(inputObj) {
 
 let input;
@@ -116,17 +107,10 @@ let id = inputObj.id;
 let event =   Object.assign({"id":id}, {"input":input}, {});
 EVENTHANDLER(event); 
   }
-
 // event { id: 'human', input: 'left||up||right||down' }
 function EVENTHANDLER(event) {
-/*
-  let rule = 'walk'; 
-  let fnName = rules[0].sideEffect;
-  let what = rules[0].what;
-  let condition = rules[0].condition;
-  let input = event;
-*/
-  let newState = move({},event.input);
+
+ let newState = move(event.id,event.input);
 
   // collision detection
   if (map[newState.pos.y][newState.pos.x] === 0) {
@@ -154,7 +138,7 @@ function UPDATER(newState) {
 function START() {
 // LISTENER
  document.addEventListener("keydown", function(keyDown) {
-   INTERFACE("human",keyDown.keyCode);
+   INTERFACE("player",keyDown.keyCode);
   });
   
 // Draw map
