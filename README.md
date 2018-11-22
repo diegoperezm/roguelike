@@ -1,35 +1,35 @@
-- [GRAPH](#org6111f39)
-- [GRAPH EXPLANATION](#orgc123284)
-  - [GLOBAL:](#orgc02eb8f)
-  - [PROGRAM](#org0f666e7)
-  - [WORLD](#orge64814f)
-  - [ORDER OF EXECUTION  [N]](#orgd676234)
-- [SETUP](#org2718dea)
-  - [Dependencies](#org073a9d3)
-- [IMPLEMENTATION HTML](#orgbf35159)
-- [IMPLEMENTATION JS](#org0f2bcde)
-  - [first GOAL make the player move (any direction)](#org2789d7a)
-    - [canvas](#org563d61c)
-    - [variables](#org5440625)
-    - [interface and handlers](#org10636c4)
-    - [functions](#orgfb94604)
-    - [MAIN FUNCTION](#org7ec4f52)
+- [GRAPH](#orgb75f884)
+- [GRAPH EXPLANATION](#orgf37f8a1)
+  - [GLOBAL:](#org7fab1a9)
+  - [PROGRAM](#orgb537f0a)
+  - [WORLD](#orgee23a48)
+  - [ORDER OF EXECUTION  [N]](#org0692913)
+- [SETUP](#org90f431a)
+  - [Dependencies](#org0c982d5)
+- [IMPLEMENTATION HTML](#org10497fe)
+- [IMPLEMENTATION JS](#org3245041)
+  - [first GOAL make the player move (any direction)](#org584fb38)
+    - [canvas](#org3cb0762)
+    - [variables](#orgb814f1b)
+    - [interface and handlers](#org5197b22)
+    - [functions](#orgbce0c0a)
+    - [MAIN FUNCTION](#org4ec6a96)
 
 
 
-<a id="org6111f39"></a>
+<a id="orgb75f884"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orgc123284"></a>
+<a id="orgf37f8a1"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="orgc02eb8f"></a>
+<a id="org7fab1a9"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org0f666e7"></a>
+<a id="orgb537f0a"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="orge64814f"></a>
+<a id="orgee23a48"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="orgd676234"></a>
+<a id="org0692913"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org2718dea"></a>
+<a id="org90f431a"></a>
 
 # SETUP
 
 
-<a id="org073a9d3"></a>
+<a id="org0c982d5"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orgbf35159"></a>
+<a id="org10497fe"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org0f2bcde"></a>
+<a id="org3245041"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org2789d7a"></a>
+<a id="org584fb38"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org563d61c"></a>
+<a id="org3cb0762"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org5440625"></a>
+<a id="orgb814f1b"></a>
 
 ### variables
 
@@ -292,7 +292,7 @@ const ctx = canvas.getContext("2d");
         "what":  objects[0].parts.legs, // todo: check the object instance
         "condition": true,
         "operator": "=",
-        "sideEffect": "xPlusOne", 
+        "sideEffect": "move", 
        },
        {
         "action": "attack",
@@ -305,7 +305,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org10636c4"></a>
+<a id="org5197b22"></a>
 
 ### interface and handlers
 
@@ -316,8 +316,8 @@ const ctx = canvas.getContext("2d");
            id , action => input { id: id , action: action}
       */
     
-    function INTERFACE(id, action ) {
-       let input = Object.assign({"id":id}, {"action": action}, {});
+    function INTERFACE(id, keyCode ) {
+       let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
        INPUTHANDLER(input); 
      }
     ```
@@ -329,32 +329,32 @@ const ctx = canvas.getContext("2d");
         input  = event
       */
     
-    function INPUTHANDLER(input) {
+    function INPUTHANDLER(inputObj) {
     
-    let playerAction;
-    let id = input.id;
+    let input;
+    let id = inputObj.id;
     
-     switch (input.action) {
+     switch (inputObj.keyCode) {
     
       case 37:
-        playerAction = "walk"; 
+        input = "left"; 
        break;
     
       case 38:
-        playerAction = "walk";
+        input = "up";
        break;
     
       case 39:
-       playerAction = "walk";
+       input = "right";
        break;
     
       case 40:
-        playerAction = "walk";
+        input = "down";
        break;
     
     } 
     
-    let event =   Object.assign({"id":id}, {"action": playerAction}, {});
+    let event =   Object.assign({"id":id}, {"input":input}, {});
     EVENTHANDLER(event); 
       }
     ```
@@ -362,7 +362,7 @@ const ctx = canvas.getContext("2d");
 3.  EVENTHANDLER
 
     -   select:
-        -   rule
+        -   rule (hardcoded)
         -   fn
         -   what
         -   condition
@@ -372,14 +372,17 @@ const ctx = canvas.getContext("2d");
     -   send newState to UPDATER
     
     ```js
-    function EVENTHANDLER(event) {
-      // event { id: 'human', action: 'walk' }
     
-      let rule = rules.filter(el => el.action === event.action);
-      let fnName = rule[0].sideEffect;
-      let what = rule[0].what;
-      let condition = rule[0].condition;
-      let newState = eval(`${fnName}(${what},${condition})`); 
+    // event { id: 'human', input: 'left||up||right||down' }
+    function EVENTHANDLER(event) {
+    /*
+      let rule = 'walk'; 
+      let fnName = rules[0].sideEffect;
+      let what = rules[0].what;
+      let condition = rules[0].condition;
+      let input = event;
+    */
+      let newState = move({},event.input);
     
       // collision detection
       if (map[newState.pos.y][newState.pos.x] === 0) {
@@ -418,7 +421,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgfb94604"></a>
+<a id="orgbce0c0a"></a>
 
 ### functions
 
@@ -488,7 +491,47 @@ const ctx = canvas.getContext("2d");
         
         ```
 
-2.  xPlusOne
+2.  move
+
+    1.  Declaration
+    
+        ```js
+        
+        let move = ( id, direction) => {
+        let x;
+        let y;
+        
+        
+        switch (direction) {
+          case "left":
+           x = state.pos.x - 1;
+           y = state.pos.y;
+           break;
+        
+          case "up":
+           x = state.pos.x;    
+           y = state.pos.y - 1;
+           break;
+        
+        
+          case "right":
+           x = state.pos.x + 1;
+           y = state.pos.y;
+           break;
+        
+          case "down":
+           x = state.pos.x;    
+           y = state.pos.y + 1;
+           break;
+        }
+        
+         let newState = Object.assign({}, state, {"pos": {"x": x , "y": y}}); 
+        
+         return newState;
+        };
+        ```
+
+3.  xPlusOne
 
     1.  Declaration
     
@@ -540,7 +583,7 @@ const ctx = canvas.getContext("2d");
         });
         ```
 
-3.  attackEnemy
+4.  attackEnemy
 
     1.  Declaration
     
@@ -562,7 +605,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="org7ec4f52"></a>
+<a id="org4ec6a96"></a>
 
 ### MAIN FUNCTION
 
@@ -601,7 +644,7 @@ const rules = [
     "what":  objects[0].parts.legs, // todo: check the object instance
     "condition": true,
     "operator": "=",
-    "sideEffect": "xPlusOne", 
+    "sideEffect": "move", 
    },
    {
     "action": "attack",
