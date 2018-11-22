@@ -611,65 +611,91 @@ const rules = [
     "sideEffect": "attackEnemy" 
    },
 ];
-let xPlusOne = (a,b) =>  {
- let  newState = Object
-		     .assign(
-		      {},
-		      state,
-		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
-  ); 
 
-return newState;
+let move = ( id, direction) => {
+let x;
+let y;
+
+
+switch (direction) {
+  case "left":
+   x = state.pos.x - 1;
+   y = state.pos.y;
+   break;
+
+  case "up":
+   x = state.pos.x;    
+   y = state.pos.y - 1;
+   break;
+
+
+  case "right":
+   x = state.pos.x + 1;
+   y = state.pos.y;
+   break;
+
+  case "down":
+   x = state.pos.x;    
+   y = state.pos.y + 1;
+   break;
+}
+
+ let newState = Object.assign({}, state, {"pos": {"x": x , "y": y}}); 
+
+ return newState;
 };
 let attackEnemy = () => { return 2;};
  /* 
        id , action => input { id: id , action: action}
   */
 
-function INTERFACE(id, action ) {
-   let input = Object.assign({"id":id}, {"action": action}, {});
+function INTERFACE(id, keyCode ) {
+   let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
    INPUTHANDLER(input); 
  }
   /*
     input  = event
   */
 
-function INPUTHANDLER(input) {
+function INPUTHANDLER(inputObj) {
 
-let playerAction;
-let id = input.id;
+let input;
+let id = inputObj.id;
 
- switch (input.action) {
+ switch (inputObj.keyCode) {
 
   case 37:
-    playerAction = "walk"; 
+    input = "left"; 
    break;
 
   case 38:
-    playerAction = "walk";
+    input = "up";
    break;
 
   case 39:
-   playerAction = "walk";
+   input = "right";
    break;
 
   case 40:
-    playerAction = "walk";
+    input = "down";
    break;
 
 } 
 
-let event =   Object.assign({"id":id}, {"action": playerAction}, {});
+let event =   Object.assign({"id":id}, {"input":input}, {});
 EVENTHANDLER(event); 
   }
-function EVENTHANDLER(event) {
-  // event { id: 'human', action: 'walk' }
 
-  let rule = rules.filter(el => el.action === event.action);
-  let fnName = rule[0].sideEffect;
-  let what = rule[0].what;
-  let condition = rule[0].condition;
-  let newState = eval(`${fnName}(${what},${condition})`); 
+// event { id: 'human', input: 'left||up||right||down' }
+function EVENTHANDLER(event) {
+/*
+  let rule = 'walk'; 
+  let fnName = rules[0].sideEffect;
+  let what = rules[0].what;
+  let condition = rules[0].condition;
+  let input = event;
+*/
+  let newState = move({},event.input);
 
   // collision detection
   if (map[newState.pos.y][newState.pos.x] === 0) {
