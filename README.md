@@ -1,35 +1,35 @@
-- [GRAPH](#org64a5292)
-- [GRAPH EXPLANATION](#orga786ad7)
-  - [GLOBAL:](#orgeebb8a5)
-  - [PROGRAM](#orgab98f81)
-  - [WORLD](#orgf5cd21d)
-  - [ORDER OF EXECUTION  [N]](#orge96d9c2)
-- [SETUP](#orgf1bdc27)
-  - [Dependencies](#org7a5764b)
-- [IMPLEMENTATION HTML](#org8da48d8)
-- [IMPLEMENTATION JS](#org3e43c0e)
-  - [first GOAL make the player move (any direction)](#orgf37c44b)
-    - [canvas](#org8460ea8)
-    - [variables](#orgbdfd8cd)
-    - [interface and handlers](#org186c6bb)
-    - [functions](#org7904894)
-    - [MAIN FUNCTION](#orgaa1d0da)
+- [GRAPH](#org9174ee2)
+- [GRAPH EXPLANATION](#org237aa8f)
+  - [GLOBAL:](#org1a4db12)
+  - [PROGRAM](#org6af1ab0)
+  - [WORLD](#org9a8c831)
+  - [ORDER OF EXECUTION  [N]](#org7c658e9)
+- [SETUP](#org174be4f)
+  - [Dependencies](#orgbd4c9e0)
+- [IMPLEMENTATION HTML](#orge7b9468)
+- [IMPLEMENTATION JS](#org59b7767)
+  - [first GOAL make the player move (any direction)](#org057e806)
+    - [canvas](#orge1ec772)
+    - [variables](#orgd3f23e4)
+    - [interface and handlers](#orgdd0131d)
+    - [functions](#org99810c3)
+    - [MAIN FUNCTION](#orge389eb3)
 
 
 
-<a id="org64a5292"></a>
+<a id="org9174ee2"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orga786ad7"></a>
+<a id="org237aa8f"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="orgeebb8a5"></a>
+<a id="org1a4db12"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgab98f81"></a>
+<a id="org6af1ab0"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="orgf5cd21d"></a>
+<a id="org9a8c831"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="orge96d9c2"></a>
+<a id="org7c658e9"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgf1bdc27"></a>
+<a id="org174be4f"></a>
 
 # SETUP
 
 
-<a id="org7a5764b"></a>
+<a id="orgbd4c9e0"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org8da48d8"></a>
+<a id="orge7b9468"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org3e43c0e"></a>
+<a id="org59b7767"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="orgf37c44b"></a>
+<a id="org057e806"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org8460ea8"></a>
+<a id="orge1ec772"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgbdfd8cd"></a>
+<a id="orgd3f23e4"></a>
 
 ### variables
 
@@ -305,7 +305,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org186c6bb"></a>
+<a id="orgdd0131d"></a>
 
 ### interface and handlers
 
@@ -317,7 +317,7 @@ const ctx = canvas.getContext("2d");
       */
     
     function INTERFACE(id, action ) {
-       let input = Object.assign({"id":id}, {"action":action}, {});
+       let input = Object.assign({"id":id}, {"action": action}, {});
        INPUTHANDLER(input); 
      }
     ```
@@ -395,7 +395,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org7904894"></a>
+<a id="org99810c3"></a>
 
 ### functions
 
@@ -418,7 +418,7 @@ const ctx = canvas.getContext("2d");
         function START() {
         // LISTENER
          document.addEventListener("keydown", function(keyDown) {
-           INTERFACE(keyDown.keyCode);
+           INTERFACE("human",keyDown.keyCode);
           });
         
         // Draw map
@@ -443,7 +443,7 @@ const ctx = canvas.getContext("2d");
         function START() {
         // LISTENER
          document.addEventListener("keydown", function(keyDown) {
-           INTERFACE(keyDown.keyCode);
+           INTERFACE("human",keyDown.keyCode);
           });
         
         // Draw map
@@ -539,7 +539,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orgaa1d0da"></a>
+<a id="orge389eb3"></a>
 
 ### MAIN FUNCTION
 
@@ -604,7 +604,7 @@ let attackEnemy = () => { return 2;};
   */
 
 function INTERFACE(id, action ) {
-   let input = Object.assign({"id":id}, {"action":action}, {});
+   let input = Object.assign({"id":id}, {"action": action}, {});
    INPUTHANDLER(input); 
  }
   /*
@@ -651,7 +651,7 @@ function UPDATER(newState) {
 function START() {
 // LISTENER
  document.addEventListener("keydown", function(keyDown) {
-   INTERFACE(keyDown.keyCode);
+   INTERFACE("human",keyDown.keyCode);
   });
 
 // Draw map

@@ -58,7 +58,7 @@ let attackEnemy = () => { return 2;};
   */
 
 function INTERFACE(id, action ) {
-   let input = Object.assign({"id":id}, {"action":action}, {});
+   let input = Object.assign({"id":id}, {"action": action}, {});
    INPUTHANDLER(input); 
  }
   /*
@@ -103,10 +103,9 @@ function UPDATER(newState) {
 
 
 function START() {
-
 // LISTENER
  document.addEventListener("keydown", function(keyDown) {
-   INTERFACE(keyDown.keyCode);
+   INTERFACE("human",keyDown.keyCode);
   });
   
 // Draw map
