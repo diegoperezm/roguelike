@@ -1,35 +1,35 @@
-- [GRAPH](#orgb0a0196)
-- [GRAPH EXPLANATION](#orgc293ff3)
-  - [GLOBAL:](#orgc059a42)
-  - [PROGRAM](#orgfc36b04)
-  - [WORLD](#org9ab0bbe)
-  - [ORDER OF EXECUTION  [N]](#org80932ba)
-- [SETUP](#orgefebb17)
-  - [Dependencies](#orgc408f5c)
-- [IMPLEMENTATION HTML](#org9fefab4)
-- [IMPLEMENTATION JS](#org5c716ff)
-  - [first GOAL make the player move (any direction)](#org2136c20)
-    - [canvas](#orgf981bdf)
-    - [variables](#orgb3b6a7f)
-    - [interface and handlers](#orgc8d8190)
-    - [functions](#orgfe41592)
-    - [MAIN FUNCTION](#orgcfcc84a)
+- [GRAPH](#orga52bb4c)
+- [GRAPH EXPLANATION](#org1fe5c54)
+  - [GLOBAL:](#orge67f970)
+  - [PROGRAM](#orgabffbb7)
+  - [WORLD](#org57e32f8)
+  - [ORDER OF EXECUTION  [N]](#org2617f18)
+- [SETUP](#org5812b55)
+  - [Dependencies](#org39d96ea)
+- [IMPLEMENTATION HTML](#org773dd82)
+- [IMPLEMENTATION JS](#org4960272)
+  - [first GOAL make the player move (any direction)](#orge9a1b91)
+    - [canvas](#org40dd2c8)
+    - [variables](#org662ccf4)
+    - [interface and handlers](#org9562e8c)
+    - [functions](#orgc6036f1)
+    - [MAIN FUNCTION](#orgbf38795)
 
 
 
-<a id="orgb0a0196"></a>
+<a id="orga52bb4c"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orgc293ff3"></a>
+<a id="org1fe5c54"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="orgc059a42"></a>
+<a id="orge67f970"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgfc36b04"></a>
+<a id="orgabffbb7"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org9ab0bbe"></a>
+<a id="org57e32f8"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org80932ba"></a>
+<a id="org2617f18"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgefebb17"></a>
+<a id="org5812b55"></a>
 
 # SETUP
 
 
-<a id="orgc408f5c"></a>
+<a id="org39d96ea"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org9fefab4"></a>
+<a id="org773dd82"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org5c716ff"></a>
+<a id="org4960272"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org2136c20"></a>
+<a id="orge9a1b91"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgf981bdf"></a>
+<a id="org40dd2c8"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgb3b6a7f"></a>
+<a id="org662ccf4"></a>
 
 ### variables
 
@@ -249,7 +249,7 @@ const ctx = canvas.getContext("2d");
      list of objects  and his positions x y
      */
     
-    let state = {
+    let state = [{
          "id": "player",
          "pos": {
            "x": 6,
@@ -257,7 +257,17 @@ const ctx = canvas.getContext("2d");
           },
           "width": 10,
           "height": 10
-      };
+      },
+      {
+         "id": "monster",
+         "pos": {
+           "x": 2,
+           "y": 12
+          },
+          "width": 10,
+          "height": 10
+       }
+    ];
     ```
 
 3.  objects
@@ -305,7 +315,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgc8d8190"></a>
+<a id="org9562e8c"></a>
 
 ### interface and handlers
 
@@ -391,12 +401,14 @@ const ctx = canvas.getContext("2d");
     ```js
     
     function UPDATER(newState) {
-     let prevState = state;
+    
+      let indexId = state.findIndex( element => element.id===newState.id);
+      let prevState = state[indexId];
     
       map[prevState.pos.y][prevState.pos.x] = 0; // update map
       map[newState.pos.y][newState.pos.x] = 1;  // update map
     
-      state = newState;
+      state[indexId] = newState;
     
       draw();
     
@@ -406,7 +418,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgfe41592"></a>
+<a id="orgc6036f1"></a>
 
 ### functions
 
@@ -484,87 +496,35 @@ const ctx = canvas.getContext("2d");
         let move = (id, direction) => {
         let x;
         let y;
+        let indexId = state.findIndex( element => element.id===id );
         
         
         switch (direction) {
           case "left":
-           x = state.pos.x - 1;
-           y = state.pos.y;
+           x = state[indexId].pos.x - 1;
+           y = state[indexId].pos.y;
            break;
         
           case "up":
-           x = state.pos.x;    
-           y = state.pos.y - 1;
+           x = state[indexId].pos.x;    
+           y = state[indexId].pos.y - 1;
            break;
         
         
           case "right":
-           x = state.pos.x + 1;
-           y = state.pos.y;
+           x = state[indexId].pos.x + 1;
+           y = state[indexId].pos.y;
            break;
         
           case "down":
-           x = state.pos.x;    
-           y = state.pos.y + 1;
+           x = state[indexId].pos.x;    
+           y = state[indexId].pos.y + 1;
            break;
         }
         
-         let newState = Object.assign({}, state, {"id": id, "pos": {"x": x , "y": y}}); 
-        
+         let newState = Object.assign({}, state[indexId], {"id": id, "pos": {"x": x , "y": y}}); 
          return newState;
         };
-        ```
-        
-        ```js
-        /*
-         list of objects  and his positions x y
-         */
-        
-        let state = {
-             "id": "player",
-             "pos": {
-               "x": 6,
-               "y": 5
-              },
-              "width": 10,
-              "height": 10
-          };
-        let move = (id, direction) => {
-        let x;
-        let y;
-        
-        
-        switch (direction) {
-          case "left":
-           x = state.pos.x - 1;
-           y = state.pos.y;
-           break;
-        
-          case "up":
-           x = state.pos.x;    
-           y = state.pos.y - 1;
-           break;
-        
-        
-          case "right":
-           x = state.pos.x + 1;
-           y = state.pos.y;
-           break;
-        
-          case "down":
-           x = state.pos.x;    
-           y = state.pos.y + 1;
-           break;
-        }
-        
-         let newState = Object.assign({}, state, {"id":id,"pos": {"x": x , "y": y}}); 
-        
-         return newState;
-        };
-        console.log('prevState',state);
-        console.log('nextState',move("player", "left"));
-        state = move({},"left");
-        console.log('state', state);
         ```
 
 3.  attackEnemy
@@ -589,7 +549,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orgcfcc84a"></a>
+<a id="orgbf38795"></a>
 
 ### MAIN FUNCTION
 
@@ -600,7 +560,7 @@ const ctx = canvas.getContext("2d");
  list of objects  and his positions x y
  */
 
-let state = {
+let state = [{
      "id": "player",
      "pos": {
        "x": 6,
@@ -608,7 +568,17 @@ let state = {
       },
       "width": 10,
       "height": 10
-  };
+  },
+  {
+     "id": "monster",
+     "pos": {
+       "x": 2,
+       "y": 12
+      },
+      "width": 10,
+      "height": 10
+   }
+];
 const objects = [
  {
    "id": "human",
@@ -641,33 +611,33 @@ const rules = [
 let move = (id, direction) => {
 let x;
 let y;
+let indexId = state.findIndex( element => element.id===id );
 
 
 switch (direction) {
   case "left":
-   x = state.pos.x - 1;
-   y = state.pos.y;
+   x = state[indexId].pos.x - 1;
+   y = state[indexId].pos.y;
    break;
 
   case "up":
-   x = state.pos.x;    
-   y = state.pos.y - 1;
+   x = state[indexId].pos.x;    
+   y = state[indexId].pos.y - 1;
    break;
 
 
   case "right":
-   x = state.pos.x + 1;
-   y = state.pos.y;
+   x = state[indexId].pos.x + 1;
+   y = state[indexId].pos.y;
    break;
 
   case "down":
-   x = state.pos.x;    
-   y = state.pos.y + 1;
+   x = state[indexId].pos.x;    
+   y = state[indexId].pos.y + 1;
    break;
 }
 
- let newState = Object.assign({}, state, {"id": id, "pos": {"x": x , "y": y}}); 
-
+ let newState = Object.assign({}, state[indexId], {"id": id, "pos": {"x": x , "y": y}}); 
  return newState;
 };
 let attackEnemy = () => { return 2;};
@@ -719,12 +689,14 @@ function EVENTHANDLER(event) {
 }
 
 function UPDATER(newState) {
- let prevState = state;
+
+  let indexId = state.findIndex( element => element.id===newState.id);
+  let prevState = state[indexId];
 
   map[prevState.pos.y][prevState.pos.x] = 0; // update map
   map[newState.pos.y][newState.pos.x] = 1;  // update map
 
-  state = newState;
+  state[indexId] = newState;
 
   draw();
 

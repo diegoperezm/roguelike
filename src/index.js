@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
  list of objects  and his positions x y
  */
 
-let state = {
+let state = [{
      "id": "player",
      "pos": {
        "x": 6,
@@ -12,7 +12,17 @@ let state = {
       },
       "width": 10,
       "height": 10
-  };
+  },
+  {
+     "id": "monster",
+     "pos": {
+       "x": 2,
+       "y": 12
+      },
+      "width": 10,
+      "height": 10
+   }
+];
 const objects = [
  {
    "id": "human",
@@ -45,33 +55,33 @@ const rules = [
 let move = (id, direction) => {
 let x;
 let y;
+let indexId = state.findIndex( element => element.id===id );
 
 
 switch (direction) {
   case "left":
-   x = state.pos.x - 1;
-   y = state.pos.y;
+   x = state[indexId].pos.x - 1;
+   y = state[indexId].pos.y;
    break;
 
   case "up":
-   x = state.pos.x;    
-   y = state.pos.y - 1;
+   x = state[indexId].pos.x;    
+   y = state[indexId].pos.y - 1;
    break;
 
 
   case "right":
-   x = state.pos.x + 1;
-   y = state.pos.y;
+   x = state[indexId].pos.x + 1;
+   y = state[indexId].pos.y;
    break;
 
   case "down":
-   x = state.pos.x;    
-   y = state.pos.y + 1;
+   x = state[indexId].pos.x;    
+   y = state[indexId].pos.y + 1;
    break;
 }
 
- let newState = Object.assign({}, state, {"id": id, "pos": {"x": x , "y": y}}); 
-
+ let newState = Object.assign({}, state[indexId], {"id": id, "pos": {"x": x , "y": y}}); 
  return newState;
 };
 let attackEnemy = () => { return 2;};
@@ -123,12 +133,14 @@ function EVENTHANDLER(event) {
 }
 
 function UPDATER(newState) {
- let prevState = state;
 
+  let indexId = state.findIndex( element => element.id===newState.id);
+  let prevState = state[indexId];
+   
   map[prevState.pos.y][prevState.pos.x] = 0; // update map
   map[newState.pos.y][newState.pos.x] = 1;  // update map
    
-  state = newState;
+  state[indexId] = newState;
 
   draw();
 
