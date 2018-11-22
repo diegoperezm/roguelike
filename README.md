@@ -1,35 +1,35 @@
-- [GRAPH](#org9174ee2)
-- [GRAPH EXPLANATION](#org237aa8f)
-  - [GLOBAL:](#org1a4db12)
-  - [PROGRAM](#org6af1ab0)
-  - [WORLD](#org9a8c831)
-  - [ORDER OF EXECUTION  [N]](#org7c658e9)
-- [SETUP](#org174be4f)
-  - [Dependencies](#orgbd4c9e0)
-- [IMPLEMENTATION HTML](#orge7b9468)
-- [IMPLEMENTATION JS](#org59b7767)
-  - [first GOAL make the player move (any direction)](#org057e806)
-    - [canvas](#orge1ec772)
-    - [variables](#orgd3f23e4)
-    - [interface and handlers](#orgdd0131d)
-    - [functions](#org99810c3)
-    - [MAIN FUNCTION](#orge389eb3)
+- [GRAPH](#org6111f39)
+- [GRAPH EXPLANATION](#orgc123284)
+  - [GLOBAL:](#orgc02eb8f)
+  - [PROGRAM](#org0f666e7)
+  - [WORLD](#orge64814f)
+  - [ORDER OF EXECUTION  [N]](#orgd676234)
+- [SETUP](#org2718dea)
+  - [Dependencies](#org073a9d3)
+- [IMPLEMENTATION HTML](#orgbf35159)
+- [IMPLEMENTATION JS](#org0f2bcde)
+  - [first GOAL make the player move (any direction)](#org2789d7a)
+    - [canvas](#org563d61c)
+    - [variables](#org5440625)
+    - [interface and handlers](#org10636c4)
+    - [functions](#orgfb94604)
+    - [MAIN FUNCTION](#org7ec4f52)
 
 
 
-<a id="org9174ee2"></a>
+<a id="org6111f39"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org237aa8f"></a>
+<a id="orgc123284"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org1a4db12"></a>
+<a id="orgc02eb8f"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org6af1ab0"></a>
+<a id="org0f666e7"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org9a8c831"></a>
+<a id="orge64814f"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org7c658e9"></a>
+<a id="orgd676234"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org174be4f"></a>
+<a id="org2718dea"></a>
 
 # SETUP
 
 
-<a id="orgbd4c9e0"></a>
+<a id="org073a9d3"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orge7b9468"></a>
+<a id="orgbf35159"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org59b7767"></a>
+<a id="org0f2bcde"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org057e806"></a>
+<a id="org2789d7a"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orge1ec772"></a>
+<a id="org563d61c"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgd3f23e4"></a>
+<a id="org5440625"></a>
 
 ### variables
 
@@ -305,7 +305,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgdd0131d"></a>
+<a id="org10636c4"></a>
 
 ### interface and handlers
 
@@ -329,10 +329,33 @@ const ctx = canvas.getContext("2d");
         input  = event
       */
     
-      function INPUTHANDLER(input) {
-        let event = input; 
-    //  console.log('inputhandler => event', event); 
-        EVENTHANDLER(event); 
+    function INPUTHANDLER(input) {
+    
+    let playerAction;
+    let id = input.id;
+    
+     switch (input.action) {
+    
+      case 37:
+        playerAction = "walk"; 
+       break;
+    
+      case 38:
+        playerAction = "walk";
+       break;
+    
+      case 39:
+       playerAction = "walk";
+       break;
+    
+      case 40:
+        playerAction = "walk";
+       break;
+    
+    } 
+    
+    let event =   Object.assign({"id":id}, {"action": playerAction}, {});
+    EVENTHANDLER(event); 
       }
     ```
 
@@ -395,7 +418,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org99810c3"></a>
+<a id="orgfb94604"></a>
 
 ### functions
 
@@ -539,7 +562,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orge389eb3"></a>
+<a id="org7ec4f52"></a>
 
 ### MAIN FUNCTION
 
@@ -611,10 +634,33 @@ function INTERFACE(id, action ) {
     input  = event
   */
 
-  function INPUTHANDLER(input) {
-    let event = input; 
-//  console.log('inputhandler => event', event); 
-    EVENTHANDLER(event); 
+function INPUTHANDLER(input) {
+
+let playerAction;
+let id = input.id;
+
+ switch (input.action) {
+
+  case 37:
+    playerAction = "walk"; 
+   break;
+
+  case 38:
+    playerAction = "walk";
+   break;
+
+  case 39:
+   playerAction = "walk";
+   break;
+
+  case 40:
+    playerAction = "walk";
+   break;
+
+} 
+
+let event =   Object.assign({"id":id}, {"action": playerAction}, {});
+EVENTHANDLER(event); 
   }
 function EVENTHANDLER(event) {
   // event { id: 'human', action: 'walk' }
