@@ -1,35 +1,35 @@
-- [GRAPH](#orgb75f884)
-- [GRAPH EXPLANATION](#orgf37f8a1)
-  - [GLOBAL:](#org7fab1a9)
-  - [PROGRAM](#orgb537f0a)
-  - [WORLD](#orgee23a48)
-  - [ORDER OF EXECUTION  [N]](#org0692913)
-- [SETUP](#org90f431a)
-  - [Dependencies](#org0c982d5)
-- [IMPLEMENTATION HTML](#org10497fe)
-- [IMPLEMENTATION JS](#org3245041)
-  - [first GOAL make the player move (any direction)](#org584fb38)
-    - [canvas](#org3cb0762)
-    - [variables](#orgb814f1b)
-    - [interface and handlers](#org5197b22)
-    - [functions](#orgbce0c0a)
-    - [MAIN FUNCTION](#org4ec6a96)
+- [GRAPH](#org26e86ff)
+- [GRAPH EXPLANATION](#orge26f2a3)
+  - [GLOBAL:](#org125b507)
+  - [PROGRAM](#orgd92dba3)
+  - [WORLD](#org07bc48a)
+  - [ORDER OF EXECUTION  [N]](#org5bee9ad)
+- [SETUP](#org689e296)
+  - [Dependencies](#org311d308)
+- [IMPLEMENTATION HTML](#org423f1dc)
+- [IMPLEMENTATION JS](#org66a2d47)
+  - [first GOAL make the player move (any direction)](#org88c5262)
+    - [canvas](#orgbc84528)
+    - [variables](#org5b7c474)
+    - [interface and handlers](#org98a26f0)
+    - [functions](#org1cb22d4)
+    - [MAIN FUNCTION](#org80a0408)
 
 
 
-<a id="orgb75f884"></a>
+<a id="org26e86ff"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orgf37f8a1"></a>
+<a id="orge26f2a3"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org7fab1a9"></a>
+<a id="org125b507"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgb537f0a"></a>
+<a id="orgd92dba3"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="orgee23a48"></a>
+<a id="org07bc48a"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org0692913"></a>
+<a id="org5bee9ad"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org90f431a"></a>
+<a id="org689e296"></a>
 
 # SETUP
 
 
-<a id="org0c982d5"></a>
+<a id="org311d308"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org10497fe"></a>
+<a id="org423f1dc"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org3245041"></a>
+<a id="org66a2d47"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org584fb38"></a>
+<a id="org88c5262"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org3cb0762"></a>
+<a id="orgbc84528"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgb814f1b"></a>
+<a id="org5b7c474"></a>
 
 ### variables
 
@@ -305,7 +305,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org5197b22"></a>
+<a id="org98a26f0"></a>
 
 ### interface and handlers
 
@@ -421,7 +421,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgbce0c0a"></a>
+<a id="org1cb22d4"></a>
 
 ### functions
 
@@ -531,59 +531,7 @@ const ctx = canvas.getContext("2d");
         };
         ```
 
-3.  xPlusOne
-
-    1.  Declaration
-    
-        ```js
-        let xPlusOne = (a,b) =>  {
-         let  newState = Object
-        		     .assign(
-        		      {},
-        		      state,
-        		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
-          ); 
-        
-        return newState;
-        };
-        ```
-    
-    2.  Test
-    
-        ```js
-        var test = require("tape");
-        /*
-         list of objects  and his positions x y
-         */
-        
-        let state = {
-             "id": "humanInstance",
-             "pos": {
-               "x": 6,
-               "y": 5
-              },
-              "width": 10,
-              "height": 10
-          };
-        let xPlusOne = (a,b) =>  {
-         let  newState = Object
-        		     .assign(
-        		      {},
-        		      state,
-        		       {"pos": {"x": state.pos.x +1, "y": state.pos.y}} 
-          ); 
-        
-        return newState;
-        };
-        
-        test("xPlusOne test", function(t){
-           t.plan(1);
-           t.equal(typeof xPlusOne(), "object","xPlusOne() should return an object." );
-           t.end();
-        });
-        ```
-
-4.  attackEnemy
+3.  attackEnemy
 
     1.  Declaration
     
@@ -605,7 +553,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="org4ec6a96"></a>
+<a id="org80a0408"></a>
 
 ### MAIN FUNCTION
 
