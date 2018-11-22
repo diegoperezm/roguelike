@@ -65,10 +65,33 @@ function INTERFACE(id, action ) {
     input  = event
   */
 
-  function INPUTHANDLER(input) {
-    let event = input; 
-//  console.log('inputhandler => event', event); 
-    EVENTHANDLER(event); 
+function INPUTHANDLER(input) {
+
+let playerAction;
+let id = input.id;
+
+ switch (input.action) {
+
+  case 37:
+    playerAction = "walk"; 
+   break;
+   
+  case 38:
+    playerAction = "walk";
+   break;
+
+  case 39:
+   playerAction = "walk";
+   break;
+
+  case 40:
+    playerAction = "walk";
+   break;
+  
+} 
+
+let event =   Object.assign({"id":id}, {"action": playerAction}, {});
+EVENTHANDLER(event); 
   }
 function EVENTHANDLER(event) {
   // event { id: 'human', action: 'walk' }
