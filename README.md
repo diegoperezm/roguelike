@@ -1,35 +1,35 @@
-- [GRAPH](#org26e86ff)
-- [GRAPH EXPLANATION](#orge26f2a3)
-  - [GLOBAL:](#org125b507)
-  - [PROGRAM](#orgd92dba3)
-  - [WORLD](#org07bc48a)
-  - [ORDER OF EXECUTION  [N]](#org5bee9ad)
-- [SETUP](#org689e296)
-  - [Dependencies](#org311d308)
-- [IMPLEMENTATION HTML](#org423f1dc)
-- [IMPLEMENTATION JS](#org66a2d47)
-  - [first GOAL make the player move (any direction)](#org88c5262)
-    - [canvas](#orgbc84528)
-    - [variables](#org5b7c474)
-    - [interface and handlers](#org98a26f0)
-    - [functions](#org1cb22d4)
-    - [MAIN FUNCTION](#org80a0408)
+- [GRAPH](#orgb0a0196)
+- [GRAPH EXPLANATION](#orgc293ff3)
+  - [GLOBAL:](#orgc059a42)
+  - [PROGRAM](#orgfc36b04)
+  - [WORLD](#org9ab0bbe)
+  - [ORDER OF EXECUTION  [N]](#org80932ba)
+- [SETUP](#orgefebb17)
+  - [Dependencies](#orgc408f5c)
+- [IMPLEMENTATION HTML](#org9fefab4)
+- [IMPLEMENTATION JS](#org5c716ff)
+  - [first GOAL make the player move (any direction)](#org2136c20)
+    - [canvas](#orgf981bdf)
+    - [variables](#orgb3b6a7f)
+    - [interface and handlers](#orgc8d8190)
+    - [functions](#orgfe41592)
+    - [MAIN FUNCTION](#orgcfcc84a)
 
 
 
-<a id="org26e86ff"></a>
+<a id="orgb0a0196"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orge26f2a3"></a>
+<a id="orgc293ff3"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org125b507"></a>
+<a id="orgc059a42"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgd92dba3"></a>
+<a id="orgfc36b04"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org07bc48a"></a>
+<a id="org9ab0bbe"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org5bee9ad"></a>
+<a id="org80932ba"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org689e296"></a>
+<a id="orgefebb17"></a>
 
 # SETUP
 
 
-<a id="org311d308"></a>
+<a id="orgc408f5c"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org423f1dc"></a>
+<a id="org9fefab4"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org66a2d47"></a>
+<a id="org5c716ff"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org88c5262"></a>
+<a id="org2136c20"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgbc84528"></a>
+<a id="orgf981bdf"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org5b7c474"></a>
+<a id="orgb3b6a7f"></a>
 
 ### variables
 
@@ -250,7 +250,7 @@ const ctx = canvas.getContext("2d");
      */
     
     let state = {
-         "id": "humanInstance",
+         "id": "player",
          "pos": {
            "x": 6,
            "y": 5
@@ -305,17 +305,13 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org98a26f0"></a>
+<a id="orgc8d8190"></a>
 
 ### interface and handlers
 
 1.  INTERFACE
 
     ```js
-     /* 
-           id , action => input { id: id , action: action}
-      */
-    
     function INTERFACE(id, keyCode ) {
        let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
        INPUTHANDLER(input); 
@@ -325,10 +321,6 @@ const ctx = canvas.getContext("2d");
 2.  INPUTHANDLER
 
     ```js
-      /*
-        input  = event
-      */
-    
     function INPUTHANDLER(inputObj) {
     
     let input;
@@ -372,17 +364,10 @@ const ctx = canvas.getContext("2d");
     -   send newState to UPDATER
     
     ```js
-    
     // event { id: 'human', input: 'left||up||right||down' }
     function EVENTHANDLER(event) {
-    /*
-      let rule = 'walk'; 
-      let fnName = rules[0].sideEffect;
-      let what = rules[0].what;
-      let condition = rules[0].condition;
-      let input = event;
-    */
-      let newState = move({},event.input);
+    
+     let newState = move(event.id,event.input);
     
       // collision detection
       if (map[newState.pos.y][newState.pos.x] === 0) {
@@ -421,7 +406,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org1cb22d4"></a>
+<a id="orgfe41592"></a>
 
 ### functions
 
@@ -444,7 +429,7 @@ const ctx = canvas.getContext("2d");
         function START() {
         // LISTENER
          document.addEventListener("keydown", function(keyDown) {
-           INTERFACE("human",keyDown.keyCode);
+           INTERFACE("player",keyDown.keyCode);
           });
         
         // Draw map
@@ -469,7 +454,7 @@ const ctx = canvas.getContext("2d");
         function START() {
         // LISTENER
          document.addEventListener("keydown", function(keyDown) {
-           INTERFACE("human",keyDown.keyCode);
+           INTERFACE("player",keyDown.keyCode);
           });
         
         // Draw map
@@ -496,8 +481,7 @@ const ctx = canvas.getContext("2d");
     1.  Declaration
     
         ```js
-        
-        let move = ( id, direction) => {
+        let move = (id, direction) => {
         let x;
         let y;
         
@@ -525,10 +509,62 @@ const ctx = canvas.getContext("2d");
            break;
         }
         
-         let newState = Object.assign({}, state, {"pos": {"x": x , "y": y}}); 
+         let newState = Object.assign({}, state, {"id": id, "pos": {"x": x , "y": y}}); 
         
          return newState;
         };
+        ```
+        
+        ```js
+        /*
+         list of objects  and his positions x y
+         */
+        
+        let state = {
+             "id": "player",
+             "pos": {
+               "x": 6,
+               "y": 5
+              },
+              "width": 10,
+              "height": 10
+          };
+        let move = (id, direction) => {
+        let x;
+        let y;
+        
+        
+        switch (direction) {
+          case "left":
+           x = state.pos.x - 1;
+           y = state.pos.y;
+           break;
+        
+          case "up":
+           x = state.pos.x;    
+           y = state.pos.y - 1;
+           break;
+        
+        
+          case "right":
+           x = state.pos.x + 1;
+           y = state.pos.y;
+           break;
+        
+          case "down":
+           x = state.pos.x;    
+           y = state.pos.y + 1;
+           break;
+        }
+        
+         let newState = Object.assign({}, state, {"id":id,"pos": {"x": x , "y": y}}); 
+        
+         return newState;
+        };
+        console.log('prevState',state);
+        console.log('nextState',move("player", "left"));
+        state = move({},"left");
+        console.log('state', state);
         ```
 
 3.  attackEnemy
@@ -553,7 +589,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="org80a0408"></a>
+<a id="orgcfcc84a"></a>
 
 ### MAIN FUNCTION
 
@@ -565,7 +601,7 @@ const ctx = canvas.getContext("2d");
  */
 
 let state = {
-     "id": "humanInstance",
+     "id": "player",
      "pos": {
        "x": 6,
        "y": 5
@@ -602,8 +638,7 @@ const rules = [
     "sideEffect": "attackEnemy" 
    },
 ];
-
-let move = ( id, direction) => {
+let move = (id, direction) => {
 let x;
 let y;
 
@@ -631,23 +666,15 @@ switch (direction) {
    break;
 }
 
- let newState = Object.assign({}, state, {"pos": {"x": x , "y": y}}); 
+ let newState = Object.assign({}, state, {"id": id, "pos": {"x": x , "y": y}}); 
 
  return newState;
 };
 let attackEnemy = () => { return 2;};
- /* 
-       id , action => input { id: id , action: action}
-  */
-
 function INTERFACE(id, keyCode ) {
    let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
    INPUTHANDLER(input); 
  }
-  /*
-    input  = event
-  */
-
 function INPUTHANDLER(inputObj) {
 
 let input;
@@ -676,17 +703,10 @@ let id = inputObj.id;
 let event =   Object.assign({"id":id}, {"input":input}, {});
 EVENTHANDLER(event); 
   }
-
 // event { id: 'human', input: 'left||up||right||down' }
 function EVENTHANDLER(event) {
-/*
-  let rule = 'walk'; 
-  let fnName = rules[0].sideEffect;
-  let what = rules[0].what;
-  let condition = rules[0].condition;
-  let input = event;
-*/
-  let newState = move({},event.input);
+
+ let newState = move(event.id,event.input);
 
   // collision detection
   if (map[newState.pos.y][newState.pos.x] === 0) {
@@ -714,7 +734,7 @@ function UPDATER(newState) {
 function START() {
 // LISTENER
  document.addEventListener("keydown", function(keyDown) {
-   INTERFACE("human",keyDown.keyCode);
+   INTERFACE("player",keyDown.keyCode);
   });
 
 // Draw map
