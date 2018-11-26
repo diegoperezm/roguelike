@@ -1,5 +1,34 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
+/*
+  canvas 150x150 , tileSize 10
+
+  0 : walkable
+  1 : not walkable (a wall)
+ */ 
+var map = [
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
+  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
+  [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
+  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
+  [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
+
+let w = 150;
+let h = 150;
+let tileSize = 10;
+
 /*
  list of objects  and his positions x y
  */
@@ -23,6 +52,7 @@ let state = [{
       "height": 10
    }
 ];
+
 const objects = [
  {
    "id": "human",
@@ -34,7 +64,9 @@ const objects = [
    "HP": 10
  }
 ]; 
+
 const actions = ["walk"];
+
 
 const rules = [
    {
@@ -52,6 +84,11 @@ const rules = [
     "sideEffect": "attackEnemy" 
    },
 ];
+
+/**
+  Functions
+ */
+
 let move = (id, direction) => {
 let x;
 let y;
@@ -84,11 +121,14 @@ switch (direction) {
  let newState = Object.assign({}, state[indexId], {"id": id, "pos": {"x": x , "y": y}}); 
  return newState;
 };
+
 let attackEnemy = () => { return 2;};
+
 function INTERFACE(id, keyCode ) {
    let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
    INPUTHANDLER(input); 
  }
+
 function INPUTHANDLER(inputObj) {
 
 let input;
@@ -117,6 +157,7 @@ let id = inputObj.id;
 let event =   Object.assign({"id":id}, {"input":input}, {});
 EVENTHANDLER(event); 
   }
+
 // event { id: 'human', input: 'left||up||right||down' }
 function EVENTHANDLER(event) {
 
@@ -132,6 +173,7 @@ function EVENTHANDLER(event) {
 
 }
 
+
 function UPDATER(newState) {
 
   let indexId = state.findIndex( element => element.id===newState.id);
@@ -142,52 +184,13 @@ function UPDATER(newState) {
    
   state[indexId] = newState;
 
-  draw();
+  drawMap();
 
 };
 
 
-function START() {
-// LISTENER
- document.addEventListener("keydown", function(keyDown) {
-   INTERFACE("player",keyDown.keyCode);
-  });
-  
-// Draw map
- draw();
-}
 
-let w = 150;
-let h = 150;
-let tileSize = 10;
-
-
-/*
-  0 : walkable
-  1 : not walkable (a wall)
- */ 
-// canvas 150x150 , tileSize 10
-var map = [
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-
-];
-
-  
-function draw (){
+function drawMap (){
   ctx.clearRect(0, 0, w, h);
   ctx.fillStyle = "rgba(255,0,0,0.6)";
 
@@ -198,15 +201,22 @@ function draw (){
       }
     });
   });
-
 }
-
 
 function drawTile (x,y){
   ctx.fillRect(
     x * tileSize, y * tileSize,
     tileSize, tileSize
   );
+}
+
+function START() {
+// LISTENER
+ document.addEventListener("keydown", function(keyDown) {
+   INTERFACE("player",keyDown.keyCode);
+  });
+  
+ drawMap();
 }
 
 START();
