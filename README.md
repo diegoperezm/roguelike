@@ -1,35 +1,35 @@
-- [GRAPH](#orga52bb4c)
-- [GRAPH EXPLANATION](#org1fe5c54)
-  - [GLOBAL:](#orge67f970)
-  - [PROGRAM](#orgabffbb7)
-  - [WORLD](#org57e32f8)
-  - [ORDER OF EXECUTION  [N]](#org2617f18)
-- [SETUP](#org5812b55)
-  - [Dependencies](#org39d96ea)
-- [IMPLEMENTATION HTML](#org773dd82)
-- [IMPLEMENTATION JS](#org4960272)
-  - [first GOAL make the player move (any direction)](#orge9a1b91)
-    - [canvas](#org40dd2c8)
-    - [variables](#org662ccf4)
-    - [interface and handlers](#org9562e8c)
-    - [functions](#orgc6036f1)
-    - [MAIN FUNCTION](#orgbf38795)
+- [GRAPH](#orgf197901)
+- [GRAPH EXPLANATION](#org934b1d0)
+  - [GLOBAL:](#org069ba34)
+  - [PROGRAM](#orgd3602d8)
+  - [WORLD](#org0090286)
+  - [ORDER OF EXECUTION  [N]](#orgd6fd635)
+- [SETUP](#org517e007)
+  - [Dependencies](#orgf942c52)
+- [IMPLEMENTATION HTML](#orgd41d0fc)
+- [IMPLEMENTATION JS](#org27553b2)
+  - [first GOAL make the player move (any direction)](#org1ea13e1)
+    - [canvas](#orgbff49a2)
+    - [variables](#orge25f61d)
+    - [interface and handlers](#org527285b)
+    - [functions](#orgc8fa826)
+    - [MAIN FUNCTION](#org810209e)
 
 
 
-<a id="orga52bb4c"></a>
+<a id="orgf197901"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org1fe5c54"></a>
+<a id="org934b1d0"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="orge67f970"></a>
+<a id="org069ba34"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgabffbb7"></a>
+<a id="orgd3602d8"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org57e32f8"></a>
+<a id="org0090286"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org2617f18"></a>
+<a id="orgd6fd635"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org5812b55"></a>
+<a id="org517e007"></a>
 
 # SETUP
 
 
-<a id="org39d96ea"></a>
+<a id="orgf942c52"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org773dd82"></a>
+<a id="orgd41d0fc"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org4960272"></a>
+<a id="org27553b2"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="orge9a1b91"></a>
+<a id="org1ea13e1"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org40dd2c8"></a>
+<a id="orgbff49a2"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org662ccf4"></a>
+<a id="orge25f61d"></a>
 
 ### variables
 
@@ -218,23 +218,28 @@ const ctx = canvas.getContext("2d");
     -   Code example:
     
     ```js
+    /*
+      canvas 150x150 , tileSize 10
+    
+      0 : walkable
+      1 : not walkable (a wall)
+     */ 
     var map = [
       [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,1,1,1,1,1,1,0,0,"M",0,1],
       [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-      [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-      [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,"P",0,0,0,0,0,0,0,1],
       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
       [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
       [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-      [1,0,0,0,0,0,0,0,0,0,1,1,0,0,1],
-      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
+      [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
       [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-    
     ];
     ```
 
@@ -315,7 +320,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org9562e8c"></a>
+<a id="org527285b"></a>
 
 ### interface and handlers
 
@@ -406,11 +411,11 @@ const ctx = canvas.getContext("2d");
       let prevState = state[indexId];
     
       map[prevState.pos.y][prevState.pos.x] = 0; // update map
-      map[newState.pos.y][newState.pos.x] = 1;  // update map
+      map[newState.pos.y][newState.pos.x] = "P";  // update map
     
       state[indexId] = newState;
     
-      draw();
+      drawMap();
     
     };
     
@@ -418,7 +423,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgc6036f1"></a>
+<a id="orgc8fa826"></a>
 
 ### functions
 
@@ -444,8 +449,7 @@ const ctx = canvas.getContext("2d");
            INTERFACE("player",keyDown.keyCode);
           });
         
-        // Draw map
-         draw();
+         drawMap();
         }
         ```
     
@@ -469,8 +473,7 @@ const ctx = canvas.getContext("2d");
            INTERFACE("player",keyDown.keyCode);
           });
         
-        // Draw map
-         draw();
+         drawMap();
         }
         
         START();
@@ -548,14 +551,95 @@ const ctx = canvas.getContext("2d");
         });
         ```
 
+4.  drawMap
 
-<a id="orgbf38795"></a>
+    1.  Declaration
+    
+        ```js
+        function drawMap (){
+          ctx.clearRect(0, 0, w, h);
+          let color;
+        
+          map.forEach(function(row,i){
+            row.forEach(function(tile,j){
+        
+              if(tile !== 0){ //if tile is not walkable
+        
+              switch (tile) {
+        
+              // Player 
+               case "P":
+        	color="rgba(255,0,0,1)";
+               break;
+        
+              // Monster 
+               case "M":
+        	color="rgba(0,0,255,1)";
+               break;
+        
+              // Wall
+               default:
+        	color=  "RGBA(200, 200, 200, 1)";
+              }
+               ctx.fillStyle = color;
+               drawTile(j,i); //draw a rectangle at j,i
+              }
+        
+            });
+          });
+        }
+        ```
+
+5.  drawTile
+
+    1.  Declaration
+    
+        ```js
+        function drawTile (x,y){
+          ctx.fillRect(
+            x * tileSize, y * tileSize,
+            tileSize, tileSize
+          );
+        }
+        ```
+
+
+<a id="org810209e"></a>
 
 ### MAIN FUNCTION
 
 ```js
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
+/*
+  canvas 150x150 , tileSize 10
+
+  0 : walkable
+  1 : not walkable (a wall)
+ */ 
+var map = [
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,1,1,1,1,1,0,0,"M",0,1],
+  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
+  [1,0,0,0,0,0,"P",0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
+  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
+  [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
+
+let w = 150;
+let h = 150;
+let tileSize = 10;
+
 /*
  list of objects  and his positions x y
  */
@@ -579,6 +663,7 @@ let state = [{
       "height": 10
    }
 ];
+
 const objects = [
  {
    "id": "human",
@@ -590,7 +675,9 @@ const objects = [
    "HP": 10
  }
 ]; 
+
 const actions = ["walk"];
+
 
 const rules = [
    {
@@ -608,6 +695,11 @@ const rules = [
     "sideEffect": "attackEnemy" 
    },
 ];
+
+/**
+  Functions
+ */
+
 let move = (id, direction) => {
 let x;
 let y;
@@ -640,11 +732,14 @@ switch (direction) {
  let newState = Object.assign({}, state[indexId], {"id": id, "pos": {"x": x , "y": y}}); 
  return newState;
 };
+
 let attackEnemy = () => { return 2;};
+
 function INTERFACE(id, keyCode ) {
    let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
    INPUTHANDLER(input); 
  }
+
 function INPUTHANDLER(inputObj) {
 
 let input;
@@ -673,6 +768,7 @@ let id = inputObj.id;
 let event =   Object.assign({"id":id}, {"input":input}, {});
 EVENTHANDLER(event); 
   }
+
 // event { id: 'human', input: 'left||up||right||down' }
 function EVENTHANDLER(event) {
 
@@ -688,75 +784,55 @@ function EVENTHANDLER(event) {
 
 }
 
+
 function UPDATER(newState) {
 
   let indexId = state.findIndex( element => element.id===newState.id);
   let prevState = state[indexId];
 
   map[prevState.pos.y][prevState.pos.x] = 0; // update map
-  map[newState.pos.y][newState.pos.x] = 1;  // update map
+  map[newState.pos.y][newState.pos.x] = "P";  // update map
 
   state[indexId] = newState;
 
-  draw();
+  drawMap();
 
 };
 
 
-function START() {
-// LISTENER
- document.addEventListener("keydown", function(keyDown) {
-   INTERFACE("player",keyDown.keyCode);
-  });
 
-// Draw map
- draw();
-}
-
-let w = 150;
-let h = 150;
-let tileSize = 10;
-
-
-/*
-  0 : walkable
-  1 : not walkable (a wall)
- */ 
-// canvas 150x150 , tileSize 10
-var map = [
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-
-];
-
-
-function draw (){
+function drawMap (){
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = "rgba(255,0,0,0.6)";
+  let color;
 
   map.forEach(function(row,i){
     row.forEach(function(tile,j){
+
       if(tile !== 0){ //if tile is not walkable
+
+      switch (tile) {
+
+      // Player 
+       case "P":
+	color="rgba(255,0,0,1)";
+       break;
+
+      // Monster 
+       case "M":
+	color="rgba(0,0,255,1)";
+       break;
+
+      // Wall
+       default:
+	color=  "RGBA(200, 200, 200, 1)";
+      }
+       ctx.fillStyle = color;
        drawTile(j,i); //draw a rectangle at j,i
       }
+
     });
   });
-
 }
-
 
 function drawTile (x,y){
   ctx.fillRect(
@@ -765,7 +841,14 @@ function drawTile (x,y){
   );
 }
 
-START();
+function START() {
+// LISTENER
+ document.addEventListener("keydown", function(keyDown) {
+   INTERFACE("player",keyDown.keyCode);
+  });
 
-//INTERFACE("human" ,  "walk");
+ drawMap();
+}
+
+START();
 ```
