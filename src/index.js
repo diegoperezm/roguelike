@@ -11,9 +11,9 @@ var map = [
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,1,1,1,1,1,1,0,0,"M",0,1],
   [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,"P",0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
@@ -180,7 +180,7 @@ function UPDATER(newState) {
   let prevState = state[indexId];
    
   map[prevState.pos.y][prevState.pos.x] = 0; // update map
-  map[newState.pos.y][newState.pos.x] = 1;  // update map
+  map[newState.pos.y][newState.pos.x] = "P";  // update map
    
   state[indexId] = newState;
 
@@ -192,13 +192,33 @@ function UPDATER(newState) {
 
 function drawMap (){
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = "rgba(255,0,0,0.6)";
+  let color;
 
   map.forEach(function(row,i){
     row.forEach(function(tile,j){
+
       if(tile !== 0){ //if tile is not walkable
+      
+      switch (tile) {
+
+      // Player 
+       case "P":
+        color="rgba(255,0,0,1)";
+       break;
+
+      // Monster 
+       case "M":
+        color="rgba(0,0,255,1)";
+       break;
+
+      // Wall
+       default:
+        color=  "RGBA(200, 200, 200, 1)";
+      }
+       ctx.fillStyle = color;
        drawTile(j,i); //draw a rectangle at j,i
       }
+
     });
   });
 }
@@ -220,5 +240,3 @@ function START() {
 }
 
 START();
-
-//INTERFACE("human" ,  "walk");
