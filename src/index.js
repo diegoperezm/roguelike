@@ -124,7 +124,25 @@ switch (direction) {
  return newState;
 };
 
-let attackEnemy = () => { return 2;};
+let attackEnemy = (id,x,y) => { 
+
+ let playerIndex =  state.findIndex(element => element.id===id); 
+ let player = state[playerIndex];
+ let playerHP =  player.HP;
+ 
+
+ let monsterIndex = state.findIndex(element => element.id==="monster"); 
+    let monster = state[monsterIndex];
+    let monsterHP = monster.HP;
+
+   playerHP  -= 1; 
+   monsterHP -= 1;
+
+   let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
+   let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
+   return [newStatePlayer,newStateMonster];
+
+ };
 
 function INTERFACE(id, keyCode ) {
    let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
@@ -163,11 +181,23 @@ EVENTHANDLER(event);
 // event { id: 'human', input: 'left||up||right||down' }
 function EVENTHANDLER(event) {
 
- let newState = move(event.id,event.input);
+ let newState; 
 
-  // collision detection
-  if (map[newState.pos.y][newState.pos.x] === 0) {
-    UPDATER(newState); // update state
+// is monster alive?
+ if(  state[1] != undefined && state[1].HP === 0 ) {
+     newState = state.pop();
+     UPDATER(newState);
+ }
+
+ newState =  move(event.id,event.input);
+
+  if(map[newState.pos.y][newState.pos.x] === 0) {
+     UPDATER(newState); // update state
+
+  } else if (map[newState.pos.y][newState.pos.x] === "M") {
+     newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);     
+     UPDATER(newState); 
+
   } else {
     console.log("collision detected");
   }
@@ -175,18 +205,25 @@ function EVENTHANDLER(event) {
 
 }
 
-
 function UPDATER(newState) {
 
-// only update one element 
-let indx = state.findIndex(ele => ele.id === newState.id);
-state[indx] = newState;
+if(Array.isArray(newState)) {
+ newState.forEach(function (elem) {
+   let indx = state.findIndex(ele => ele.id === elem.id);
+   state[indx] = elem;
+});
+} else {
+    let indx = state.findIndex(ele => ele.id === newState.id);
+    indx != -1 ? state[indx] = newState : console.log("nothing to update");
+}
+
+
 
 // clean map
 map.forEach(function (elem) {
  for (let i = 0; i < elem.length; i++) {
    if(elem[i] != 1 ) {  // don't remove the walls
-      elem[i]  = 0 
+      elem[i]  = 0;
    }
  }
 });
