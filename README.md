@@ -1,35 +1,35 @@
-- [GRAPH](#orgf197901)
-- [GRAPH EXPLANATION](#org934b1d0)
-  - [GLOBAL:](#org069ba34)
-  - [PROGRAM](#orgd3602d8)
-  - [WORLD](#org0090286)
-  - [ORDER OF EXECUTION  [N]](#orgd6fd635)
-- [SETUP](#org517e007)
-  - [Dependencies](#orgf942c52)
-- [IMPLEMENTATION HTML](#orgd41d0fc)
-- [IMPLEMENTATION JS](#org27553b2)
-  - [first GOAL make the player move (any direction)](#org1ea13e1)
-    - [canvas](#orgbff49a2)
-    - [variables](#orge25f61d)
-    - [interface and handlers](#org527285b)
-    - [functions](#orgc8fa826)
-    - [MAIN FUNCTION](#org810209e)
+- [GRAPH](#orgd689cee)
+- [GRAPH EXPLANATION](#org8e224ad)
+  - [GLOBAL:](#orgea6f23e)
+  - [PROGRAM](#orgd55d05c)
+  - [WORLD](#org3554f28)
+  - [ORDER OF EXECUTION  [N]](#orgc6d28ab)
+- [SETUP](#orge42624e)
+  - [Dependencies](#org77389d8)
+- [IMPLEMENTATION HTML](#orgbff323f)
+- [IMPLEMENTATION JS](#org3d64ca3)
+  - [first GOAL make the player move (any direction)](#orgd5d7477)
+    - [canvas](#org882da39)
+    - [variables](#org11b02e5)
+    - [interface and handlers](#org671b6f4)
+    - [functions](#org25661d5)
+    - [MAIN FUNCTION](#org7a5bf8e)
 
 
 
-<a id="orgf197901"></a>
+<a id="orgd689cee"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org934b1d0"></a>
+<a id="org8e224ad"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org069ba34"></a>
+<a id="orgea6f23e"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgd3602d8"></a>
+<a id="orgd55d05c"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org0090286"></a>
+<a id="org3554f28"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="orgd6fd635"></a>
+<a id="orgc6d28ab"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org517e007"></a>
+<a id="orge42624e"></a>
 
 # SETUP
 
 
-<a id="orgf942c52"></a>
+<a id="org77389d8"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orgd41d0fc"></a>
+<a id="orgbff323f"></a>
 
 # IMPLEMENTATION HTML
 
@@ -149,17 +149,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org27553b2"></a>
+<a id="org3d64ca3"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org1ea13e1"></a>
+<a id="orgd5d7477"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgbff49a2"></a>
+<a id="org882da39"></a>
 
 ### canvas
 
@@ -169,7 +169,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orge25f61d"></a>
+<a id="org11b02e5"></a>
 
 ### variables
 
@@ -225,22 +225,22 @@ const ctx = canvas.getContext("2d");
       1 : not walkable (a wall)
      */ 
     var map = [
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,0,0,0,1,1,1,1,1,1,0,0,"M",0,1],
-      [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-      [1,0,0,0,0,0,"P",0,0,0,0,0,0,0,1],
-      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-      [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-      [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
-      [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-      [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-      [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-    ];
+      [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+      [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 'M', 0, 1 ],
+      [ 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 0, 0, 'P', 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+      [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ];
+    
     ```
 
 2.  state
@@ -261,16 +261,18 @@ const ctx = canvas.getContext("2d");
            "y": 5
           },
           "width": 10,
-          "height": 10
+          "height": 10,
+          "HP":10
       },
       {
          "id": "monster",
          "pos": {
-           "x": 2,
-           "y": 12
+           "x": 12,
+           "y": 3 
           },
           "width": 10,
-          "height": 10
+          "height": 10,
+          "HP": 3
        }
     ];
     ```
@@ -320,7 +322,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org527285b"></a>
+<a id="org671b6f4"></a>
 
 ### interface and handlers
 
@@ -393,6 +395,7 @@ const ctx = canvas.getContext("2d");
     
     
     }
+    
     ```
 
 4.  UPDATER
@@ -404,18 +407,31 @@ const ctx = canvas.getContext("2d");
         -   draw
     
     ```js
-    
     function UPDATER(newState) {
     
-      let indexId = state.findIndex( element => element.id===newState.id);
-      let prevState = state[indexId];
+    // only update one element 
+    let indx = state.findIndex(ele => ele.id === newState.id);
+    state[indx] = newState;
     
-      map[prevState.pos.y][prevState.pos.x] = 0; // update map
-      map[newState.pos.y][newState.pos.x] = "P";  // update map
+    // clean map
+    map.forEach(function (elem) {
+     for (let i = 0; i < elem.length; i++) {
+       if(elem[i] != 1 ) {  // don't remove the walls
+          elem[i]  = 0 
+       }
+     }
+    });
     
-      state[indexId] = newState;
+    // update state
+    state.forEach(function (elem) {
+      let symbol = elem.id === "player" ? "P" : "M"
+      map[elem.pos.y][elem.pos.x] = symbol;
+    });
     
+    
+    // draw map with the current state
       drawMap();
+    
     
     };
     
@@ -423,7 +439,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgc8fa826"></a>
+<a id="org25661d5"></a>
 
 ### functions
 
@@ -604,7 +620,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="org810209e"></a>
+<a id="org7a5bf8e"></a>
 
 ### MAIN FUNCTION
 
@@ -619,22 +635,22 @@ const ctx = canvas.getContext("2d");
   1 : not walkable (a wall)
  */ 
 var map = [
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,"M",0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,0,0,"P",0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-];
+  [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 'M', 0, 1 ],
+  [ 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 'P', 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1 ],
+  [ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ];
+
 
 let w = 150;
 let h = 150;
@@ -651,16 +667,18 @@ let state = [{
        "y": 5
       },
       "width": 10,
-      "height": 10
+      "height": 10,
+      "HP":10
   },
   {
      "id": "monster",
      "pos": {
-       "x": 2,
-       "y": 12
+       "x": 12,
+       "y": 3 
       },
       "width": 10,
-      "height": 10
+      "height": 10,
+      "HP": 3
    }
 ];
 
@@ -787,15 +805,29 @@ function EVENTHANDLER(event) {
 
 function UPDATER(newState) {
 
-  let indexId = state.findIndex( element => element.id===newState.id);
-  let prevState = state[indexId];
+// only update one element 
+let indx = state.findIndex(ele => ele.id === newState.id);
+state[indx] = newState;
 
-  map[prevState.pos.y][prevState.pos.x] = 0; // update map
-  map[newState.pos.y][newState.pos.x] = "P";  // update map
+// clean map
+map.forEach(function (elem) {
+ for (let i = 0; i < elem.length; i++) {
+   if(elem[i] != 1 ) {  // don't remove the walls
+      elem[i]  = 0 
+   }
+ }
+});
 
-  state[indexId] = newState;
+// update state
+state.forEach(function (elem) {
+  let symbol = elem.id === "player" ? "P" : "M"
+  map[elem.pos.y][elem.pos.x] = symbol;
+});
 
+
+// draw map with the current state
   drawMap();
+
 
 };
 

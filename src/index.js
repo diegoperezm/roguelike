@@ -8,22 +8,22 @@ const ctx = canvas.getContext("2d");
   1 : not walkable (a wall)
  */ 
 var map = [
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,"M",0,1],
-  [1,0,0,0,1,1,1,1,1,1,0,0,0,0,1],
-  [1,0,0,0,0,0,"P",0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,0,0,0,0,0,0,0,0,1,1,1,0,0,1],
-  [1,1,1,1,1,1,1,1,0,0,1,1,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-];
+  [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 'M', 0, 1 ],
+  [ 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 'P', 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1 ],
+  [ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+  [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ];
+
 
 let w = 150;
 let h = 150;
@@ -40,16 +40,18 @@ let state = [{
        "y": 5
       },
       "width": 10,
-      "height": 10
+      "height": 10,
+      "HP":10
   },
   {
      "id": "monster",
      "pos": {
-       "x": 2,
-       "y": 12
+       "x": 12,
+       "y": 3 
       },
       "width": 10,
-      "height": 10
+      "height": 10,
+      "HP": 3
    }
 ];
 
@@ -176,15 +178,29 @@ function EVENTHANDLER(event) {
 
 function UPDATER(newState) {
 
-  let indexId = state.findIndex( element => element.id===newState.id);
-  let prevState = state[indexId];
-   
-  map[prevState.pos.y][prevState.pos.x] = 0; // update map
-  map[newState.pos.y][newState.pos.x] = "P";  // update map
-   
-  state[indexId] = newState;
+// only update one element 
+let indx = state.findIndex(ele => ele.id === newState.id);
+state[indx] = newState;
 
+// clean map
+map.forEach(function (elem) {
+ for (let i = 0; i < elem.length; i++) {
+   if(elem[i] != 1 ) {  // don't remove the walls
+      elem[i]  = 0 
+   }
+ }
+});
+
+// update state
+state.forEach(function (elem) {
+  let symbol = elem.id === "player" ? "P" : "M"
+  map[elem.pos.y][elem.pos.x] = symbol;
+});
+
+
+// draw map with the current state
   drawMap();
+
 
 };
 
