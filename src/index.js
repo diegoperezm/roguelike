@@ -119,6 +119,30 @@ playerPosY.textContent =   ` y: ${state[0].pos.y}`;
 playerHP.textContent   =   `HP: ${state[0].HP}`;
 }
 
+function monsterInfoFn()  {
+
+let monsterInfo = document.getElementById("monsterInfo");
+let monsterInfoList = document.getElementById("monsterInfoList");
+let monsterId   = document.getElementById("monsterId");
+let monsterPosX = document.getElementById("monsterPosX");
+let monsterPosY = document.getElementById("monsterPosY");
+
+if(state[1] !== undefined) {
+monsterId.textContent   =   `id: ${state[1].id}`;
+monsterPosX.textContent =   ` x: ${state[1].pos.x}`;
+monsterPosY.textContent =   ` y: ${state[1].pos.y}`;
+monsterHP.textContent   =   `HP: ${state[1].HP}`;
+
+} else if (monsterInfoList != null) {
+
+console.log("nothing to update 2");
+monsterInfoList.remove();
+
+}
+
+}
+
+
 let move = (id, direction) => {
 let x;
 let y;
@@ -269,6 +293,10 @@ state.forEach(function (elem) {
 // update player info with current state
    playerInfo();
 
+
+// update monster info with current state
+   monsterInfoFn();
+
 };
 
 
@@ -321,6 +349,7 @@ function START() {
   
  drawMap();
  playerInfo();
+ monsterInfoFn();
 }
 
 START();

@@ -1,35 +1,35 @@
-- [GRAPH](#orge4762ae)
-- [GRAPH EXPLANATION](#orga930b2c)
-  - [GLOBAL:](#org06bdc2e)
-  - [PROGRAM](#org3934943)
-  - [WORLD](#org0b70c85)
-  - [ORDER OF EXECUTION  [N]](#orgcf43554)
-- [SETUP](#orgdac5729)
-  - [Dependencies](#org05ff50a)
-- [IMPLEMENTATION HTML](#orga4d04b8)
-- [IMPLEMENTATION JS](#org055d958)
-  - [first GOAL make the player move (any direction)](#orgac224ff)
-    - [canvas](#org713663e)
-    - [variables](#org13c67b0)
-    - [interface and handlers](#org111aa2f)
-    - [functions](#org6385e17)
-    - [MAIN FUNCTION](#orge3dbd56)
+- [GRAPH](#orgdb88281)
+- [GRAPH EXPLANATION](#orgc68bb89)
+  - [GLOBAL:](#org3a84254)
+  - [PROGRAM](#org1429e6e)
+  - [WORLD](#org380d5fa)
+  - [ORDER OF EXECUTION  [N]](#org13efbc2)
+- [SETUP](#org78e4413)
+  - [Dependencies](#org4903c56)
+- [IMPLEMENTATION HTML](#org94b83e4)
+- [IMPLEMENTATION JS](#org9e3c73f)
+  - [first GOAL make the player move (any direction)](#org0b9ecd4)
+    - [canvas](#org1de18c7)
+    - [variables](#orga355fcd)
+    - [interface and handlers](#org7503aa7)
+    - [functions](#orga790b3f)
+    - [MAIN FUNCTION](#orgfef2dfa)
 
 
 
-<a id="orge4762ae"></a>
+<a id="orgdb88281"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orga930b2c"></a>
+<a id="orgc68bb89"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org06bdc2e"></a>
+<a id="org3a84254"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org3934943"></a>
+<a id="org1429e6e"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org0b70c85"></a>
+<a id="org380d5fa"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="orgcf43554"></a>
+<a id="org13efbc2"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgdac5729"></a>
+<a id="org78e4413"></a>
 
 # SETUP
 
 
-<a id="org05ff50a"></a>
+<a id="org4903c56"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orga4d04b8"></a>
+<a id="org94b83e4"></a>
 
 # IMPLEMENTATION HTML
 
@@ -177,24 +177,33 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
        <li id="playerHP"></li>
       </ul>
      </div>
-     <div class="worldInfo"  id="worldInfo"></div>
+     <div class="worldInfo"  id="worldInfo">
+       <div class="monsterInfo" id="monsterInfo">
+	<ul id="monsterInfoList">
+	 <li id="monsterId"></li>
+	 <li id="monsterPosX"></li>
+	 <li id="monsterPosY"></li>
+	 <li id="monsterHP"></li>
+	</ul>
+       </div> 
+     </div>
     </body>
     <script src="index.js"></script>
 </html>
 ```
 
 
-<a id="org055d958"></a>
+<a id="org9e3c73f"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="orgac224ff"></a>
+<a id="org0b9ecd4"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org713663e"></a>
+<a id="org1de18c7"></a>
 
 ### canvas
 
@@ -204,7 +213,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org13c67b0"></a>
+<a id="orga355fcd"></a>
 
 ### variables
 
@@ -374,7 +383,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org111aa2f"></a>
+<a id="org7503aa7"></a>
 
 ### interface and handlers
 
@@ -506,13 +515,17 @@ const ctx = canvas.getContext("2d");
     // update player info with current state
        playerInfo();
     
+    
+    // update monster info with current state
+       monsterInfoFn();
+    
     };
     
     
     ```
 
 
-<a id="org6385e17"></a>
+<a id="orga790b3f"></a>
 
 ### functions
 
@@ -540,6 +553,7 @@ const ctx = canvas.getContext("2d");
         
          drawMap();
          playerInfo();
+         monsterInfoFn();
         }
         ```
     
@@ -565,6 +579,7 @@ const ctx = canvas.getContext("2d");
         
          drawMap();
          playerInfo();
+         monsterInfoFn();
         }
         
         START();
@@ -600,7 +615,34 @@ const ctx = canvas.getContext("2d");
         }
         ```
 
-3.  move
+3.  monsterInfoFn
+
+    1.  Declaration
+    
+        ```js
+        function monsterInfoFn()  {
+        
+        let monsterInfo = document.getElementById("monsterInfo");
+        let monsterInfoList = document.getElementById("monsterInfoList");
+        let monsterId   = document.getElementById("monsterId");
+        let monsterPosX = document.getElementById("monsterPosX");
+        let monsterPosY = document.getElementById("monsterPosY");
+        
+        if(state[1] !== undefined) {
+           monsterId.textContent   =   `id: ${state[1].id}`;
+           monsterPosX.textContent =   ` x: ${state[1].pos.x}`;
+           monsterPosY.textContent =   ` y: ${state[1].pos.y}`;
+           monsterHP.textContent   =   `HP: ${state[1].HP}`;
+        
+        } else if (monsterInfoList != null) {
+           monsterInfoList.remove();
+        }
+        
+        }
+        
+        ```
+
+4.  move
 
     1.  Declaration
     
@@ -639,7 +681,7 @@ const ctx = canvas.getContext("2d");
         };
         ```
 
-4.  attackEnemy
+5.  attackEnemy
 
     1.  Declaration
     
@@ -696,7 +738,7 @@ const ctx = canvas.getContext("2d");
         });
         ```
 
-5.  drawMap
+6.  drawMap
 
     1.  Declaration
     
@@ -735,7 +777,7 @@ const ctx = canvas.getContext("2d");
         }
         ```
 
-6.  drawTile
+7.  drawTile
 
     1.  Declaration
     
@@ -749,7 +791,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orge3dbd56"></a>
+<a id="orgfef2dfa"></a>
 
 ### MAIN FUNCTION
 
@@ -874,6 +916,27 @@ playerPosX.textContent =   ` x: ${state[0].pos.x}`;
 playerPosY.textContent =   ` y: ${state[0].pos.y}`;
 playerHP.textContent   =   `HP: ${state[0].HP}`;
 }
+
+function monsterInfoFn()  {
+
+let monsterInfo = document.getElementById("monsterInfo");
+let monsterInfoList = document.getElementById("monsterInfoList");
+let monsterId   = document.getElementById("monsterId");
+let monsterPosX = document.getElementById("monsterPosX");
+let monsterPosY = document.getElementById("monsterPosY");
+
+if(state[1] !== undefined) {
+   monsterId.textContent   =   `id: ${state[1].id}`;
+   monsterPosX.textContent =   ` x: ${state[1].pos.x}`;
+   monsterPosY.textContent =   ` y: ${state[1].pos.y}`;
+   monsterHP.textContent   =   `HP: ${state[1].HP}`;
+
+} else if (monsterInfoList != null) {
+   monsterInfoList.remove();
+}
+
+}
+
 
 let move = (id, direction) => {
 let x;
@@ -1025,6 +1088,10 @@ state.forEach(function (elem) {
 // update player info with current state
    playerInfo();
 
+
+// update monster info with current state
+   monsterInfoFn();
+
 };
 
 
@@ -1077,6 +1144,7 @@ function START() {
 
  drawMap();
  playerInfo();
+ monsterInfoFn();
 }
 
 START();
