@@ -1,35 +1,35 @@
-- [GRAPH](#org34b6b98)
-- [GRAPH EXPLANATION](#orge015967)
-  - [GLOBAL:](#org180d93c)
-  - [PROGRAM](#orgd20b2c6)
-  - [WORLD](#orgf81e90a)
-  - [ORDER OF EXECUTION  [N]](#org1e5d360)
-- [SETUP](#org18231d2)
-  - [Dependencies](#org0e6938e)
-- [IMPLEMENTATION HTML](#orgf12eea1)
-- [IMPLEMENTATION JS](#orgc542888)
-  - [first GOAL make the player move (any direction)](#orgd8712ec)
-    - [canvas](#orgf9d214e)
-    - [variables](#orge87ed0b)
-    - [interface and handlers](#orgbe59b5c)
-    - [functions](#orge05bda4)
-    - [MAIN FUNCTION](#orga8f5c91)
+- [GRAPH](#org53d7eb7)
+- [GRAPH EXPLANATION](#org55f7eb7)
+  - [GLOBAL:](#org1d2e4f3)
+  - [PROGRAM](#org377ed91)
+  - [WORLD](#orgfceb933)
+  - [ORDER OF EXECUTION  [N]](#org8726cf7)
+- [SETUP](#orgb88b230)
+  - [Dependencies](#orgdb9f4a7)
+- [IMPLEMENTATION HTML](#org102129f)
+- [IMPLEMENTATION JS](#orgc5c859d)
+  - [first GOAL make the player move (any direction)](#orgac3b400)
+    - [canvas](#org352a287)
+    - [variables](#org81ab55e)
+    - [interface and handlers](#org53474a0)
+    - [functions](#orgc3aef3d)
+    - [MAIN FUNCTION](#orgda08617)
 
 
 
-<a id="org34b6b98"></a>
+<a id="org53d7eb7"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="orge015967"></a>
+<a id="org55f7eb7"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org180d93c"></a>
+<a id="org1d2e4f3"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgd20b2c6"></a>
+<a id="org377ed91"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="orgf81e90a"></a>
+<a id="orgfceb933"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org1e5d360"></a>
+<a id="org8726cf7"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org18231d2"></a>
+<a id="orgb88b230"></a>
 
 # SETUP
 
 
-<a id="org0e6938e"></a>
+<a id="orgdb9f4a7"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orgf12eea1"></a>
+<a id="org102129f"></a>
 
 # IMPLEMENTATION HTML
 
@@ -129,37 +129,64 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 	<title>Roguelike</title>
     </head>
     <style>
-     .container {
-	margin: 0 auto;
-	width:  400px;
-	height: 400px;
+     body {
+      overflow: hidden;
+     }
+      *, *:after, *:before {
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	 box-sizing: border-box;
       }
+     .container {
+	 max-width: 1024px;
+	 margin: 0 auto;
+	 display: grid;
+	 grid-template-columns: repeat(12, [col-start] 1fr);
+	 row-gap: 10px;
+	 column-gap: 50px;
+      }
+
      .canvas {
-      margin: 0 auto;
-      border: 1px solid black;
+	 grid-column: col-start 3/span 4;
      } 
+     .playerInfo {
+	 grid-column: col-start 8/span 4;
+	 max-width: 100%; 
+	 border: 10px solid black;
+     }
+     .worldInfo {
+	 grid-column: col-start 3/span 9;
+	 grid-row: 3/6;
+	 max-width: 100%; 
+	 max-height: 100%; 
+	 min-height: 300px; 
+	 border: 10px solid black;
+
+    } 
+
     </style>
     <body>
      <div class="container">
      <canvas id="canvas" class="canvas" width="400" height="400"></canvas>
-     </div>
+     <div class="playerInfo" id="playerInfo"></div>
+     <div class="worldInfo"  id="worldInfo"></div>
     </body>
     <script src="index.js"></script>
 </html>
 ```
 
 
-<a id="orgc542888"></a>
+<a id="orgc5c859d"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="orgd8712ec"></a>
+<a id="orgac3b400"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="orgf9d214e"></a>
+<a id="org352a287"></a>
 
 ### canvas
 
@@ -169,7 +196,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orge87ed0b"></a>
+<a id="org81ab55e"></a>
 
 ### variables
 
@@ -339,7 +366,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgbe59b5c"></a>
+<a id="org53474a0"></a>
 
 ### interface and handlers
 
@@ -475,7 +502,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orge05bda4"></a>
+<a id="orgc3aef3d"></a>
 
 ### functions
 
@@ -692,7 +719,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orga8f5c91"></a>
+<a id="orgda08617"></a>
 
 ### MAIN FUNCTION
 
