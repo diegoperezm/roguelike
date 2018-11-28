@@ -1,35 +1,35 @@
-- [GRAPH](#org4083a2f)
-- [GRAPH EXPLANATION](#org2b16e97)
-  - [GLOBAL:](#org5ec0d07)
-  - [PROGRAM](#org4a98e4e)
-  - [WORLD](#org60e7bc8)
-  - [ORDER OF EXECUTION  [N]](#org0f20e83)
-- [SETUP](#orgcabf624)
-  - [Dependencies](#org5b59885)
-- [IMPLEMENTATION HTML](#orga3f7021)
-- [IMPLEMENTATION JS](#org046ff36)
-  - [first GOAL make the player move (any direction)](#org211f7af)
-    - [canvas](#org266b6d8)
-    - [variables](#org31068ec)
-    - [interface and handlers](#org85f20c8)
-    - [functions](#org9ac8b4b)
-    - [MAIN FUNCTION](#orga1b39ec)
+- [GRAPH](#orge4762ae)
+- [GRAPH EXPLANATION](#orga930b2c)
+  - [GLOBAL:](#org06bdc2e)
+  - [PROGRAM](#org3934943)
+  - [WORLD](#org0b70c85)
+  - [ORDER OF EXECUTION  [N]](#orgcf43554)
+- [SETUP](#orgdac5729)
+  - [Dependencies](#org05ff50a)
+- [IMPLEMENTATION HTML](#orga4d04b8)
+- [IMPLEMENTATION JS](#org055d958)
+  - [first GOAL make the player move (any direction)](#orgac224ff)
+    - [canvas](#org713663e)
+    - [variables](#org13c67b0)
+    - [interface and handlers](#org111aa2f)
+    - [functions](#org6385e17)
+    - [MAIN FUNCTION](#orge3dbd56)
 
 
 
-<a id="org4083a2f"></a>
+<a id="orge4762ae"></a>
 
 # GRAPH
 
 ![img](updaterupdating.png)
 
 
-<a id="org2b16e97"></a>
+<a id="orga930b2c"></a>
 
 # GRAPH EXPLANATION
 
 
-<a id="org5ec0d07"></a>
+<a id="org06bdc2e"></a>
 
 ## GLOBAL:
 
@@ -60,7 +60,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org4a98e4e"></a>
+<a id="org3934943"></a>
 
 ## PROGRAM
 
@@ -75,14 +75,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org60e7bc8"></a>
+<a id="org0b70c85"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org0f20e83"></a>
+<a id="orgcf43554"></a>
 
 ## ORDER OF EXECUTION  [N]
 
@@ -101,12 +101,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgcabf624"></a>
+<a id="orgdac5729"></a>
 
 # SETUP
 
 
-<a id="org5b59885"></a>
+<a id="org05ff50a"></a>
 
 ## Dependencies
 
@@ -117,7 +117,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orga3f7021"></a>
+<a id="orga4d04b8"></a>
 
 # IMPLEMENTATION HTML
 
@@ -169,7 +169,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
     <body>
      <div class="container">
      <canvas id="canvas" class="canvas" width="400" height="400"></canvas>
-     <div class="playerInfo" id="playerInfo"></div>
+     <div class="playerInfo" id="playerInfo">
+      <ul>
+       <li id="playerId"></li>
+       <li id="playerPosX"></li>
+       <li id="playerPosY"></li>
+       <li id="playerHP"></li>
+      </ul>
+     </div>
      <div class="worldInfo"  id="worldInfo"></div>
     </body>
     <script src="index.js"></script>
@@ -177,17 +184,17 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org046ff36"></a>
+<a id="org055d958"></a>
 
 # IMPLEMENTATION JS
 
 
-<a id="org211f7af"></a>
+<a id="orgac224ff"></a>
 
 ## first GOAL make the player move (any direction)
 
 
-<a id="org266b6d8"></a>
+<a id="org713663e"></a>
 
 ### canvas
 
@@ -197,7 +204,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org31068ec"></a>
+<a id="org13c67b0"></a>
 
 ### variables
 
@@ -367,7 +374,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org85f20c8"></a>
+<a id="org111aa2f"></a>
 
 ### interface and handlers
 
@@ -496,6 +503,8 @@ const ctx = canvas.getContext("2d");
     // draw map with the current state
       drawMap();
     
+    // update player info with current state
+       playerInfo();
     
     };
     
@@ -503,7 +512,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org9ac8b4b"></a>
+<a id="org6385e17"></a>
 
 ### functions
 
@@ -530,6 +539,7 @@ const ctx = canvas.getContext("2d");
           });
         
          drawMap();
+         playerInfo();
         }
         ```
     
@@ -554,6 +564,7 @@ const ctx = canvas.getContext("2d");
           });
         
          drawMap();
+         playerInfo();
         }
         
         START();
@@ -571,7 +582,25 @@ const ctx = canvas.getContext("2d");
         
         ```
 
-2.  move
+2.  playerInfo
+
+    1.  Declaration
+    
+        ```js
+        function playerInfo()  {
+        let playerInfo = document.getElementById("playerInfo");
+        let playerId   = document.getElementById("playerId");
+        let playerPosX = document.getElementById("playerPosX");
+        let playerPosY = document.getElementById("playerPosY");
+        
+        playerId.textContent   =   `id: ${state[0].id}`;
+        playerPosX.textContent =   ` x: ${state[0].pos.x}`;
+        playerPosY.textContent =   ` y: ${state[0].pos.y}`;
+        playerHP.textContent   =   `HP: ${state[0].HP}`;
+        }
+        ```
+
+3.  move
 
     1.  Declaration
     
@@ -610,7 +639,7 @@ const ctx = canvas.getContext("2d");
         };
         ```
 
-3.  attackEnemy
+4.  attackEnemy
 
     1.  Declaration
     
@@ -667,7 +696,7 @@ const ctx = canvas.getContext("2d");
         });
         ```
 
-4.  drawMap
+5.  drawMap
 
     1.  Declaration
     
@@ -706,7 +735,7 @@ const ctx = canvas.getContext("2d");
         }
         ```
 
-5.  drawTile
+6.  drawTile
 
     1.  Declaration
     
@@ -720,7 +749,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orga1b39ec"></a>
+<a id="orge3dbd56"></a>
 
 ### MAIN FUNCTION
 
@@ -834,6 +863,17 @@ const rules = [
 /**
   Functions
  */
+function playerInfo()  {
+let playerInfo = document.getElementById("playerInfo");
+let playerId   = document.getElementById("playerId");
+let playerPosX = document.getElementById("playerPosX");
+let playerPosY = document.getElementById("playerPosY");
+
+playerId.textContent   =   `id: ${state[0].id}`;
+playerPosX.textContent =   ` x: ${state[0].pos.x}`;
+playerPosY.textContent =   ` y: ${state[0].pos.y}`;
+playerHP.textContent   =   `HP: ${state[0].HP}`;
+}
 
 let move = (id, direction) => {
 let x;
@@ -982,6 +1022,8 @@ state.forEach(function (elem) {
 // draw map with the current state
   drawMap();
 
+// update player info with current state
+   playerInfo();
 
 };
 
@@ -1034,7 +1076,11 @@ function START() {
   });
 
  drawMap();
+ playerInfo();
 }
 
 START();
+
+
+
 ```

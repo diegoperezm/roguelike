@@ -107,6 +107,17 @@ const rules = [
 /**
   Functions
  */
+function playerInfo()  {
+let playerInfo = document.getElementById("playerInfo");
+let playerId   = document.getElementById("playerId");
+let playerPosX = document.getElementById("playerPosX");
+let playerPosY = document.getElementById("playerPosY");
+
+playerId.textContent   =   `id: ${state[0].id}`;
+playerPosX.textContent =   ` x: ${state[0].pos.x}`;
+playerPosY.textContent =   ` y: ${state[0].pos.y}`;
+playerHP.textContent   =   `HP: ${state[0].HP}`;
+}
 
 let move = (id, direction) => {
 let x;
@@ -255,6 +266,8 @@ state.forEach(function (elem) {
 // draw map with the current state
   drawMap();
 
+// update player info with current state
+   playerInfo();
 
 };
 
@@ -307,6 +320,7 @@ function START() {
   });
   
  drawMap();
+ playerInfo();
 }
 
 START();
