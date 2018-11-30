@@ -82,6 +82,7 @@ function playerInfo() {
   let playerId = document.getElementById("playerId");
   let playerPosX = document.getElementById("playerPosX");
   let playerPosY = document.getElementById("playerPosY");
+  let playerHP = document.getElementById("playerHP");
 
   playerId.textContent = `id: ${state[0].id}`;
   playerPosX.textContent = ` x: ${state[0].pos.x}`;
@@ -95,6 +96,7 @@ function monsterInfoFn() {
   let monsterId = document.getElementById("monsterId");
   let monsterPosX = document.getElementById("monsterPosX");
   let monsterPosY = document.getElementById("monsterPosY");
+  let monsterHP = document.getElementById("monsterHP");
 
   if (state[1] !== undefined) {
     monsterId.textContent = `id: ${state[1].id}`;
