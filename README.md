@@ -1,37 +1,37 @@
-- [GRAPH](#orgdb88281)
-- [GRAPH EXPLANATION](#orgc68bb89)
-  - [GLOBAL:](#org3a84254)
-  - [PROGRAM](#org1429e6e)
-  - [WORLD](#org380d5fa)
-  - [ORDER OF EXECUTION  [N]](#org13efbc2)
-- [SETUP](#org78e4413)
-  - [Dependencies](#org4903c56)
-- [IMPLEMENTATION HTML](#org94b83e4)
-- [IMPLEMENTATION JS](#org9e3c73f)
-  - [first GOAL make the player move (any direction)](#org0b9ecd4)
-    - [canvas](#org1de18c7)
-    - [variables](#orga355fcd)
-    - [interface and handlers](#org7503aa7)
-    - [functions](#orga790b3f)
-    - [MAIN FUNCTION](#orgfef2dfa)
+- [Diagram](#orged0bd28)
+- [Diagram Explanation](#org2e8e2fe)
+  - [GLOBAL](#orgb6fcbf8)
+  - [PROGRAM](#orga54c5b6)
+  - [WORLD](#org660d29e)
+  - [ORDER](#org5a6d4f7)
+- [Setup](#org0d7ee43)
+  - [Dependencies](#org302d66e)
+- [HTML](#orge58df91)
+- [JavaScript](#org447423b)
+    - [canvas](#org5728bd6)
+    - [variables](#org3c0b993)
+    - [INTERFACE and HANDLERS](#orgabd350e)
+    - [UPDATER](#org4c7cd7b)
+    - [functions](#orgc5c3d44)
+    - [MAIN FUNCTION](#org02990d5)
 
 
 
-<a id="orgdb88281"></a>
+<a id="orged0bd28"></a>
 
-# GRAPH
+# Diagram
 
 ![img](diagram.png)
 
 
-<a id="orgc68bb89"></a>
+<a id="org2e8e2fe"></a>
 
-# GRAPH EXPLANATION
+# Diagram Explanation
 
 
-<a id="org3a84254"></a>
+<a id="orgb6fcbf8"></a>
 
-## GLOBAL:
+## GLOBAL
 
 -   GLOBAL
 
@@ -45,14 +45,6 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 
 > In computer programming, a global variable is a variable with global scope, meaning that it is visible (hence accessible) throughout the program, unless shadowed. The set of all global variables is known as the global environment or global state. In compiled languages, global variables are generally static variables, whose extent (lifetime) is the entire runtime of the program, though in interpreted languages (including command-line interpreters), global variables are generally dynamically allocated when declared, since they are not known ahead of time.
 
--   OBJS
-
--   ACTIONS
-
--   RULES
-
-> A rule is one or more condition applied to an event.
-
 -   STATE
     
     From [Wikipedia:](https://en.wikipedia.org/wiki/State_(computer_science))
@@ -60,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org1429e6e"></a>
+<a id="orga54c5b6"></a>
 
 ## PROGRAM
 
@@ -75,16 +67,16 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org380d5fa"></a>
+<a id="org660d29e"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org13efbc2"></a>
+<a id="org5a6d4f7"></a>
 
-## ORDER OF EXECUTION  [N]
+## ORDER
 
 -   [1] INTERFACE
 
@@ -92,21 +84,21 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 
 -   [3] EVENTHANDLER
 
--   [4] UPDATER
+-   [4] FUNCTIONS
 
--   [5] GLOBAL STATE
+-   [5] UPDATER
 
--   [6] DRAW
+-   [6] GLOBAL STATE
 
 -   [7] CANVAS
 
 
-<a id="org78e4413"></a>
+<a id="org0d7ee43"></a>
 
-# SETUP
+# Setup
 
 
-<a id="org4903c56"></a>
+<a id="org302d66e"></a>
 
 ## Dependencies
 
@@ -117,9 +109,9 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org94b83e4"></a>
+<a id="orge58df91"></a>
 
-# IMPLEMENTATION HTML
+# HTML
 
 ```html
 <!doctype html>
@@ -193,17 +185,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org9e3c73f"></a>
+<a id="org447423b"></a>
 
-# IMPLEMENTATION JS
-
-
-<a id="org0b9ecd4"></a>
-
-## first GOAL make the player move (any direction)
+# JavaScript
 
 
-<a id="org1de18c7"></a>
+<a id="org5728bd6"></a>
 
 ### canvas
 
@@ -213,53 +200,53 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orga355fcd"></a>
+<a id="org3c0b993"></a>
 
 ### variables
 
 1.  map
 
-    -   Table example A:
-        
-        |     | x0 | x1 | x2 | x3 | x4 | x5 | x6 | x7 | x8 | x9 | x10 | x11 | x12 | x13 | x14 |
-        |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-        | y0  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1   | 1   | 1   | 1   | 1   |
-        | y1  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
-        | y2  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
-        | y3  | 1  | 0  | 0  | 0  | 1  | 1  | 1  | 1  | 1  | 1  | 0   | 0   | 0   | 0   | 1   |
-        | y4  | 1  | 0  | 0  | 0  | 1  | 1  | 1  | 1  | 1  | 1  | 0   | 0   | 0   | 0   | 1   |
-        | y5  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
-        | y6  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
-        | y7  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
-        | y8  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 1   | 1   | 0   | 0   | 1   |
-        | y9  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 1   | 1   | 0   | 0   | 1   |
-        | y10 | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1   | 1   | 0   | 0   | 1   |
-        | y11 | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
-        | y12 | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
-        | y13 | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 1   |
-        | y14 | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1   | 1   | 1   | 1   | 1   |
     
-    -   Table example B:
-        
-        | map[y][x]  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
-        |---------- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-        | map[0][x]  | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
-        | map[1][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-        | map[2][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-        | map[3][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
-        | map[4][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  | 0  | 0  | 0  | 1  |
-        | map[5][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-        | map[6][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-        | map[7][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-        | map[8][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
-        | map[9][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  | 1  | 0  | 0  | 1  |
-        | map[10][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1  | 1  | 0  | 0  | 1  |
-        | map[11][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-        | map[12][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-        | map[13][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  | 0  | 1  |
-        | map[14][x] | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  | 1  | 1  | 1  |
     
-    -   Code example:
+    -   Examples:
+    
+    
+    
+    |     | x0 | x1 | x2 | x3 | x4 | x5 | x6 | x7 | x8 | x9 | x10 |
+    |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
+    | y0  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1  | 1   |
+    | y1  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   |
+    | y2  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   |
+    | y3  | 1  | 0  | 0  | 0  | 1  | 1  | 1  | 1  | 1  | 1  | 0   |
+    | y4  | 1  | 0  | 0  | 0  | 1  | 1  | 1  | 1  | 1  | 1  | 0   |
+    | y5  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 0  | 0  | 0   |
+    | y6  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   |
+    | y7  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0   |
+    | y8  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 1   |
+    | y9  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 1   |
+    | y10 | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1   |
+    
+    
+    
+    | map[y][x]  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+    |---------- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
+    | map[0][x]  | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  |
+    | map[1][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  |
+    | map[2][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  |
+    | map[3][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  |
+    | map[4][x]  | 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 0  |
+    | map[5][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0  |
+    | map[6][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  |
+    | map[7][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  |
+    | map[8][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  |
+    | map[9][x]  | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1  |
+    | map[10][x] | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1  |
+    
+    
+    
+    -   Code:
+    
+    
     
     ```js
     /*
@@ -268,6 +255,8 @@ const ctx = canvas.getContext("2d");
       0 : walkable
       1 : not walkable (a wall)
      */ 
+    
+    // prettier-ignore
     var map = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -306,9 +295,7 @@ const ctx = canvas.getContext("2d");
 
 2.  state
 
-    -   pos:
-        -   x:
-        -   y:
+    ![img](state_diagram.png)
     
     ```js
     /*
@@ -338,54 +325,12 @@ const ctx = canvas.getContext("2d");
     ];
     ```
 
-3.  objects
 
-    ```js
-    const objects = [
-     {
-       "id": "human",
-       "parts": {
-    	       "head": true,
-    	       "arms": true,
-    	       "legs": true
-       },
-       "HP": 10
-     }
-    ]; 
-    ```
+<a id="orgabd350e"></a>
 
-4.  actions
+### INTERFACE and HANDLERS
 
-    ```js
-    const actions = ["walk"];
-    
-    ```
-
-5.  rules
-
-    ```js
-    const rules = [
-       {
-        "action": "walk",
-        "what":  objects[0].parts.legs, // todo: check the object instance
-        "condition": true,
-        "operator": "=",
-        "sideEffect": "move", 
-       },
-       {
-        "action": "attack",
-        "what":  [ objects[0].HP, 11],
-        "condition": true,
-        "operator": ">",
-        "sideEffect": "attackEnemy" 
-       },
-    ];
-    ```
-
-
-<a id="org7503aa7"></a>
-
-### interface and handlers
+![img](interface_and_handlers.png)
 
 1.  INTERFACE
 
@@ -431,15 +376,7 @@ const ctx = canvas.getContext("2d");
 
 3.  EVENTHANDLER
 
-    -   select:
-        -   rule (hardcoded)
-        -   fn
-        -   what
-        -   condition
-    
-    -   collision detection
-    
-    -   send newState to UPDATER
+    ![img](eventhandler_diagram.png)
     
     ```js
     // event { id: 'human', input: 'left||up||right||down' }
@@ -470,78 +407,68 @@ const ctx = canvas.getContext("2d");
     }
     ```
 
-4.  UPDATER
 
-    -   Update:
-        -   state
-    
-    -   Call:
-        -   draw
-    
-    ```js
-    function UPDATER(newState) {
-    
-    if(Array.isArray(newState)) {
-     newState.forEach(function (elem) {
-       let indx = state.findIndex(ele => ele.id === elem.id);
-       state[indx] = elem;
-    });
-    } else {
-        let indx = state.findIndex(ele => ele.id === newState.id);
-        indx != -1 ? state[indx] = newState : console.log("nothing to update");
-    }
-    
-    
-    
-    // clean map
-    map.forEach(function (elem) {
-     for (let i = 0; i < elem.length; i++) {
-       if(elem[i] != 1 ) {  // don't remove the walls
-          elem[i]  = 0;
-       }
-     }
-    });
-    
-    // update state
-    state.forEach(function (elem) {
-      let symbol = elem.id === "player" ? "P" : "M"
-      map[elem.pos.y][elem.pos.x] = symbol;
-    });
-    
-    
-    // draw map with the current state
-      drawMap();
-    
-    // update player info with current state
-       playerInfo();
-    
-    
-    // update monster info with current state
-       monsterInfoFn();
-    
-    };
-    
-    
-    ```
+<a id="org4c7cd7b"></a>
+
+### UPDATER
+
+![img](updater_diagram.png)
+
+![img](updater_canvas_diagram.png)
+
+```js
+function UPDATER(newState) {
+
+if(Array.isArray(newState)) {
+ newState.forEach(function (elem) {
+   let indx = state.findIndex(ele => ele.id === elem.id);
+   state[indx] = elem;
+});
+} else {
+    let indx = state.findIndex(ele => ele.id === newState.id);
+    indx != -1 ? state[indx] = newState : console.log("nothing to update");
+}
 
 
-<a id="orga790b3f"></a>
+
+// clean map
+map.forEach(function (elem) {
+ for (let i = 0; i < elem.length; i++) {
+   if(elem[i] != 1 ) {  // don't remove the walls
+      elem[i]  = 0;
+   }
+ }
+});
+
+// update state
+state.forEach(function (elem) {
+  let symbol = elem.id === "player" ? "P" : "M"
+  map[elem.pos.y][elem.pos.x] = symbol;
+});
+
+
+// draw map with the current state
+  drawMap();
+
+// update player info with current state
+   playerInfo();
+
+
+// update monster info with current state
+   monsterInfoFn();
+
+};
+
+
+```
+
+
+<a id="orgc5c3d44"></a>
 
 ### functions
 
 1.  START
 
-    -   Add to DOM:
-        -   Event listener
-    
-    -   Call:
-        -   INTERFACE
-        
-        -   draw
-    
-    -   Send:
-        -   keyCode to INTERFACE
-    
     1.  Declaration
     
         ```js
@@ -704,7 +631,7 @@ const ctx = canvas.getContext("2d");
            let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
            return [newStatePlayer,newStateMonster];
         
-         };
+         }; 
         ```
     
     2.  Test
@@ -774,7 +701,7 @@ const ctx = canvas.getContext("2d");
         
             });
           });
-        }
+        } 
         ```
 
 7.  drawTile
@@ -791,7 +718,7 @@ const ctx = canvas.getContext("2d");
         ```
 
 
-<a id="orgfef2dfa"></a>
+<a id="org02990d5"></a>
 
 ### MAIN FUNCTION
 
@@ -805,6 +732,8 @@ const ctx = canvas.getContext("2d");
   0 : walkable
   1 : not walkable (a wall)
  */ 
+
+// prettier-ignore
 var map = [
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -868,38 +797,6 @@ let state = [{
       "height": 10,
       "HP": 3
    }
-];
-
-const objects = [
- {
-   "id": "human",
-   "parts": {
-	       "head": true,
-	       "arms": true,
-	       "legs": true
-   },
-   "HP": 10
- }
-]; 
-
-const actions = ["walk"];
-
-
-const rules = [
-   {
-    "action": "walk",
-    "what":  objects[0].parts.legs, // todo: check the object instance
-    "condition": true,
-    "operator": "=",
-    "sideEffect": "move", 
-   },
-   {
-    "action": "attack",
-    "what":  [ objects[0].HP, 11],
-    "condition": true,
-    "operator": ">",
-    "sideEffect": "attackEnemy" 
-   },
 ];
 
 /**
@@ -1148,7 +1045,5 @@ function START() {
 }
 
 START();
-
-
 
 ```
