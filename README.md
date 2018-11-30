@@ -1,35 +1,35 @@
-- [Diagram](#orged0bd28)
-- [Diagram Explanation](#org2e8e2fe)
-  - [GLOBAL](#orgb6fcbf8)
-  - [PROGRAM](#orga54c5b6)
-  - [WORLD](#org660d29e)
-  - [ORDER](#org5a6d4f7)
-- [Setup](#org0d7ee43)
-  - [Dependencies](#org302d66e)
-- [HTML](#orge58df91)
-- [JavaScript](#org447423b)
-    - [canvas](#org5728bd6)
-    - [variables](#org3c0b993)
-    - [INTERFACE and HANDLERS](#orgabd350e)
-    - [UPDATER](#org4c7cd7b)
-    - [functions](#orgc5c3d44)
-    - [MAIN FUNCTION](#org02990d5)
+- [Diagram](#orgb95fc92)
+- [Diagram Explanation](#org7465189)
+  - [GLOBAL](#orgd362e6a)
+  - [PROGRAM](#orge5fd650)
+  - [WORLD](#org1908ac7)
+  - [ORDER](#org52beb56)
+- [Setup](#orgc48dbd4)
+  - [Dependencies](#org184df6a)
+- [HTML](#org0d4b3d1)
+- [JavaScript](#org096645a)
+    - [canvas](#org3dd0b3d)
+    - [variables](#org28476cf)
+    - [INTERFACE and HANDLERS](#orgfe91070)
+    - [UPDATER](#org2e83026)
+    - [functions](#org8cdb860)
+    - [MAIN FUNCTION](#orge76496f)
 
 
 
-<a id="orged0bd28"></a>
+<a id="orgb95fc92"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org2e8e2fe"></a>
+<a id="org7465189"></a>
 
 # Diagram Explanation
 
 
-<a id="orgb6fcbf8"></a>
+<a id="orgd362e6a"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orga54c5b6"></a>
+<a id="orge5fd650"></a>
 
 ## PROGRAM
 
@@ -67,14 +67,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   DRAW
 
 
-<a id="org660d29e"></a>
+<a id="org1908ac7"></a>
 
 ## WORLD
 
 -   CANVAS
 
 
-<a id="org5a6d4f7"></a>
+<a id="org52beb56"></a>
 
 ## ORDER
 
@@ -93,12 +93,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org0d7ee43"></a>
+<a id="orgc48dbd4"></a>
 
 # Setup
 
 
-<a id="org302d66e"></a>
+<a id="org184df6a"></a>
 
 ## Dependencies
 
@@ -109,7 +109,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orge58df91"></a>
+<a id="org0d4b3d1"></a>
 
 # HTML
 
@@ -185,12 +185,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org447423b"></a>
+<a id="org096645a"></a>
 
 # JavaScript
 
 
-<a id="org5728bd6"></a>
+<a id="org3dd0b3d"></a>
 
 ### canvas
 
@@ -200,7 +200,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org3c0b993"></a>
+<a id="org28476cf"></a>
 
 ### variables
 
@@ -326,7 +326,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgabd350e"></a>
+<a id="orgfe91070"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -408,7 +408,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org4c7cd7b"></a>
+<a id="org2e83026"></a>
 
 ### UPDATER
 
@@ -463,7 +463,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="orgc5c3d44"></a>
+<a id="org8cdb860"></a>
 
 ### functions
 
@@ -534,6 +534,7 @@ state.forEach(function (elem) {
         let playerId   = document.getElementById("playerId");
         let playerPosX = document.getElementById("playerPosX");
         let playerPosY = document.getElementById("playerPosY");
+        let playerHP   = document.getElementById("playerHP");
         
         playerId.textContent   =   `id: ${state[0].id}`;
         playerPosX.textContent =   ` x: ${state[0].pos.x}`;
@@ -554,6 +555,7 @@ state.forEach(function (elem) {
         let monsterId   = document.getElementById("monsterId");
         let monsterPosX = document.getElementById("monsterPosX");
         let monsterPosY = document.getElementById("monsterPosY");
+        let monsterHP = document.getElementById("monsterHP");
         
         if(state[1] !== undefined) {
            monsterId.textContent   =   `id: ${state[1].id}`;
@@ -718,7 +720,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="org02990d5"></a>
+<a id="orge76496f"></a>
 
 ### MAIN FUNCTION
 
@@ -807,6 +809,7 @@ let playerInfo = document.getElementById("playerInfo");
 let playerId   = document.getElementById("playerId");
 let playerPosX = document.getElementById("playerPosX");
 let playerPosY = document.getElementById("playerPosY");
+let playerHP   = document.getElementById("playerHP");
 
 playerId.textContent   =   `id: ${state[0].id}`;
 playerPosX.textContent =   ` x: ${state[0].pos.x}`;
@@ -821,6 +824,7 @@ let monsterInfoList = document.getElementById("monsterInfoList");
 let monsterId   = document.getElementById("monsterId");
 let monsterPosX = document.getElementById("monsterPosX");
 let monsterPosY = document.getElementById("monsterPosY");
+let monsterHP = document.getElementById("monsterHP");
 
 if(state[1] !== undefined) {
    monsterId.textContent   =   `id: ${state[1].id}`;
