@@ -21,7 +21,7 @@
 
 # GRAPH
 
-![img](updaterupdating.png)
+![img](diagram.png)
 
 
 <a id="orgc68bb89"></a>
