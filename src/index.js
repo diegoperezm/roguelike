@@ -6,7 +6,9 @@ const ctx = canvas.getContext("2d");
 
   0 : walkable
   1 : not walkable (a wall)
- */ 
+ */
+
+// prettier-ignore
 var map = [
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -41,7 +43,6 @@ var map = [
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
-
 let w = 400;
 let h = 400;
 let tileSize = 13;
@@ -50,306 +51,246 @@ let tileSize = 13;
  list of objects  and his positions x y
  */
 
-let state = [{
-     "id": "player",
-     "pos": {
-       "x": 6,
-       "y": 5
-      },
-      "width": 10,
-      "height": 10,
-      "HP":10
+let state = [
+  {
+    id: "player",
+    pos: {
+      x: 6,
+      y: 5
+    },
+    width: 10,
+    height: 10,
+    HP: 10
   },
   {
-     "id": "monster",
-     "pos": {
-       "x": 12,
-       "y": 3 
-      },
-      "width": 10,
-      "height": 10,
-      "HP": 3
-   }
-];
-
-const objects = [
- {
-   "id": "human",
-   "parts": {
-               "head": true,
-               "arms": true,
-               "legs": true
-   },
-   "HP": 10
- }
-]; 
-
-const actions = ["walk"];
-
-
-const rules = [
-   {
-    "action": "walk",
-    "what":  objects[0].parts.legs, // todo: check the object instance
-    "condition": true,
-    "operator": "=",
-    "sideEffect": "move", 
-   },
-   {
-    "action": "attack",
-    "what":  [ objects[0].HP, 11],
-    "condition": true,
-    "operator": ">",
-    "sideEffect": "attackEnemy" 
-   },
+    id: "monster",
+    pos: {
+      x: 12,
+      y: 3
+    },
+    width: 10,
+    height: 10,
+    HP: 3
+  }
 ];
 
 /**
   Functions
  */
-function playerInfo()  {
-let playerInfo = document.getElementById("playerInfo");
-let playerId   = document.getElementById("playerId");
-let playerPosX = document.getElementById("playerPosX");
-let playerPosY = document.getElementById("playerPosY");
+function playerInfo() {
+  let playerInfo = document.getElementById("playerInfo");
+  let playerId = document.getElementById("playerId");
+  let playerPosX = document.getElementById("playerPosX");
+  let playerPosY = document.getElementById("playerPosY");
 
-playerId.textContent   =   `id: ${state[0].id}`;
-playerPosX.textContent =   ` x: ${state[0].pos.x}`;
-playerPosY.textContent =   ` y: ${state[0].pos.y}`;
-playerHP.textContent   =   `HP: ${state[0].HP}`;
+  playerId.textContent = `id: ${state[0].id}`;
+  playerPosX.textContent = ` x: ${state[0].pos.x}`;
+  playerPosY.textContent = ` y: ${state[0].pos.y}`;
+  playerHP.textContent = `HP: ${state[0].HP}`;
 }
 
-function monsterInfoFn()  {
+function monsterInfoFn() {
+  let monsterInfo = document.getElementById("monsterInfo");
+  let monsterInfoList = document.getElementById("monsterInfoList");
+  let monsterId = document.getElementById("monsterId");
+  let monsterPosX = document.getElementById("monsterPosX");
+  let monsterPosY = document.getElementById("monsterPosY");
 
-let monsterInfo = document.getElementById("monsterInfo");
-let monsterInfoList = document.getElementById("monsterInfoList");
-let monsterId   = document.getElementById("monsterId");
-let monsterPosX = document.getElementById("monsterPosX");
-let monsterPosY = document.getElementById("monsterPosY");
-
-if(state[1] !== undefined) {
-monsterId.textContent   =   `id: ${state[1].id}`;
-monsterPosX.textContent =   ` x: ${state[1].pos.x}`;
-monsterPosY.textContent =   ` y: ${state[1].pos.y}`;
-monsterHP.textContent   =   `HP: ${state[1].HP}`;
-
-} else if (monsterInfoList != null) {
-
-console.log("nothing to update 2");
-monsterInfoList.remove();
-
+  if (state[1] !== undefined) {
+    monsterId.textContent = `id: ${state[1].id}`;
+    monsterPosX.textContent = ` x: ${state[1].pos.x}`;
+    monsterPosY.textContent = ` y: ${state[1].pos.y}`;
+    monsterHP.textContent = `HP: ${state[1].HP}`;
+  } else if (monsterInfoList != null) {
+    monsterInfoList.remove();
+  }
 }
-
-}
-
 
 let move = (id, direction) => {
-let x;
-let y;
-let indexId = state.findIndex( element => element.id===id );
+  let x;
+  let y;
+  let indexId = state.findIndex(element => element.id === id);
 
+  switch (direction) {
+    case "left":
+      x = state[indexId].pos.x - 1;
+      y = state[indexId].pos.y;
+      break;
 
-switch (direction) {
-  case "left":
-   x = state[indexId].pos.x - 1;
-   y = state[indexId].pos.y;
-   break;
+    case "up":
+      x = state[indexId].pos.x;
+      y = state[indexId].pos.y - 1;
+      break;
 
-  case "up":
-   x = state[indexId].pos.x;    
-   y = state[indexId].pos.y - 1;
-   break;
+    case "right":
+      x = state[indexId].pos.x + 1;
+      y = state[indexId].pos.y;
+      break;
 
+    case "down":
+      x = state[indexId].pos.x;
+      y = state[indexId].pos.y + 1;
+      break;
+  }
 
-  case "right":
-   x = state[indexId].pos.x + 1;
-   y = state[indexId].pos.y;
-   break;
-
-  case "down":
-   x = state[indexId].pos.x;    
-   y = state[indexId].pos.y + 1;
-   break;
-}
-
- let newState = Object.assign({}, state[indexId], {"id": id, "pos": {"x": x , "y": y}}); 
- return newState;
+  let newState = Object.assign({}, state[indexId], {
+    id: id,
+    pos: { x: x, y: y }
+  });
+  return newState;
 };
 
-let attackEnemy = (id,x,y) => { 
+let attackEnemy = (id, x, y) => {
+  let playerIndex = state.findIndex(element => element.id === id);
+  let player = state[playerIndex];
+  let playerHP = player.HP;
 
- let playerIndex =  state.findIndex(element => element.id===id); 
- let player = state[playerIndex];
- let playerHP =  player.HP;
- 
+  let monsterIndex = state.findIndex(element => element.id === "monster");
+  let monster = state[monsterIndex];
+  let monsterHP = monster.HP;
 
- let monsterIndex = state.findIndex(element => element.id==="monster"); 
-    let monster = state[monsterIndex];
-    let monsterHP = monster.HP;
+  playerHP -= 1;
+  monsterHP -= 1;
 
-   playerHP  -= 1; 
-   monsterHP -= 1;
+  let newStatePlayer = Object.assign({}, player, { HP: playerHP });
+  let newStateMonster = Object.assign({}, monster, { HP: monsterHP });
+  return [newStatePlayer, newStateMonster];
+};
 
-   let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
-   let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
-   return [newStatePlayer,newStateMonster];
-
- };
-
-function INTERFACE(id, keyCode ) {
-   let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
-   INPUTHANDLER(input); 
- }
+function INTERFACE(id, keyCode) {
+  let input = Object.assign({ id: id }, { keyCode: keyCode }, {});
+  INPUTHANDLER(input);
+}
 
 function INPUTHANDLER(inputObj) {
+  let input;
+  let id = inputObj.id;
 
-let input;
-let id = inputObj.id;
+  switch (inputObj.keyCode) {
+    case 37:
+      input = "left";
+      break;
 
- switch (inputObj.keyCode) {
+    case 38:
+      input = "up";
+      break;
 
-  case 37:
-    input = "left"; 
-   break;
-   
-  case 38:
-    input = "up";
-   break;
+    case 39:
+      input = "right";
+      break;
 
-  case 39:
-   input = "right";
-   break;
-
-  case 40:
-    input = "down";
-   break;
-  
-} 
-
-let event =   Object.assign({"id":id}, {"input":input}, {});
-EVENTHANDLER(event); 
+    case 40:
+      input = "down";
+      break;
   }
+
+  let event = Object.assign({ id: id }, { input: input }, {});
+  EVENTHANDLER(event);
+}
 
 // event { id: 'human', input: 'left||up||right||down' }
 function EVENTHANDLER(event) {
+  let newState;
 
- let newState; 
+  // is monster alive?
+  if (state[1] != undefined && state[1].HP === 0) {
+    newState = state.pop();
+    UPDATER(newState);
+  }
 
-// is monster alive?
- if(  state[1] != undefined && state[1].HP === 0 ) {
-     newState = state.pop();
-     UPDATER(newState);
- }
+  newState = move(event.id, event.input);
 
- newState =  move(event.id,event.input);
-
-  if(map[newState.pos.y][newState.pos.x] === 0) {
-     UPDATER(newState); // update state
-
+  if (map[newState.pos.y][newState.pos.x] === 0) {
+    UPDATER(newState); // update state
   } else if (map[newState.pos.y][newState.pos.x] === "M") {
-     newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);     
-     UPDATER(newState); 
-
+    newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);
+    UPDATER(newState);
   } else {
     console.log("collision detected");
   }
-
-
 }
 
 function UPDATER(newState) {
-
-if(Array.isArray(newState)) {
- newState.forEach(function (elem) {
-   let indx = state.findIndex(ele => ele.id === elem.id);
-   state[indx] = elem;
-});
-} else {
+  if (Array.isArray(newState)) {
+    newState.forEach(function(elem) {
+      let indx = state.findIndex(ele => ele.id === elem.id);
+      state[indx] = elem;
+    });
+  } else {
     let indx = state.findIndex(ele => ele.id === newState.id);
-    indx != -1 ? state[indx] = newState : console.log("nothing to update");
-}
+    indx != -1 ? (state[indx] = newState) : console.log("nothing to update");
+  }
 
+  // clean map
+  map.forEach(function(elem) {
+    for (let i = 0; i < elem.length; i++) {
+      if (elem[i] != 1) {
+        // don't remove the walls
+        elem[i] = 0;
+      }
+    }
+  });
 
+  // update state
+  state.forEach(function(elem) {
+    let symbol = elem.id === "player" ? "P" : "M";
+    map[elem.pos.y][elem.pos.x] = symbol;
+  });
 
-// clean map
-map.forEach(function (elem) {
- for (let i = 0; i < elem.length; i++) {
-   if(elem[i] != 1 ) {  // don't remove the walls
-      elem[i]  = 0;
-   }
- }
-});
-
-// update state
-state.forEach(function (elem) {
-  let symbol = elem.id === "player" ? "P" : "M"
-  map[elem.pos.y][elem.pos.x] = symbol;
-});
-
-
-// draw map with the current state
+  // draw map with the current state
   drawMap();
 
-// update player info with current state
-   playerInfo();
+  // update player info with current state
+  playerInfo();
 
+  // update monster info with current state
+  monsterInfoFn();
+}
 
-// update monster info with current state
-   monsterInfoFn();
-
-};
-
-
-
-function drawMap (){
+function drawMap() {
   ctx.clearRect(0, 0, w, h);
   let color;
 
-  map.forEach(function(row,i){
-    row.forEach(function(tile,j){
+  map.forEach(function(row, i) {
+    row.forEach(function(tile, j) {
+      if (tile !== 0) {
+        //if tile is not walkable
 
-      if(tile !== 0){ //if tile is not walkable
-      
-      switch (tile) {
+        switch (tile) {
+          // Player
+          case "P":
+            color = "rgba(255,0,0,1)";
+            break;
 
-      // Player 
-       case "P":
-        color="rgba(255,0,0,1)";
-       break;
+          // Monster
+          case "M":
+            color = "rgba(0,0,255,1)";
+            break;
 
-      // Monster 
-       case "M":
-        color="rgba(0,0,255,1)";
-       break;
-
-      // Wall
-       default:
-        color=  "RGBA(200, 200, 200, 1)";
+          // Wall
+          default:
+            color = "RGBA(200, 200, 200, 1)";
+        }
+        ctx.fillStyle = color;
+        drawTile(j, i); //draw a rectangle at j,i
       }
-       ctx.fillStyle = color;
-       drawTile(j,i); //draw a rectangle at j,i
-      }
-
     });
   });
 }
 
-function drawTile (x,y){
-  ctx.fillRect(
-    x * tileSize, y * tileSize,
-    tileSize, tileSize
-  );
+function drawTile(x, y) {
+  ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
 }
 
 function START() {
-// LISTENER
- document.addEventListener("keydown", function(keyDown) {
-   INTERFACE("player",keyDown.keyCode);
+  // LISTENER
+  document.addEventListener("keydown", function(keyDown) {
+    INTERFACE("player", keyDown.keyCode);
   });
-  
- drawMap();
- playerInfo();
- monsterInfoFn();
+
+  drawMap();
+  playerInfo();
+  monsterInfoFn();
 }
 
 START();

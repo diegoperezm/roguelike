@@ -8,7 +8,7 @@ gulp.task("server", function() {
 
 gulp.task("prettier", function() {
   return gulp
-    .src("./src/js/index.js")
+    .src("./src/index.js")
     .pipe(prettier())
-    .pipe(gulp.dest("./src/js/index.js"));
+    .pipe(gulp.dest("./src/"));
 });
