@@ -1,35 +1,35 @@
-- [Diagram](#org212d1b7)
-- [Diagram Explanation](#org826e706)
-  - [GLOBAL](#org02c340a)
-  - [PROGRAM](#org1bd51d6)
-  - [WORLD](#orgf6ccd84)
-  - [ORDER](#org5570104)
-- [Setup](#org2d57d9f)
-  - [Dependencies](#orge3ba351)
-- [HTML](#org1292a32)
-- [JavaScript](#org6c90abd)
-    - [canvas](#org2b622c9)
-    - [variables](#org96ed6cf)
-    - [INTERFACE and HANDLERS](#org3a6e962)
-    - [UPDATER](#org2046bea)
-    - [functions](#org9f9fa2e)
-    - [MAIN FUNCTION](#org1d4ad1e)
+- [Diagram](#org9e8d108)
+- [Diagram Explanation](#orgfc7d459)
+  - [GLOBAL](#org323c1ca)
+  - [PROGRAM](#orgc6202fe)
+  - [WORLD](#orge8bb9fb)
+  - [ORDER](#org64890b5)
+- [Setup](#org401360e)
+  - [Dependencies](#orgf753521)
+- [HTML](#org7aea787)
+- [JavaScript](#orgbd582f0)
+    - [canvas](#org1762b13)
+    - [variables](#org95c0f6b)
+    - [INTERFACE and HANDLERS](#org364eca5)
+    - [UPDATER](#org11e2d88)
+    - [functions](#orged78c59)
+    - [MAIN FUNCTION](#orgccfe8b2)
 
 
 
-<a id="org212d1b7"></a>
+<a id="org9e8d108"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org826e706"></a>
+<a id="orgfc7d459"></a>
 
 # Diagram Explanation
 
 
-<a id="org02c340a"></a>
+<a id="org323c1ca"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org1bd51d6"></a>
+<a id="orgc6202fe"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="orgf6ccd84"></a>
+<a id="orge8bb9fb"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org5570104"></a>
+<a id="org64890b5"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org2d57d9f"></a>
+<a id="org401360e"></a>
 
 # Setup
 
 
-<a id="orge3ba351"></a>
+<a id="orgf753521"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org1292a32"></a>
+<a id="org7aea787"></a>
 
 # HTML
 
@@ -237,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org6c90abd"></a>
+<a id="orgbd582f0"></a>
 
 # JavaScript
 
 
-<a id="org2b622c9"></a>
+<a id="org1762b13"></a>
 
 ### canvas
 
@@ -252,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org96ed6cf"></a>
+<a id="org95c0f6b"></a>
 
 ### variables
 
@@ -378,7 +378,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org3a6e962"></a>
+<a id="org364eca5"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -395,6 +395,17 @@ const ctx = canvas.getContext("2d");
 
 2.  INPUTHANDLER
 
+    
+    
+    | key        | keyCode | input | coordinates |
+    |---------- |------- |----- |----------- |
+    | ArrowLeft  | 37      | Left  | x - 1       |
+    | ArrowUp    | 38      | up    | y - 1       |
+    | ArrowRight | 39      | right | x + 1       |
+    | ArrowDown  | 40      | down  | y + 1       |
+    
+    
+    
     ```js
     function INPUTHANDLER(inputObj) {
     
@@ -460,7 +471,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org2046bea"></a>
+<a id="org11e2d88"></a>
 
 ### UPDATER
 
@@ -515,7 +526,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="org9f9fa2e"></a>
+<a id="orged78c59"></a>
 
 ### functions
 
@@ -772,7 +783,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="org1d4ad1e"></a>
+<a id="orgccfe8b2"></a>
 
 ### MAIN FUNCTION
 
