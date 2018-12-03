@@ -1,35 +1,35 @@
-- [Diagram](#orgb95fc92)
-- [Diagram Explanation](#org7465189)
-  - [GLOBAL](#orgd362e6a)
-  - [PROGRAM](#orge5fd650)
-  - [WORLD](#org1908ac7)
-  - [ORDER](#org52beb56)
-- [Setup](#orgc48dbd4)
-  - [Dependencies](#org184df6a)
-- [HTML](#org0d4b3d1)
-- [JavaScript](#org096645a)
-    - [canvas](#org3dd0b3d)
-    - [variables](#org28476cf)
-    - [INTERFACE and HANDLERS](#orgfe91070)
-    - [UPDATER](#org2e83026)
-    - [functions](#org8cdb860)
-    - [MAIN FUNCTION](#orge76496f)
+- [Diagram](#org212d1b7)
+- [Diagram Explanation](#org826e706)
+  - [GLOBAL](#org02c340a)
+  - [PROGRAM](#org1bd51d6)
+  - [WORLD](#orgf6ccd84)
+  - [ORDER](#org5570104)
+- [Setup](#org2d57d9f)
+  - [Dependencies](#orge3ba351)
+- [HTML](#org1292a32)
+- [JavaScript](#org6c90abd)
+    - [canvas](#org2b622c9)
+    - [variables](#org96ed6cf)
+    - [INTERFACE and HANDLERS](#org3a6e962)
+    - [UPDATER](#org2046bea)
+    - [functions](#org9f9fa2e)
+    - [MAIN FUNCTION](#org1d4ad1e)
 
 
 
-<a id="orgb95fc92"></a>
+<a id="org212d1b7"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org7465189"></a>
+<a id="org826e706"></a>
 
 # Diagram Explanation
 
 
-<a id="orgd362e6a"></a>
+<a id="org02c340a"></a>
 
 ## GLOBAL
 
@@ -52,53 +52,105 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orge5fd650"></a>
+<a id="org1bd51d6"></a>
 
 ## PROGRAM
 
 -   INTERFACE
+    -   The entry point of player data
+    
+    -   Called by an event listener
+    
+    -   Ouput:
+        -   Object
 
 -   INPUTHANDLER
+    -   Transform the input into a custom event
+    
+    -   Input:
+        -   Object
+    
+    -   Ouput:
+        -   Object
 
 -   EVENTHANDLER
+    -   Apply the rules for:
+        -   move
+        
+        -   attack
+        
+        -   collision detection
+    
+    -   Send a new state to UPDATER
+    
+    -   Input:
+        -   Object
+    
+    -   Ouput:
+        -   Object || Array of Objects
 
 -   UPDATER
+    -   Update:
+        -   STATE
+        
+        -   CANVAS
 
 -   DRAW
+    -   Helper function:
+        -   Draw canvas
 
 
-<a id="org1908ac7"></a>
+<a id="orgf6ccd84"></a>
 
 ## WORLD
 
--   CANVAS
+-   [CANVAS](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas)
+
+> Use the HTML <canvas> element with either the canvas scripting API or the WebGL API to draw graphics and animations.
+
+-   [CANVAS API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+
+> The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org52beb56"></a>
+<a id="org5570104"></a>
 
 ## ORDER
 
 -   [1] INTERFACE
+    -   Called by an event listener
 
 -   [2] INPUTHANDLER
+    -   Called by INTERFACE
 
 -   [3] EVENTHANDLER
+    -   Called by INPUTHANDLER
 
 -   [4] FUNCTIONS
+    -   Called by:
+        -   EVENTHANDLER to get a new state
+        -   UPDATER to update:
+            -   state
+            
+            -   canvas
+            
+            -   DOM
 
 -   [5] UPDATER
+    -   Called by EVENTHANDLER passing a new state
 
 -   [6] GLOBAL STATE
+    -   Updated by UPDATER
 
 -   [7] CANVAS
 
 
-<a id="orgc48dbd4"></a>
+<a id="org2d57d9f"></a>
 
 # Setup
 
 
-<a id="org184df6a"></a>
+<a id="orge3ba351"></a>
 
 ## Dependencies
 
@@ -109,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org0d4b3d1"></a>
+<a id="org1292a32"></a>
 
 # HTML
 
@@ -185,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org096645a"></a>
+<a id="org6c90abd"></a>
 
 # JavaScript
 
 
-<a id="org3dd0b3d"></a>
+<a id="org2b622c9"></a>
 
 ### canvas
 
@@ -200,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org28476cf"></a>
+<a id="org96ed6cf"></a>
 
 ### variables
 
@@ -326,7 +378,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgfe91070"></a>
+<a id="org3a6e962"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -408,7 +460,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org2e83026"></a>
+<a id="org2046bea"></a>
 
 ### UPDATER
 
@@ -463,7 +515,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="org8cdb860"></a>
+<a id="org9f9fa2e"></a>
 
 ### functions
 
@@ -720,7 +772,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="orge76496f"></a>
+<a id="org1d4ad1e"></a>
 
 ### MAIN FUNCTION
 
