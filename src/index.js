@@ -1,9 +1,14 @@
+/* Variables */
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-/*
-  canvas 150x150 , tileSize 10
+let w = 400;
+let h = 400;
+let tileSize = 13;
 
+/* GLOBAL */
+/*
   0 : walkable
   1 : not walkable (a wall)
  */
@@ -43,10 +48,6 @@ var map = [
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
-let w = 400;
-let h = 400;
-let tileSize = 13;
-
 /*
  list of objects  and his positions x y
  */
@@ -74,90 +75,7 @@ let state = [
   }
 ];
 
-/**
-  Functions
- */
-function playerInfo() {
-  let playerInfo = document.getElementById("playerInfo");
-  let playerId = document.getElementById("playerId");
-  let playerPosX = document.getElementById("playerPosX");
-  let playerPosY = document.getElementById("playerPosY");
-  let playerHP = document.getElementById("playerHP");
-
-  playerId.textContent = `id: ${state[0].id}`;
-  playerPosX.textContent = ` x: ${state[0].pos.x}`;
-  playerPosY.textContent = ` y: ${state[0].pos.y}`;
-  playerHP.textContent = `HP: ${state[0].HP}`;
-}
-
-function monsterInfoFn() {
-  let monsterInfo = document.getElementById("monsterInfo");
-  let monsterInfoList = document.getElementById("monsterInfoList");
-  let monsterId = document.getElementById("monsterId");
-  let monsterPosX = document.getElementById("monsterPosX");
-  let monsterPosY = document.getElementById("monsterPosY");
-  let monsterHP = document.getElementById("monsterHP");
-
-  if (state[1] !== undefined) {
-    monsterId.textContent = `id: ${state[1].id}`;
-    monsterPosX.textContent = ` x: ${state[1].pos.x}`;
-    monsterPosY.textContent = ` y: ${state[1].pos.y}`;
-    monsterHP.textContent = `HP: ${state[1].HP}`;
-  } else if (monsterInfoList != null) {
-    monsterInfoList.remove();
-  }
-}
-
-function move(id, direction) {
-  let x;
-  let y;
-  let indexId = state.findIndex(element => element.id === id);
-
-  switch (direction) {
-    case "left":
-      x = state[indexId].pos.x - 1;
-      y = state[indexId].pos.y;
-      break;
-
-    case "up":
-      x = state[indexId].pos.x;
-      y = state[indexId].pos.y - 1;
-      break;
-
-    case "right":
-      x = state[indexId].pos.x + 1;
-      y = state[indexId].pos.y;
-      break;
-
-    case "down":
-      x = state[indexId].pos.x;
-      y = state[indexId].pos.y + 1;
-      break;
-  }
-
-  let newState = Object.assign({}, state[indexId], {
-    id: id,
-    pos: { x: x, y: y }
-  });
-  return newState;
-}
-
-function attackEnemy(id, x, y) {
-  let playerIndex = state.findIndex(element => element.id === id);
-  let player = state[playerIndex];
-  let playerHP = player.HP;
-
-  let monsterIndex = state.findIndex(element => element.id === "monster");
-  let monster = state[monsterIndex];
-  let monsterHP = monster.HP;
-
-  playerHP -= 1;
-  monsterHP -= 1;
-
-  let newStatePlayer = Object.assign({}, player, { HP: playerHP });
-  let newStateMonster = Object.assign({}, monster, { HP: monsterHP });
-  return [newStatePlayer, newStateMonster];
-}
+/* PROGRAM */
 
 function interface(id, keyCode) {
   let input = Object.assign({ id: id }, { keyCode: keyCode }, {});
@@ -282,6 +200,90 @@ function drawMap() {
 
 function drawTile(x, y) {
   ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+}
+
+/* FUNCTIONS */
+
+function playerInfo() {
+  let playerInfo = document.getElementById("playerInfo");
+  let playerId = document.getElementById("playerId");
+  let playerPosX = document.getElementById("playerPosX");
+  let playerPosY = document.getElementById("playerPosY");
+  let playerHP = document.getElementById("playerHP");
+
+  playerId.textContent = `id: ${state[0].id}`;
+  playerPosX.textContent = ` x: ${state[0].pos.x}`;
+  playerPosY.textContent = ` y: ${state[0].pos.y}`;
+  playerHP.textContent = `HP: ${state[0].HP}`;
+}
+
+function monsterInfoFn() {
+  let monsterInfo = document.getElementById("monsterInfo");
+  let monsterInfoList = document.getElementById("monsterInfoList");
+  let monsterId = document.getElementById("monsterId");
+  let monsterPosX = document.getElementById("monsterPosX");
+  let monsterPosY = document.getElementById("monsterPosY");
+  let monsterHP = document.getElementById("monsterHP");
+
+  if (state[1] !== undefined) {
+    monsterId.textContent = `id: ${state[1].id}`;
+    monsterPosX.textContent = ` x: ${state[1].pos.x}`;
+    monsterPosY.textContent = ` y: ${state[1].pos.y}`;
+    monsterHP.textContent = `HP: ${state[1].HP}`;
+  } else if (monsterInfoList != null) {
+    monsterInfoList.remove();
+  }
+}
+
+function move(id, direction) {
+  let x;
+  let y;
+  let indexId = state.findIndex(element => element.id === id);
+
+  switch (direction) {
+    case "left":
+      x = state[indexId].pos.x - 1;
+      y = state[indexId].pos.y;
+      break;
+
+    case "up":
+      x = state[indexId].pos.x;
+      y = state[indexId].pos.y - 1;
+      break;
+
+    case "right":
+      x = state[indexId].pos.x + 1;
+      y = state[indexId].pos.y;
+      break;
+
+    case "down":
+      x = state[indexId].pos.x;
+      y = state[indexId].pos.y + 1;
+      break;
+  }
+
+  let newState = Object.assign({}, state[indexId], {
+    id: id,
+    pos: { x: x, y: y }
+  });
+  return newState;
+}
+
+function attackEnemy(id, x, y) {
+  let playerIndex = state.findIndex(element => element.id === id);
+  let player = state[playerIndex];
+  let playerHP = player.HP;
+
+  let monsterIndex = state.findIndex(element => element.id === "monster");
+  let monster = state[monsterIndex];
+  let monsterHP = monster.HP;
+
+  playerHP -= 1;
+  monsterHP -= 1;
+
+  let newStatePlayer = Object.assign({}, player, { HP: playerHP });
+  let newStateMonster = Object.assign({}, monster, { HP: monsterHP });
+  return [newStatePlayer, newStateMonster];
 }
 
 function start() {
