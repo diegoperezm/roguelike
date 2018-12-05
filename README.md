@@ -1,35 +1,35 @@
-- [Diagram](#org9e8d108)
-- [Diagram Explanation](#orgfc7d459)
-  - [GLOBAL](#org323c1ca)
-  - [PROGRAM](#orgc6202fe)
-  - [WORLD](#orge8bb9fb)
-  - [ORDER](#org64890b5)
-- [Setup](#org401360e)
-  - [Dependencies](#orgf753521)
-- [HTML](#org7aea787)
-- [JavaScript](#orgbd582f0)
-    - [canvas](#org1762b13)
-    - [variables](#org95c0f6b)
-    - [INTERFACE and HANDLERS](#org364eca5)
-    - [UPDATER](#org11e2d88)
-    - [functions](#orged78c59)
-    - [MAIN FUNCTION](#orgccfe8b2)
+- [Diagram](#org960df55)
+- [Diagram Explanation](#org53aa247)
+  - [GLOBAL](#orgcbdbbf3)
+  - [PROGRAM](#org2e777d6)
+  - [WORLD](#org9c6903b)
+  - [ORDER](#org6ce69d0)
+- [Setup](#org60a5116)
+  - [Dependencies](#org8340e8c)
+- [HTML](#orge8bc0e1)
+- [JavaScript](#org76a5f19)
+    - [canvas](#org76272ec)
+    - [variables](#org1893556)
+    - [INTERFACE and HANDLERS](#org3d4b877)
+    - [UPDATER](#orgf7bd441)
+    - [functions](#org3c859e2)
+    - [MAIN FUNCTION](#org7a3f819)
 
 
 
-<a id="org9e8d108"></a>
+<a id="org960df55"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="orgfc7d459"></a>
+<a id="org53aa247"></a>
 
 # Diagram Explanation
 
 
-<a id="org323c1ca"></a>
+<a id="orgcbdbbf3"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgc6202fe"></a>
+<a id="org2e777d6"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="orge8bb9fb"></a>
+<a id="org9c6903b"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org64890b5"></a>
+<a id="org6ce69d0"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org401360e"></a>
+<a id="org60a5116"></a>
 
 # Setup
 
 
-<a id="orgf753521"></a>
+<a id="org8340e8c"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org7aea787"></a>
+<a id="orge8bc0e1"></a>
 
 # HTML
 
@@ -237,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgbd582f0"></a>
+<a id="org76a5f19"></a>
 
 # JavaScript
 
 
-<a id="org1762b13"></a>
+<a id="org76272ec"></a>
 
 ### canvas
 
@@ -252,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org95c0f6b"></a>
+<a id="org1893556"></a>
 
 ### variables
 
@@ -313,9 +313,9 @@ const ctx = canvas.getContext("2d");
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,'M',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,'P',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1],
@@ -378,7 +378,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org364eca5"></a>
+<a id="org3d4b877"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -471,7 +471,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org11e2d88"></a>
+<a id="orgf7bd441"></a>
 
 ### UPDATER
 
@@ -526,7 +526,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="orged78c59"></a>
+<a id="org3c859e2"></a>
 
 ### functions
 
@@ -540,6 +540,13 @@ state.forEach(function (elem) {
          document.addEventListener("keydown", function(keyDown) {
            INTERFACE("player",keyDown.keyCode);
           });
+        
+        // Add  player and monster using state
+        state.forEach(function (elem) {
+          let symbol = elem.id === "player" ? "P" : "M"
+          map[elem.pos.y][elem.pos.x] = symbol;
+        });
+        
         
          drawMap();
          playerInfo();
@@ -566,6 +573,13 @@ state.forEach(function (elem) {
          document.addEventListener("keydown", function(keyDown) {
            INTERFACE("player",keyDown.keyCode);
           });
+        
+        // Add  player and monster using state
+        state.forEach(function (elem) {
+          let symbol = elem.id === "player" ? "P" : "M"
+          map[elem.pos.y][elem.pos.x] = symbol;
+        });
+        
         
          drawMap();
          playerInfo();
@@ -783,7 +797,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="orgccfe8b2"></a>
+<a id="org7a3f819"></a>
 
 ### MAIN FUNCTION
 
@@ -803,9 +817,9 @@ var map = [
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,0,0,0,0,0,0,'M',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,0,0,0,0,0,'P',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1],
@@ -1105,6 +1119,13 @@ function START() {
  document.addEventListener("keydown", function(keyDown) {
    INTERFACE("player",keyDown.keyCode);
   });
+
+// Add  player and monster using state
+state.forEach(function (elem) {
+  let symbol = elem.id === "player" ? "P" : "M"
+  map[elem.pos.y][elem.pos.x] = symbol;
+});
+
 
  drawMap();
  playerInfo();
