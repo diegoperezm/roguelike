@@ -1,35 +1,35 @@
-- [Diagram](#orgf319f3b)
-- [Diagram Explanation](#org44b5a54)
-  - [GLOBAL](#orgaa41455)
-  - [PROGRAM](#org2d376a6)
-  - [WORLD](#orgba23bc1)
-  - [ORDER](#org98a0358)
-- [Setup](#org288f475)
-  - [Dependencies](#org1cebbe9)
-- [HTML](#org5b7b4dd)
-- [JavaScript](#org45fa15d)
-    - [canvas](#org0a1a369)
-    - [variables](#org111d54c)
-    - [INTERFACE and HANDLERS](#org4ac9e00)
-    - [UPDATER](#orgcde89d8)
-    - [functions](#org467a92b)
-    - [MAIN FUNCTION](#orgc0f6d92)
+- [Diagram](#org8c1262e)
+- [Diagram Explanation](#org8538718)
+  - [GLOBAL](#orgec45513)
+  - [PROGRAM](#org52fdc7d)
+  - [WORLD](#orgd3e596e)
+  - [ORDER](#orgfaf2395)
+- [Setup](#orgc49ec4f)
+  - [Dependencies](#org03c0140)
+- [HTML](#org8c2d6c5)
+- [JavaScript](#orge80c20e)
+    - [canvas](#orgf575fb8)
+    - [variables](#org1f98c66)
+    - [INTERFACE and HANDLERS](#org7fe62f5)
+    - [UPDATER](#orgcdcae84)
+    - [functions](#orge36f2f2)
+    - [MAIN FUNCTION](#orgef112bc)
 
 
 
-<a id="orgf319f3b"></a>
+<a id="org8c1262e"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org44b5a54"></a>
+<a id="org8538718"></a>
 
 # Diagram Explanation
 
 
-<a id="orgaa41455"></a>
+<a id="orgec45513"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org2d376a6"></a>
+<a id="org52fdc7d"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="orgba23bc1"></a>
+<a id="orgd3e596e"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org98a0358"></a>
+<a id="orgfaf2395"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org288f475"></a>
+<a id="orgc49ec4f"></a>
 
 # Setup
 
 
-<a id="org1cebbe9"></a>
+<a id="org03c0140"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org5b7b4dd"></a>
+<a id="org8c2d6c5"></a>
 
 # HTML
 
@@ -237,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org45fa15d"></a>
+<a id="orge80c20e"></a>
 
 # JavaScript
 
 
-<a id="org0a1a369"></a>
+<a id="orgf575fb8"></a>
 
 ### canvas
 
@@ -252,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org111d54c"></a>
+<a id="org1f98c66"></a>
 
 ### variables
 
@@ -376,7 +376,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org4ac9e00"></a>
+<a id="org7fe62f5"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -445,8 +445,7 @@ const ctx = canvas.getContext("2d");
      let newState; 
     
      let didSomethingDie = state.findIndex(ele => ele.HP === 0) != -1 
-    			     ? true
-    			     : false; 
+    			     ? true : false; 
     
      if(didSomethingDie) {
         newState = {"remove": true};
@@ -456,7 +455,7 @@ const ctx = canvas.getContext("2d");
      newState =  move(event.id,event.input);
     
       if(map[newState.pos.y][newState.pos.x] === 0) {
-         updater(newState); // update state
+         updater(newState);
     
       } else if (map[newState.pos.y][newState.pos.x] === "M") {
          newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);     
@@ -473,7 +472,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgcde89d8"></a>
+<a id="orgcdcae84"></a>
 
 ### UPDATER
 
@@ -492,7 +491,7 @@ if(newState.remove) {
 
 if(Array.isArray(newState)) {
 
- newState.forEach(function (elem) {
+newState.forEach(function (elem) {
    let indx = state.findIndex(ele => ele.id === elem.id);
    state[indx] = elem;
   });
@@ -536,7 +535,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="org467a92b"></a>
+<a id="orge36f2f2"></a>
 
 ### functions
 
@@ -708,17 +707,16 @@ state.forEach(function (elem) {
          let player = state[playerIndex];
          let playerHP =  player.HP;
         
+         let monsterIndex = state.findIndex(el => el.pos.x === x &&  el.pos.y === y); 
+         let monster = state[monsterIndex];
+         let monsterHP = monster.HP;
         
-         let monsterIndex = state.findIndex(element => element.id==="monster"); 
-            let monster = state[monsterIndex];
-            let monsterHP = monster.HP;
+         playerHP  -= 1; 
+         monsterHP -= 1;
         
-           playerHP  -= 1; 
-           monsterHP -= 1;
-        
-           let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
-           let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
-           return [newStatePlayer,newStateMonster];
+         let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
+         let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
+         return [newStatePlayer,newStateMonster];
         
          }; 
         ```
@@ -732,17 +730,16 @@ state.forEach(function (elem) {
          let player = state[playerIndex];
          let playerHP =  player.HP;
         
+         let monsterIndex = state.findIndex(el => el.pos.x === x &&  el.pos.y === y); 
+         let monster = state[monsterIndex];
+         let monsterHP = monster.HP;
         
-         let monsterIndex = state.findIndex(element => element.id==="monster"); 
-            let monster = state[monsterIndex];
-            let monsterHP = monster.HP;
+         playerHP  -= 1; 
+         monsterHP -= 1;
         
-           playerHP  -= 1; 
-           monsterHP -= 1;
-        
-           let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
-           let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
-           return [newStatePlayer,newStateMonster];
+         let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
+         let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
+         return [newStatePlayer,newStateMonster];
         
          }; 
         var test = require("tape");
@@ -807,7 +804,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="orgc0f6d92"></a>
+<a id="orgef112bc"></a>
 
 ### MAIN FUNCTION
 
@@ -931,8 +928,7 @@ function eventHandler(event) {
  let newState; 
 
  let didSomethingDie = state.findIndex(ele => ele.HP === 0) != -1 
-			     ? true
-			     : false; 
+			     ? true : false; 
 
  if(didSomethingDie) {
     newState = {"remove": true};
@@ -942,7 +938,7 @@ function eventHandler(event) {
  newState =  move(event.id,event.input);
 
   if(map[newState.pos.y][newState.pos.x] === 0) {
-     updater(newState); // update state
+     updater(newState);
 
   } else if (map[newState.pos.y][newState.pos.x] === "M") {
      newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);     
@@ -967,7 +963,7 @@ if(newState.remove) {
 
 if(Array.isArray(newState)) {
 
- newState.forEach(function (elem) {
+newState.forEach(function (elem) {
    let indx = state.findIndex(ele => ele.id === elem.id);
    state[indx] = elem;
   });
@@ -1126,17 +1122,16 @@ function attackEnemy (id,x,y) {
  let player = state[playerIndex];
  let playerHP =  player.HP;
 
+ let monsterIndex = state.findIndex(el => el.pos.x === x &&  el.pos.y === y); 
+ let monster = state[monsterIndex];
+ let monsterHP = monster.HP;
 
- let monsterIndex = state.findIndex(element => element.id==="monster"); 
-    let monster = state[monsterIndex];
-    let monsterHP = monster.HP;
+ playerHP  -= 1; 
+ monsterHP -= 1;
 
-   playerHP  -= 1; 
-   monsterHP -= 1;
-
-   let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
-   let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
-   return [newStatePlayer,newStateMonster];
+ let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
+ let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
+ return [newStatePlayer,newStateMonster];
 
  };
 

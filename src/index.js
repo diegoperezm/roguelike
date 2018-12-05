@@ -122,7 +122,7 @@ function eventHandler(event) {
   newState = move(event.id, event.input);
 
   if (map[newState.pos.y][newState.pos.x] === 0) {
-    updater(newState); // update state
+    updater(newState);
   } else if (map[newState.pos.y][newState.pos.x] === "M") {
     newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);
     updater(newState);
@@ -280,7 +280,7 @@ function attackEnemy(id, x, y) {
   let player = state[playerIndex];
   let playerHP = player.HP;
 
-  let monsterIndex = state.findIndex(element => element.id === "monster");
+  let monsterIndex = state.findIndex(el => el.pos.x === x && el.pos.y === y);
   let monster = state[monsterIndex];
   let monsterHP = monster.HP;
 
