@@ -1,35 +1,35 @@
-- [Diagram](#org960df55)
-- [Diagram Explanation](#org53aa247)
-  - [GLOBAL](#orgcbdbbf3)
-  - [PROGRAM](#org2e777d6)
-  - [WORLD](#org9c6903b)
-  - [ORDER](#org6ce69d0)
-- [Setup](#org60a5116)
-  - [Dependencies](#org8340e8c)
-- [HTML](#orge8bc0e1)
-- [JavaScript](#org76a5f19)
-    - [canvas](#org76272ec)
-    - [variables](#org1893556)
-    - [INTERFACE and HANDLERS](#org3d4b877)
-    - [UPDATER](#orgf7bd441)
-    - [functions](#org3c859e2)
-    - [MAIN FUNCTION](#org7a3f819)
+- [Diagram](#orgf319f3b)
+- [Diagram Explanation](#org44b5a54)
+  - [GLOBAL](#orgaa41455)
+  - [PROGRAM](#org2d376a6)
+  - [WORLD](#orgba23bc1)
+  - [ORDER](#org98a0358)
+- [Setup](#org288f475)
+  - [Dependencies](#org1cebbe9)
+- [HTML](#org5b7b4dd)
+- [JavaScript](#org45fa15d)
+    - [canvas](#org0a1a369)
+    - [variables](#org111d54c)
+    - [INTERFACE and HANDLERS](#org4ac9e00)
+    - [UPDATER](#orgcde89d8)
+    - [functions](#org467a92b)
+    - [MAIN FUNCTION](#orgc0f6d92)
 
 
 
-<a id="org960df55"></a>
+<a id="orgf319f3b"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org53aa247"></a>
+<a id="org44b5a54"></a>
 
 # Diagram Explanation
 
 
-<a id="orgcbdbbf3"></a>
+<a id="orgaa41455"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org2e777d6"></a>
+<a id="org2d376a6"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org9c6903b"></a>
+<a id="orgba23bc1"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org6ce69d0"></a>
+<a id="org98a0358"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org60a5116"></a>
+<a id="org288f475"></a>
 
 # Setup
 
 
-<a id="org8340e8c"></a>
+<a id="org1cebbe9"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orge8bc0e1"></a>
+<a id="org5b7b4dd"></a>
 
 # HTML
 
@@ -237,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org76a5f19"></a>
+<a id="org45fa15d"></a>
 
 # JavaScript
 
 
-<a id="org76272ec"></a>
+<a id="org0a1a369"></a>
 
 ### canvas
 
@@ -252,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org1893556"></a>
+<a id="org111d54c"></a>
 
 ### variables
 
@@ -302,8 +302,6 @@ const ctx = canvas.getContext("2d");
     
     ```js
     /*
-      canvas 150x150 , tileSize 10
-    
       0 : walkable
       1 : not walkable (a wall)
      */ 
@@ -378,7 +376,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org3d4b877"></a>
+<a id="org4ac9e00"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -387,9 +385,9 @@ const ctx = canvas.getContext("2d");
 1.  INTERFACE
 
     ```js
-    function INTERFACE(id, keyCode ) {
+    function interface(id, keyCode ) {
        let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
-       INPUTHANDLER(input); 
+       inputHandler(input); 
      }
     ```
 
@@ -407,7 +405,7 @@ const ctx = canvas.getContext("2d");
     
     
     ```js
-    function INPUTHANDLER(inputObj) {
+    function inputHandler(inputObj) {
     
     let input;
     let id = inputObj.id;
@@ -433,7 +431,7 @@ const ctx = canvas.getContext("2d");
     } 
     
     let event =   Object.assign({"id":id}, {"input":input}, {});
-    EVENTHANDLER(event); 
+    eventHandler(event); 
       }
     ```
 
@@ -442,36 +440,40 @@ const ctx = canvas.getContext("2d");
     ![img](eventhandler_diagram.png)
     
     ```js
-    // event { id: 'human', input: 'left||up||right||down' }
-    function EVENTHANDLER(event) {
+    function eventHandler(event) {
     
      let newState; 
     
-    // is monster alive?
-     if(  state[1] != undefined && state[1].HP === 0 ) {
-         newState = state.pop();
-         UPDATER(newState);
+     let didSomethingDie = state.findIndex(ele => ele.HP === 0) != -1 
+    			     ? true
+    			     : false; 
+    
+     if(didSomethingDie) {
+        newState = {"remove": true};
+        updater(newState);
      }
     
      newState =  move(event.id,event.input);
     
       if(map[newState.pos.y][newState.pos.x] === 0) {
-         UPDATER(newState); // update state
+         updater(newState); // update state
     
       } else if (map[newState.pos.y][newState.pos.x] === "M") {
          newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);     
-         UPDATER(newState); 
+         updater(newState); 
     
       } else {
         console.log("collision detected");
       }
-    
-    
     }
+    
+    
+    
+    
     ```
 
 
-<a id="orgf7bd441"></a>
+<a id="orgcde89d8"></a>
 
 ### UPDATER
 
@@ -480,16 +482,24 @@ const ctx = canvas.getContext("2d");
 ![img](updater_canvas_diagram.png)
 
 ```js
-function UPDATER(newState) {
+function updater(newState) {
+
+
+// remove dead object
+if(newState.remove) {
+ state = state.filter(ele => ele.HP != 0);
+}
 
 if(Array.isArray(newState)) {
+
  newState.forEach(function (elem) {
    let indx = state.findIndex(ele => ele.id === elem.id);
    state[indx] = elem;
-});
-} else {
+  });
+
+} else if (!Array.isArray(newState)){
     let indx = state.findIndex(ele => ele.id === newState.id);
-    indx != -1 ? state[indx] = newState : console.log("nothing to update");
+    state[indx] = newState;
 }
 
 
@@ -503,9 +513,9 @@ map.forEach(function (elem) {
  }
 });
 
-// update state
+// update map
 state.forEach(function (elem) {
-  let symbol = elem.id === "player" ? "P" : "M"
+  let symbol = elem.id === "player" ? "P" : "M";
   map[elem.pos.y][elem.pos.x] = symbol;
 });
 
@@ -526,7 +536,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="org3c859e2"></a>
+<a id="org467a92b"></a>
 
 ### functions
 
@@ -535,10 +545,10 @@ state.forEach(function (elem) {
     1.  Declaration
     
         ```js
-        function START() {
+        function start() {
         // LISTENER
          document.addEventListener("keydown", function(keyDown) {
-           INTERFACE("player",keyDown.keyCode);
+           interface("player",keyDown.keyCode);
           });
         
         // Add  player and monster using state
@@ -568,10 +578,10 @@ state.forEach(function (elem) {
         const INTERFACE = sinon.spy(); 
         const draw      = sinon.spy();
         
-        function START() {
+        function start() {
         // LISTENER
          document.addEventListener("keydown", function(keyDown) {
-           INTERFACE("player",keyDown.keyCode);
+           interface("player",keyDown.keyCode);
           });
         
         // Add  player and monster using state
@@ -653,7 +663,7 @@ state.forEach(function (elem) {
     1.  Declaration
     
         ```js
-        let move = (id, direction) => {
+        function move (id, direction) {
         let x;
         let y;
         let indexId = state.findIndex( element => element.id===id );
@@ -692,7 +702,7 @@ state.forEach(function (elem) {
     1.  Declaration
     
         ```js
-        let attackEnemy = (id,x,y) => { 
+        function attackEnemy (id,x,y) { 
         
          let playerIndex =  state.findIndex(element => element.id===id); 
          let player = state[playerIndex];
@@ -716,7 +726,7 @@ state.forEach(function (elem) {
     2.  Test
     
         ```js
-        let attackEnemy = (id,x,y) => { 
+        function attackEnemy (id,x,y) { 
         
          let playerIndex =  state.findIndex(element => element.id===id); 
          let player = state[playerIndex];
@@ -797,17 +807,22 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="org7a3f819"></a>
+<a id="orgc0f6d92"></a>
 
 ### MAIN FUNCTION
 
 ```js
+/* Variables */
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-/*
-  canvas 150x150 , tileSize 10
+let w = 400;
+let h = 400;
+let tileSize = 13;
 
+/* GLOBAL */
+/*
   0 : walkable
   1 : not walkable (a wall)
  */ 
@@ -848,10 +863,6 @@ var map = [
 ];
 
 
-let w = 400;
-let h = 400;
-let tileSize = 13;
-
 /*
  list of objects  and his positions x y
  */
@@ -878,103 +889,15 @@ let state = [{
    }
 ];
 
-/**
-  Functions
- */
-function playerInfo()  {
-let playerInfo = document.getElementById("playerInfo");
-let playerId   = document.getElementById("playerId");
-let playerPosX = document.getElementById("playerPosX");
-let playerPosY = document.getElementById("playerPosY");
-let playerHP   = document.getElementById("playerHP");
 
-playerId.textContent   =   `id: ${state[0].id}`;
-playerPosX.textContent =   ` x: ${state[0].pos.x}`;
-playerPosY.textContent =   ` y: ${state[0].pos.y}`;
-playerHP.textContent   =   `HP: ${state[0].HP}`;
-}
+/* PROGRAM */
 
-function monsterInfoFn()  {
-
-let monsterInfo = document.getElementById("monsterInfo");
-let monsterInfoList = document.getElementById("monsterInfoList");
-let monsterId   = document.getElementById("monsterId");
-let monsterPosX = document.getElementById("monsterPosX");
-let monsterPosY = document.getElementById("monsterPosY");
-let monsterHP = document.getElementById("monsterHP");
-
-if(state[1] !== undefined) {
-   monsterId.textContent   =   `id: ${state[1].id}`;
-   monsterPosX.textContent =   ` x: ${state[1].pos.x}`;
-   monsterPosY.textContent =   ` y: ${state[1].pos.y}`;
-   monsterHP.textContent   =   `HP: ${state[1].HP}`;
-
-} else if (monsterInfoList != null) {
-   monsterInfoList.remove();
-}
-
-}
-
-
-let move = (id, direction) => {
-let x;
-let y;
-let indexId = state.findIndex( element => element.id===id );
-
-
-switch (direction) {
-  case "left":
-   x = state[indexId].pos.x - 1;
-   y = state[indexId].pos.y;
-   break;
-
-  case "up":
-   x = state[indexId].pos.x;    
-   y = state[indexId].pos.y - 1;
-   break;
-
-
-  case "right":
-   x = state[indexId].pos.x + 1;
-   y = state[indexId].pos.y;
-   break;
-
-  case "down":
-   x = state[indexId].pos.x;    
-   y = state[indexId].pos.y + 1;
-   break;
-}
-
- let newState = Object.assign({}, state[indexId], {"id": id, "pos": {"x": x , "y": y}}); 
- return newState;
-};
-
-let attackEnemy = (id,x,y) => { 
-
- let playerIndex =  state.findIndex(element => element.id===id); 
- let player = state[playerIndex];
- let playerHP =  player.HP;
-
-
- let monsterIndex = state.findIndex(element => element.id==="monster"); 
-    let monster = state[monsterIndex];
-    let monsterHP = monster.HP;
-
-   playerHP  -= 1; 
-   monsterHP -= 1;
-
-   let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
-   let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
-   return [newStatePlayer,newStateMonster];
-
- };
-
-function INTERFACE(id, keyCode ) {
+function interface(id, keyCode ) {
    let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
-   INPUTHANDLER(input); 
+   inputHandler(input); 
  }
 
-function INPUTHANDLER(inputObj) {
+function inputHandler(inputObj) {
 
 let input;
 let id = inputObj.id;
@@ -1000,46 +923,58 @@ let id = inputObj.id;
 } 
 
 let event =   Object.assign({"id":id}, {"input":input}, {});
-EVENTHANDLER(event); 
+eventHandler(event); 
   }
 
-// event { id: 'human', input: 'left||up||right||down' }
-function EVENTHANDLER(event) {
+function eventHandler(event) {
 
  let newState; 
 
-// is monster alive?
- if(  state[1] != undefined && state[1].HP === 0 ) {
-     newState = state.pop();
-     UPDATER(newState);
+ let didSomethingDie = state.findIndex(ele => ele.HP === 0) != -1 
+			     ? true
+			     : false; 
+
+ if(didSomethingDie) {
+    newState = {"remove": true};
+    updater(newState);
  }
 
  newState =  move(event.id,event.input);
 
   if(map[newState.pos.y][newState.pos.x] === 0) {
-     UPDATER(newState); // update state
+     updater(newState); // update state
 
   } else if (map[newState.pos.y][newState.pos.x] === "M") {
      newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);     
-     UPDATER(newState); 
+     updater(newState); 
 
   } else {
     console.log("collision detected");
   }
-
-
 }
 
-function UPDATER(newState) {
+
+
+
+
+function updater(newState) {
+
+
+// remove dead object
+if(newState.remove) {
+ state = state.filter(ele => ele.HP != 0);
+}
 
 if(Array.isArray(newState)) {
+
  newState.forEach(function (elem) {
    let indx = state.findIndex(ele => ele.id === elem.id);
    state[indx] = elem;
-});
-} else {
+  });
+
+} else if (!Array.isArray(newState)){
     let indx = state.findIndex(ele => ele.id === newState.id);
-    indx != -1 ? state[indx] = newState : console.log("nothing to update");
+    state[indx] = newState;
 }
 
 
@@ -1053,9 +988,9 @@ map.forEach(function (elem) {
  }
 });
 
-// update state
+// update map
 state.forEach(function (elem) {
-  let symbol = elem.id === "player" ? "P" : "M"
+  let symbol = elem.id === "player" ? "P" : "M";
   map[elem.pos.y][elem.pos.x] = symbol;
 });
 
@@ -1114,10 +1049,101 @@ function drawTile (x,y){
   );
 }
 
-function START() {
+
+/* FUNCTIONS */
+
+function playerInfo()  {
+let playerInfo = document.getElementById("playerInfo");
+let playerId   = document.getElementById("playerId");
+let playerPosX = document.getElementById("playerPosX");
+let playerPosY = document.getElementById("playerPosY");
+let playerHP   = document.getElementById("playerHP");
+
+playerId.textContent   =   `id: ${state[0].id}`;
+playerPosX.textContent =   ` x: ${state[0].pos.x}`;
+playerPosY.textContent =   ` y: ${state[0].pos.y}`;
+playerHP.textContent   =   `HP: ${state[0].HP}`;
+}
+
+function monsterInfoFn()  {
+
+let monsterInfo = document.getElementById("monsterInfo");
+let monsterInfoList = document.getElementById("monsterInfoList");
+let monsterId   = document.getElementById("monsterId");
+let monsterPosX = document.getElementById("monsterPosX");
+let monsterPosY = document.getElementById("monsterPosY");
+let monsterHP = document.getElementById("monsterHP");
+
+if(state[1] !== undefined) {
+   monsterId.textContent   =   `id: ${state[1].id}`;
+   monsterPosX.textContent =   ` x: ${state[1].pos.x}`;
+   monsterPosY.textContent =   ` y: ${state[1].pos.y}`;
+   monsterHP.textContent   =   `HP: ${state[1].HP}`;
+
+} else if (monsterInfoList != null) {
+   monsterInfoList.remove();
+}
+
+}
+
+
+function move (id, direction) {
+let x;
+let y;
+let indexId = state.findIndex( element => element.id===id );
+
+
+switch (direction) {
+  case "left":
+   x = state[indexId].pos.x - 1;
+   y = state[indexId].pos.y;
+   break;
+
+  case "up":
+   x = state[indexId].pos.x;    
+   y = state[indexId].pos.y - 1;
+   break;
+
+
+  case "right":
+   x = state[indexId].pos.x + 1;
+   y = state[indexId].pos.y;
+   break;
+
+  case "down":
+   x = state[indexId].pos.x;    
+   y = state[indexId].pos.y + 1;
+   break;
+}
+
+ let newState = Object.assign({}, state[indexId], {"id": id, "pos": {"x": x , "y": y}}); 
+ return newState;
+};
+
+function attackEnemy (id,x,y) { 
+
+ let playerIndex =  state.findIndex(element => element.id===id); 
+ let player = state[playerIndex];
+ let playerHP =  player.HP;
+
+
+ let monsterIndex = state.findIndex(element => element.id==="monster"); 
+    let monster = state[monsterIndex];
+    let monsterHP = monster.HP;
+
+   playerHP  -= 1; 
+   monsterHP -= 1;
+
+   let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
+   let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
+   return [newStatePlayer,newStateMonster];
+
+ };
+
+function start() {
 // LISTENER
  document.addEventListener("keydown", function(keyDown) {
-   INTERFACE("player",keyDown.keyCode);
+   interface("player",keyDown.keyCode);
   });
 
 // Add  player and monster using state
@@ -1132,6 +1158,7 @@ state.forEach(function (elem) {
  monsterInfoFn();
 }
 
-START();
+
+start();
 
 ```
