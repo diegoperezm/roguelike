@@ -108,13 +108,14 @@ function inputHandler(inputObj) {
   eventHandler(event);
 }
 
-// event { id: 'human', input: 'left||up||right||down' }
 function eventHandler(event) {
   let newState;
 
-  // is monster alive?
-  if (state[1] != undefined && state[1].HP === 0) {
-    newState = state.pop();
+  let didSomethingDie =
+    state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
+
+  if (didSomethingDie) {
+    newState = { remove: true };
     updater(newState);
   }
 
@@ -131,14 +132,19 @@ function eventHandler(event) {
 }
 
 function updater(newState) {
+  // remove dead object
+  if (newState.remove) {
+    state = state.filter(ele => ele.HP != 0);
+  }
+
   if (Array.isArray(newState)) {
     newState.forEach(function(elem) {
       let indx = state.findIndex(ele => ele.id === elem.id);
       state[indx] = elem;
     });
-  } else {
+  } else if (!Array.isArray(newState)) {
     let indx = state.findIndex(ele => ele.id === newState.id);
-    indx != -1 ? (state[indx] = newState) : console.log("nothing to update");
+    state[indx] = newState;
   }
 
   // clean map
@@ -151,7 +157,7 @@ function updater(newState) {
     }
   });
 
-  // update state
+  // update map
   state.forEach(function(elem) {
     let symbol = elem.id === "player" ? "P" : "M";
     map[elem.pos.y][elem.pos.x] = symbol;
