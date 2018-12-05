@@ -159,12 +159,12 @@ function attackEnemy(id, x, y) {
   return [newStatePlayer, newStateMonster];
 }
 
-function INTERFACE(id, keyCode) {
+function interface(id, keyCode) {
   let input = Object.assign({ id: id }, { keyCode: keyCode }, {});
-  INPUTHANDLER(input);
+  inputHandler(input);
 }
 
-function INPUTHANDLER(inputObj) {
+function inputHandler(inputObj) {
   let input;
   let id = inputObj.id;
 
@@ -187,32 +187,32 @@ function INPUTHANDLER(inputObj) {
   }
 
   let event = Object.assign({ id: id }, { input: input }, {});
-  EVENTHANDLER(event);
+  eventHandler(event);
 }
 
 // event { id: 'human', input: 'left||up||right||down' }
-function EVENTHANDLER(event) {
+function eventHandler(event) {
   let newState;
 
   // is monster alive?
   if (state[1] != undefined && state[1].HP === 0) {
     newState = state.pop();
-    UPDATER(newState);
+    updater(newState);
   }
 
   newState = move(event.id, event.input);
 
   if (map[newState.pos.y][newState.pos.x] === 0) {
-    UPDATER(newState); // update state
+    updater(newState); // update state
   } else if (map[newState.pos.y][newState.pos.x] === "M") {
     newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);
-    UPDATER(newState);
+    updater(newState);
   } else {
     console.log("collision detected");
   }
 }
 
-function UPDATER(newState) {
+function updater(newState) {
   if (Array.isArray(newState)) {
     newState.forEach(function(elem) {
       let indx = state.findIndex(ele => ele.id === elem.id);
@@ -284,10 +284,10 @@ function drawTile(x, y) {
   ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
 }
 
-function START() {
+function start() {
   // LISTENER
   document.addEventListener("keydown", function(keyDown) {
-    INTERFACE("player", keyDown.keyCode);
+    interface("player", keyDown.keyCode);
   });
 
   // Add  player and monster using state
@@ -301,4 +301,4 @@ function START() {
   monsterInfoFn();
 }
 
-START();
+start();
