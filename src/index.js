@@ -108,7 +108,7 @@ function monsterInfoFn() {
   }
 }
 
-let move = (id, direction) => {
+function move(id, direction) {
   let x;
   let y;
   let indexId = state.findIndex(element => element.id === id);
@@ -140,7 +140,7 @@ let move = (id, direction) => {
     pos: { x: x, y: y }
   });
   return newState;
-};
+}
 
 let attackEnemy = (id, x, y) => {
   let playerIndex = state.findIndex(element => element.id === id);
