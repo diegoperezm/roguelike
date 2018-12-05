@@ -142,7 +142,7 @@ function move(id, direction) {
   return newState;
 }
 
-let attackEnemy = (id, x, y) => {
+function attackEnemy(id, x, y) {
   let playerIndex = state.findIndex(element => element.id === id);
   let player = state[playerIndex];
   let playerHP = player.HP;
@@ -157,7 +157,7 @@ let attackEnemy = (id, x, y) => {
   let newStatePlayer = Object.assign({}, player, { HP: playerHP });
   let newStateMonster = Object.assign({}, monster, { HP: monsterHP });
   return [newStatePlayer, newStateMonster];
-};
+}
 
 function INTERFACE(id, keyCode) {
   let input = Object.assign({ id: id }, { keyCode: keyCode }, {});
