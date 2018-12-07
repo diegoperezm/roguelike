@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
 	<meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Roguelike</title>
     </head>
     <style>
@@ -32,7 +32,7 @@
 	 border: 10px solid black;
      }
      .worldInfo {
-         grid-column: col-start 3/span 9;
+	 grid-column: col-start 3/span 9;
 	 grid-row: 3/6;
 	 max-width: 100%; 
 	 max-height: 100%; 
@@ -46,23 +46,34 @@
      <div class="container">
      <canvas id="canvas" class="canvas" width="400" height="400"></canvas>
      <div class="playerInfo" id="playerInfo">
-      <ul>
-       <li id="playerId"></li>
-       <li id="playerPosX"></li>
-       <li id="playerPosY"></li>
-       <li id="playerHP"></li>
-      </ul>
+      <table>
+       <tr>
+ 	 <td id="playerId"></td>
+       </tr>
+       <tr>
+	 <th>X:</th>
+         <td id="playerPosX"></td>
+       </tr>
+       <tr>
+	 <th>Y:</th>
+ 	 <td id="playerPosY"></td>
+       </tr>
+       <tr>
+	 <th>HP</th>
+         <td id="playerHP"></td>
+       </tr>
+     </table>
      </div>
-     <div class="worldInfo"  id="worldInfo">
-       <div class="monsterInfo" id="monsterInfo">
-        <ul id="monsterInfoList">
-         <li id="monsterId"></li>
-         <li id="monsterPosX"></li>
-         <li id="monsterPosY"></li>
-         <li id="monsterHP"></li>
-        </ul>
-       </div> 
-     </div>
-    </body>
-    <script src="index.js"></script>
+      <div class="worldInfo"  id="worldInfo">
+	<div class="monsterInfo" id="monsterInfo">
+	 <ul id="monsterInfoList">
+	  <li id="monsterId"></li>
+	  <li id="monsterPosX"></li>
+	  <li id="monsterPosY"></li>
+	  <li id="monsterHP"></li>
+	 </ul>
+	</div> 
+      </div>
+     </body>
+     <script src="index.js"></script>
 </html>

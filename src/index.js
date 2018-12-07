@@ -243,16 +243,19 @@ function drawTile(x, y) {
 /* FUNCTIONS */
 
 function playerInfo() {
+  let playerIndex = state.findIndex(element => element.id === "player");
+  let player = state[playerIndex];
+
   let playerInfo = document.getElementById("playerInfo");
   let playerId = document.getElementById("playerId");
   let playerPosX = document.getElementById("playerPosX");
   let playerPosY = document.getElementById("playerPosY");
   let playerHP = document.getElementById("playerHP");
 
-  playerId.textContent = `id: ${state[0].id}`;
-  playerPosX.textContent = ` x: ${state[0].pos.x}`;
-  playerPosY.textContent = ` y: ${state[0].pos.y}`;
-  playerHP.textContent = `HP: ${state[0].HP}`;
+  playerId.textContent = player.id;
+  playerPosX.textContent = player.pos.x;
+  playerPosY.textContent = player.pos.y;
+  playerHP.textContent = player.HP;
 }
 
 function monsterInfoFn() {

@@ -1,35 +1,35 @@
-- [Diagram](#org756d2b4)
-- [Diagram Explanation](#orgff229f8)
-  - [GLOBAL](#org4c319ec)
-  - [PROGRAM](#orga501cf9)
-  - [WORLD](#org8b01bdf)
-  - [ORDER](#orgbebaf7d)
-- [Setup](#org306bff8)
-  - [Dependencies](#orgad53ca8)
-- [HTML](#org5676c17)
-- [JavaScript](#orgd12b390)
-    - [canvas](#org2c9632f)
-    - [variables](#org6464e40)
-    - [INTERFACE and HANDLERS](#orgeb2ab6e)
-    - [UPDATER](#orgc0ae686)
-    - [functions](#orga720cb9)
-    - [MAIN FUNCTION](#org82f9a2c)
+- [Diagram](#orgce6dc06)
+- [Diagram Explanation](#org6254ab4)
+  - [GLOBAL](#org080ed19)
+  - [PROGRAM](#org11d5c73)
+  - [WORLD](#org4b220df)
+  - [ORDER](#orgb7f1598)
+- [Setup](#orgeb8cdb8)
+  - [Dependencies](#orgbcb772b)
+- [HTML](#org3084f1f)
+- [JavaScript](#orgf62f982)
+    - [canvas](#org41079cb)
+    - [variables](#org2fe7275)
+    - [INTERFACE and HANDLERS](#orgad21d00)
+    - [UPDATER](#org34c7df0)
+    - [functions](#org19a2aac)
+    - [MAIN FUNCTION](#org4ca3e4b)
 
 
 
-<a id="org756d2b4"></a>
+<a id="orgce6dc06"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="orgff229f8"></a>
+<a id="org6254ab4"></a>
 
 # Diagram Explanation
 
 
-<a id="org4c319ec"></a>
+<a id="org080ed19"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orga501cf9"></a>
+<a id="org11d5c73"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org8b01bdf"></a>
+<a id="org4b220df"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="orgbebaf7d"></a>
+<a id="orgb7f1598"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org306bff8"></a>
+<a id="orgeb8cdb8"></a>
 
 # Setup
 
 
-<a id="orgad53ca8"></a>
+<a id="orgbcb772b"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org5676c17"></a>
+<a id="org3084f1f"></a>
 
 # HTML
 
@@ -214,35 +214,46 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
      <div class="container">
      <canvas id="canvas" class="canvas" width="400" height="400"></canvas>
      <div class="playerInfo" id="playerInfo">
-      <ul>
-       <li id="playerId"></li>
-       <li id="playerPosX"></li>
-       <li id="playerPosY"></li>
-       <li id="playerHP"></li>
-      </ul>
+      <table>
+       <tr>
+	 <td id="playerId"></td>
+       </tr>
+       <tr>
+	 <th>X:</th>
+	 <td id="playerPosX"></td>
+       </tr>
+       <tr>
+	 <th>Y:</th>
+	 <td id="playerPosY"></td>
+       </tr>
+       <tr>
+	 <th>HP</th>
+	 <td id="playerHP"></td>
+       </tr>
+     </table>
      </div>
-     <div class="worldInfo"  id="worldInfo">
-       <div class="monsterInfo" id="monsterInfo">
-	<ul id="monsterInfoList">
-	 <li id="monsterId"></li>
-	 <li id="monsterPosX"></li>
-	 <li id="monsterPosY"></li>
-	 <li id="monsterHP"></li>
-	</ul>
-       </div> 
-     </div>
-    </body>
-    <script src="index.js"></script>
+      <div class="worldInfo"  id="worldInfo">
+	<div class="monsterInfo" id="monsterInfo">
+	 <ul id="monsterInfoList">
+	  <li id="monsterId"></li>
+	  <li id="monsterPosX"></li>
+	  <li id="monsterPosY"></li>
+	  <li id="monsterHP"></li>
+	 </ul>
+	</div> 
+      </div>
+     </body>
+     <script src="index.js"></script>
 </html>
 ```
 
 
-<a id="orgd12b390"></a>
+<a id="orgf62f982"></a>
 
 # JavaScript
 
 
-<a id="org2c9632f"></a>
+<a id="org41079cb"></a>
 
 ### canvas
 
@@ -252,7 +263,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org6464e40"></a>
+<a id="org2fe7275"></a>
 
 ### variables
 
@@ -376,7 +387,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgeb2ab6e"></a>
+<a id="orgad21d00"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -498,7 +509,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgc0ae686"></a>
+<a id="org34c7df0"></a>
 
 ### UPDATER
 
@@ -554,7 +565,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="orga720cb9"></a>
+<a id="org19a2aac"></a>
 
 ### functions
 
@@ -635,16 +646,20 @@ function updater(newState, action) {
     
         ```js
         function playerInfo()  {
+        
+        let playerIndex =  state.findIndex(element => element.id==="player"); 
+        let player = state[playerIndex];
+        
         let playerInfo = document.getElementById("playerInfo");
         let playerId   = document.getElementById("playerId");
         let playerPosX = document.getElementById("playerPosX");
         let playerPosY = document.getElementById("playerPosY");
         let playerHP   = document.getElementById("playerHP");
         
-        playerId.textContent   =   `id: ${state[0].id}`;
-        playerPosX.textContent =   ` x: ${state[0].pos.x}`;
-        playerPosY.textContent =   ` y: ${state[0].pos.y}`;
-        playerHP.textContent   =   `HP: ${state[0].HP}`;
+        playerId.textContent   =   player.id;
+        playerPosX.textContent =   player.pos.x;
+        playerPosY.textContent =   player.pos.y;
+        playerHP.textContent   =   player.HP;
         }
         ```
 
@@ -823,7 +838,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="org82f9a2c"></a>
+<a id="org4ca3e4b"></a>
 
 ### MAIN FUNCTION
 
@@ -1087,16 +1102,20 @@ function drawTile (x,y){
 /* FUNCTIONS */
 
 function playerInfo()  {
+
+let playerIndex =  state.findIndex(element => element.id==="player"); 
+let player = state[playerIndex];
+
 let playerInfo = document.getElementById("playerInfo");
 let playerId   = document.getElementById("playerId");
 let playerPosX = document.getElementById("playerPosX");
 let playerPosY = document.getElementById("playerPosY");
 let playerHP   = document.getElementById("playerHP");
 
-playerId.textContent   =   `id: ${state[0].id}`;
-playerPosX.textContent =   ` x: ${state[0].pos.x}`;
-playerPosY.textContent =   ` y: ${state[0].pos.y}`;
-playerHP.textContent   =   `HP: ${state[0].HP}`;
+playerId.textContent   =   player.id;
+playerPosX.textContent =   player.pos.x;
+playerPosY.textContent =   player.pos.y;
+playerHP.textContent   =   player.HP;
 }
 
 function monsterInfoFn()  {
