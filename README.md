@@ -1,35 +1,35 @@
-- [Diagram](#org832f9cd)
-- [Diagram Explanation](#orgf3a117e)
-  - [GLOBAL](#orgf2309d3)
-  - [PROGRAM](#orgb95822e)
-  - [WORLD](#orgfa7bf73)
-  - [ORDER](#org232bae2)
-- [Setup](#org67100b7)
-  - [Dependencies](#org74c6e50)
-- [HTML](#org3872917)
-- [JavaScript](#org32abbee)
-    - [canvas](#orgf212680)
-    - [variables](#org2f3a2fc)
-    - [INTERFACE and HANDLERS](#org46ffdc7)
-    - [UPDATER](#org5e0b396)
-    - [functions](#orgbd361d5)
-    - [MAIN FUNCTION](#org0885f64)
+- [Diagram](#org797fba0)
+- [Diagram Explanation](#org79ef160)
+  - [GLOBAL](#orga35ff2c)
+  - [PROGRAM](#org92b50d7)
+  - [WORLD](#org9a1e789)
+  - [ORDER](#orgd0519b2)
+- [Setup](#org34761b7)
+  - [Dependencies](#orgf0779f9)
+- [HTML](#orgfd480df)
+- [JavaScript](#orga4bcf54)
+    - [canvas](#org22ccbb1)
+    - [variables](#orgdd3db2f)
+    - [INTERFACE and HANDLERS](#org2be9a54)
+    - [UPDATER](#orgc1573b2)
+    - [functions](#org8f01748)
+    - [MAIN FUNCTION](#org11ff26b)
 
 
 
-<a id="org832f9cd"></a>
+<a id="org797fba0"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="orgf3a117e"></a>
+<a id="org79ef160"></a>
 
 # Diagram Explanation
 
 
-<a id="orgf2309d3"></a>
+<a id="orga35ff2c"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgb95822e"></a>
+<a id="org92b50d7"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="orgfa7bf73"></a>
+<a id="org9a1e789"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org232bae2"></a>
+<a id="orgd0519b2"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org67100b7"></a>
+<a id="org34761b7"></a>
 
 # Setup
 
 
-<a id="org74c6e50"></a>
+<a id="orgf0779f9"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org3872917"></a>
+<a id="orgfd480df"></a>
 
 # HTML
 
@@ -237,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org32abbee"></a>
+<a id="orga4bcf54"></a>
 
 # JavaScript
 
 
-<a id="orgf212680"></a>
+<a id="org22ccbb1"></a>
 
 ### canvas
 
@@ -252,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org2f3a2fc"></a>
+<a id="orgdd3db2f"></a>
 
 ### variables
 
@@ -376,7 +376,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org46ffdc7"></a>
+<a id="org2be9a54"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -441,38 +441,63 @@ const ctx = canvas.getContext("2d");
     
     ```js
     function eventHandler(event) {
+      let newState;
+      let nextMove;
+      let action;
     
-     let newState; 
+      let didSomethingDie =
+        state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
     
-     let didSomethingDie = state.findIndex(ele => ele.HP === 0) != -1 ? true : false; 
+      /*
+       * remove dead object
+       */
     
-    // remove dead object
-     if(didSomethingDie) {
-        newState =  state.filter(ele => ele.HP != 0);
+      if (didSomethingDie) {
+        newState = state.filter(ele => ele.HP != 0);
         updater(newState, "remove");
-     }
+      }
     
-     newState =  move(event.id,event.input);
     
-      if(map[newState.pos.y][newState.pos.x] === 0) {
-         updater(newState);
+      /*
+       * Select action  based on nextMove
+       */
     
-      } else if (map[newState.pos.y][newState.pos.x] === "M") {
-         newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);     
-         updater(newState); 
+      nextMove = move(event.id, event.input);
+    
+      if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
+        action   = "walk";
+    
+      } else if (map[nextMove.pos.y][nextMove.pos.x] === "M") {
+        action   = "attack";
     
       } else {
-        console.log("collision detected");
+        action = "collision detection";
+      }
+    
+    
+      /*
+       * send newState  based on action
+       */
+      switch (action) {
+        case "walk":
+          newState = nextMove;
+          updater(newState);
+          break;
+    
+        case "attack":
+          newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
+          updater(newState);
+          break;
+    
+        case "collision detection":
+          console.log("collision detected");
+          break;
       }
     }
-    
-    
-    
-    
     ```
 
 
-<a id="org5e0b396"></a>
+<a id="orgc1573b2"></a>
 
 ### UPDATER
 
@@ -533,7 +558,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="orgbd361d5"></a>
+<a id="org8f01748"></a>
 
 ### functions
 
@@ -802,7 +827,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="org0885f64"></a>
+<a id="org11ff26b"></a>
 
 ### MAIN FUNCTION
 
@@ -922,34 +947,59 @@ eventHandler(event);
   }
 
 function eventHandler(event) {
+  let newState;
+  let nextMove;
+  let action;
 
- let newState; 
+  let didSomethingDie =
+    state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
 
- let didSomethingDie = state.findIndex(ele => ele.HP === 0) != -1 ? true : false; 
+  /*
+   * remove dead object
+   */
 
-// remove dead object
- if(didSomethingDie) {
-    newState =  state.filter(ele => ele.HP != 0);
+  if (didSomethingDie) {
+    newState = state.filter(ele => ele.HP != 0);
     updater(newState, "remove");
- }
+  }
 
- newState =  move(event.id,event.input);
 
-  if(map[newState.pos.y][newState.pos.x] === 0) {
-     updater(newState);
+  /*
+   * Select action  based on nextMove
+   */
 
-  } else if (map[newState.pos.y][newState.pos.x] === "M") {
-     newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);     
-     updater(newState); 
+  nextMove = move(event.id, event.input);
+
+  if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
+    action   = "walk";
+
+  } else if (map[nextMove.pos.y][nextMove.pos.x] === "M") {
+    action   = "attack";
 
   } else {
-    console.log("collision detected");
+    action = "collision detection";
+  }
+
+
+  /*
+   * send newState  based on action
+   */
+  switch (action) {
+    case "walk":
+      newState = nextMove;
+      updater(newState);
+      break;
+
+    case "attack":
+      newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
+      updater(newState);
+      break;
+
+    case "collision detection":
+      console.log("collision detected");
+      break;
   }
 }
-
-
-
-
 
 function updater(newState, action) {
 

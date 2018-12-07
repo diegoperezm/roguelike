@@ -110,25 +110,52 @@ function inputHandler(inputObj) {
 
 function eventHandler(event) {
   let newState;
+  let nextMove;
+  let action;
 
   let didSomethingDie =
     state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
 
-  // remove dead object
+  /*
+   * remove dead object
+   */
+
   if (didSomethingDie) {
     newState = state.filter(ele => ele.HP != 0);
     updater(newState, "remove");
   }
 
-  newState = move(event.id, event.input);
+  /*
+   * Select action  based on nextMove
+   */
 
-  if (map[newState.pos.y][newState.pos.x] === 0) {
-    updater(newState);
-  } else if (map[newState.pos.y][newState.pos.x] === "M") {
-    newState = attackEnemy(newState.id, newState.pos.x, newState.pos.y);
-    updater(newState);
+  nextMove = move(event.id, event.input);
+
+  if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
+    action = "walk";
+  } else if (map[nextMove.pos.y][nextMove.pos.x] === "M") {
+    action = "attack";
   } else {
-    console.log("collision detected");
+    action = "collision detection";
+  }
+
+  /*
+   * send newState  based on action
+   */
+  switch (action) {
+    case "walk":
+      newState = nextMove;
+      updater(newState);
+      break;
+
+    case "attack":
+      newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
+      updater(newState);
+      break;
+
+    case "collision detection":
+      console.log("collision detected");
+      break;
   }
 }
 
