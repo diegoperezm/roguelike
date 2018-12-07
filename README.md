@@ -1,35 +1,35 @@
-- [Diagram](#org28ef0f9)
-- [Diagram Explanation](#org6f67567)
-  - [GLOBAL](#org5056bcb)
-  - [PROGRAM](#org6a26abf)
-  - [WORLD](#org20e6933)
-  - [ORDER](#org0e7dc68)
-- [Setup](#orgb7a5135)
-  - [Dependencies](#org6065eb1)
-- [HTML](#org4f7f163)
-- [JavaScript](#org3c21e91)
-    - [canvas](#org148f935)
-    - [variables](#orgaa6b9e5)
-    - [INTERFACE and HANDLERS](#org1e3d281)
-    - [UPDATER](#orgd0670be)
-    - [functions](#org44a5096)
-    - [MAIN FUNCTION](#org0b66918)
+- [Diagram](#org756d2b4)
+- [Diagram Explanation](#orgff229f8)
+  - [GLOBAL](#org4c319ec)
+  - [PROGRAM](#orga501cf9)
+  - [WORLD](#org8b01bdf)
+  - [ORDER](#orgbebaf7d)
+- [Setup](#org306bff8)
+  - [Dependencies](#orgad53ca8)
+- [HTML](#org5676c17)
+- [JavaScript](#orgd12b390)
+    - [canvas](#org2c9632f)
+    - [variables](#org6464e40)
+    - [INTERFACE and HANDLERS](#orgeb2ab6e)
+    - [UPDATER](#orgc0ae686)
+    - [functions](#orga720cb9)
+    - [MAIN FUNCTION](#org82f9a2c)
 
 
 
-<a id="org28ef0f9"></a>
+<a id="org756d2b4"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org6f67567"></a>
+<a id="orgff229f8"></a>
 
 # Diagram Explanation
 
 
-<a id="org5056bcb"></a>
+<a id="org4c319ec"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org6a26abf"></a>
+<a id="orga501cf9"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org20e6933"></a>
+<a id="org8b01bdf"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org0e7dc68"></a>
+<a id="orgbebaf7d"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgb7a5135"></a>
+<a id="org306bff8"></a>
 
 # Setup
 
 
-<a id="org6065eb1"></a>
+<a id="orgad53ca8"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org4f7f163"></a>
+<a id="org5676c17"></a>
 
 # HTML
 
@@ -237,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org3c21e91"></a>
+<a id="orgd12b390"></a>
 
 # JavaScript
 
 
-<a id="org148f935"></a>
+<a id="org2c9632f"></a>
 
 ### canvas
 
@@ -252,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgaa6b9e5"></a>
+<a id="org6464e40"></a>
 
 ### variables
 
@@ -376,7 +376,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org1e3d281"></a>
+<a id="orgeb2ab6e"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -498,7 +498,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgd0670be"></a>
+<a id="orgc0ae686"></a>
 
 ### UPDATER
 
@@ -508,58 +508,53 @@ const ctx = canvas.getContext("2d");
 
 ```js
 function updater(newState, action) {
+  switch (action) {
+    case "remove":
+      state = newState;
+      break;
 
- if(action === "remove") {
-   state = newState;
- }
+    case "walk":
+      let indx = state.findIndex(ele => ele.id === newState.id);
+      state[indx] = newState;
+      break;
 
-if(Array.isArray(newState)) {
+    case "attack":
+      newState.forEach(function(elem) {
+	let indx = state.findIndex(ele => ele.id === elem.id);
+	state[indx] = elem;
+      });
+      break;
+  }
 
-newState.forEach(function (elem) {
-   let indx = state.findIndex(ele => ele.id === elem.id);
-   state[indx] = elem;
+  // clean map
+  map.forEach(function(elem) {
+    for (let i = 0; i < elem.length; i++) {
+      if (elem[i] != 1) {
+	// don't remove the walls
+	elem[i] = 0;
+      }
+    }
   });
 
-} else if (!Array.isArray(newState)){
-    let indx = state.findIndex(ele => ele.id === newState.id);
-    state[indx] = newState;
-}
+  // update map
+  state.forEach(function(elem) {
+    let symbol = elem.id === "player" ? "P" : "M";
+    map[elem.pos.y][elem.pos.x] = symbol;
+  });
 
-
-
-// clean map
-map.forEach(function (elem) {
- for (let i = 0; i < elem.length; i++) {
-   if(elem[i] != 1 ) {  // don't remove the walls
-      elem[i]  = 0;
-   }
- }
-});
-
-// update map
-state.forEach(function (elem) {
-  let symbol = elem.id === "player" ? "P" : "M";
-  map[elem.pos.y][elem.pos.x] = symbol;
-});
-
-
-// draw map with the current state
+  // draw map with the current state
   drawMap();
 
-// update player info with current state
-   playerInfo();
+  // update player info with current state
+  playerInfo();
 
-
-// update monster info with current state
-   monsterInfoFn();
-
-};
-
-
+  // update monster info with current state
+  monsterInfoFn();
+}
 ```
 
 
-<a id="org44a5096"></a>
+<a id="orga720cb9"></a>
 
 ### functions
 
@@ -828,7 +823,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="org0b66918"></a>
+<a id="org82f9a2c"></a>
 
 ### MAIN FUNCTION
 
@@ -1004,54 +999,49 @@ function eventHandler(event) {
 }
 
 function updater(newState, action) {
+  switch (action) {
+    case "remove":
+      state = newState;
+      break;
 
- if(action === "remove") {
-   state = newState;
- }
+    case "walk":
+      let indx = state.findIndex(ele => ele.id === newState.id);
+      state[indx] = newState;
+      break;
 
-if(Array.isArray(newState)) {
+    case "attack":
+      newState.forEach(function(elem) {
+	let indx = state.findIndex(ele => ele.id === elem.id);
+	state[indx] = elem;
+      });
+      break;
+  }
 
-newState.forEach(function (elem) {
-   let indx = state.findIndex(ele => ele.id === elem.id);
-   state[indx] = elem;
+  // clean map
+  map.forEach(function(elem) {
+    for (let i = 0; i < elem.length; i++) {
+      if (elem[i] != 1) {
+	// don't remove the walls
+	elem[i] = 0;
+      }
+    }
   });
 
-} else if (!Array.isArray(newState)){
-    let indx = state.findIndex(ele => ele.id === newState.id);
-    state[indx] = newState;
-}
+  // update map
+  state.forEach(function(elem) {
+    let symbol = elem.id === "player" ? "P" : "M";
+    map[elem.pos.y][elem.pos.x] = symbol;
+  });
 
-
-
-// clean map
-map.forEach(function (elem) {
- for (let i = 0; i < elem.length; i++) {
-   if(elem[i] != 1 ) {  // don't remove the walls
-      elem[i]  = 0;
-   }
- }
-});
-
-// update map
-state.forEach(function (elem) {
-  let symbol = elem.id === "player" ? "P" : "M";
-  map[elem.pos.y][elem.pos.x] = symbol;
-});
-
-
-// draw map with the current state
+  // draw map with the current state
   drawMap();
 
-// update player info with current state
-   playerInfo();
+  // update player info with current state
+  playerInfo();
 
-
-// update monster info with current state
-   monsterInfoFn();
-
-};
-
-
+  // update monster info with current state
+  monsterInfoFn();
+}
 
 function drawMap (){
   ctx.clearRect(0, 0, w, h);

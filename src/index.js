@@ -161,18 +161,22 @@ function eventHandler(event) {
 }
 
 function updater(newState, action) {
-  if (action === "remove") {
-    state = newState;
-  }
+  switch (action) {
+    case "remove":
+      state = newState;
+      break;
 
-  if (Array.isArray(newState)) {
-    newState.forEach(function(elem) {
-      let indx = state.findIndex(ele => ele.id === elem.id);
-      state[indx] = elem;
-    });
-  } else if (!Array.isArray(newState)) {
-    let indx = state.findIndex(ele => ele.id === newState.id);
-    state[indx] = newState;
+    case "walk":
+      let indx = state.findIndex(ele => ele.id === newState.id);
+      state[indx] = newState;
+      break;
+
+    case "attack":
+      newState.forEach(function(elem) {
+        let indx = state.findIndex(ele => ele.id === elem.id);
+        state[indx] = elem;
+      });
+      break;
   }
 
   // clean map
