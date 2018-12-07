@@ -117,12 +117,13 @@ function eventHandler(event) {
     state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
 
   /*
-   * remove dead object
+   * Check for dead object
    */
 
   if (didSomethingDie) {
+    action = "remove";
     newState = state.filter(ele => ele.HP != 0);
-    updater(newState, "remove");
+    updater(newState, action);
   }
 
   /*

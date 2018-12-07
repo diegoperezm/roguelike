@@ -1,35 +1,35 @@
-- [Diagram](#org4dac928)
-- [Diagram Explanation](#orge97a57c)
-  - [GLOBAL](#orgb712f4f)
-  - [PROGRAM](#org80b7478)
-  - [WORLD](#org1aefae8)
-  - [ORDER](#org08e964f)
-- [Setup](#org5d83934)
-  - [Dependencies](#org61bb2eb)
-- [HTML](#org4d8eaa3)
-- [JavaScript](#orge53a33c)
-    - [canvas](#orgc440cff)
-    - [variables](#orgdd8e37e)
-    - [INTERFACE and HANDLERS](#org3d86742)
-    - [UPDATER](#orgffbce89)
-    - [functions](#orgb5b66ca)
-    - [MAIN FUNCTION](#org24a8cc8)
+- [Diagram](#org28ef0f9)
+- [Diagram Explanation](#org6f67567)
+  - [GLOBAL](#org5056bcb)
+  - [PROGRAM](#org6a26abf)
+  - [WORLD](#org20e6933)
+  - [ORDER](#org0e7dc68)
+- [Setup](#orgb7a5135)
+  - [Dependencies](#org6065eb1)
+- [HTML](#org4f7f163)
+- [JavaScript](#org3c21e91)
+    - [canvas](#org148f935)
+    - [variables](#orgaa6b9e5)
+    - [INTERFACE and HANDLERS](#org1e3d281)
+    - [UPDATER](#orgd0670be)
+    - [functions](#org44a5096)
+    - [MAIN FUNCTION](#org0b66918)
 
 
 
-<a id="org4dac928"></a>
+<a id="org28ef0f9"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="orge97a57c"></a>
+<a id="org6f67567"></a>
 
 # Diagram Explanation
 
 
-<a id="orgb712f4f"></a>
+<a id="org5056bcb"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org80b7478"></a>
+<a id="org6a26abf"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org1aefae8"></a>
+<a id="org20e6933"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org08e964f"></a>
+<a id="org0e7dc68"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org5d83934"></a>
+<a id="orgb7a5135"></a>
 
 # Setup
 
 
-<a id="org61bb2eb"></a>
+<a id="org6065eb1"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org4d8eaa3"></a>
+<a id="org4f7f163"></a>
 
 # HTML
 
@@ -237,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orge53a33c"></a>
+<a id="org3c21e91"></a>
 
 # JavaScript
 
 
-<a id="orgc440cff"></a>
+<a id="org148f935"></a>
 
 ### canvas
 
@@ -252,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgdd8e37e"></a>
+<a id="orgaa6b9e5"></a>
 
 ### variables
 
@@ -376,7 +376,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org3d86742"></a>
+<a id="org1e3d281"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -449,13 +449,14 @@ const ctx = canvas.getContext("2d");
         state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
     
       /*
-       * remove dead object
-       */
+       * Check for dead object
+       */ 
     
       if (didSomethingDie) {
+        action = "remove"
         newState = state.filter(ele => ele.HP != 0);
-        updater(newState, "remove");
-      }
+        updater(newState, action);
+      } 
     
     
       /*
@@ -464,7 +465,7 @@ const ctx = canvas.getContext("2d");
     
       nextMove = move(event.id, event.input);
     
-      if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
+       if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
         action   = "walk";
     
       } else if (map[nextMove.pos.y][nextMove.pos.x] === "M") {
@@ -481,7 +482,7 @@ const ctx = canvas.getContext("2d");
       switch (action) {
         case "walk":
           newState = nextMove;
-          updater(newState,"walk");
+          updater(newState, "walk");
           break;
     
         case "attack":
@@ -497,7 +498,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgffbce89"></a>
+<a id="orgd0670be"></a>
 
 ### UPDATER
 
@@ -558,7 +559,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="orgb5b66ca"></a>
+<a id="org44a5096"></a>
 
 ### functions
 
@@ -827,7 +828,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="org24a8cc8"></a>
+<a id="org0b66918"></a>
 
 ### MAIN FUNCTION
 
@@ -955,13 +956,14 @@ function eventHandler(event) {
     state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
 
   /*
-   * remove dead object
-   */
+   * Check for dead object
+   */ 
 
   if (didSomethingDie) {
+    action = "remove"
     newState = state.filter(ele => ele.HP != 0);
-    updater(newState, "remove");
-  }
+    updater(newState, action);
+  } 
 
 
   /*
@@ -970,7 +972,7 @@ function eventHandler(event) {
 
   nextMove = move(event.id, event.input);
 
-  if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
+   if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
     action   = "walk";
 
   } else if (map[nextMove.pos.y][nextMove.pos.x] === "M") {
@@ -987,7 +989,7 @@ function eventHandler(event) {
   switch (action) {
     case "walk":
       newState = nextMove;
-      updater(newState,"walk");
+      updater(newState, "walk");
       break;
 
     case "attack":
