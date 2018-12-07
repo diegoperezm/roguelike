@@ -1,35 +1,35 @@
-- [Diagram](#org797fba0)
-- [Diagram Explanation](#org79ef160)
-  - [GLOBAL](#orga35ff2c)
-  - [PROGRAM](#org92b50d7)
-  - [WORLD](#org9a1e789)
-  - [ORDER](#orgd0519b2)
-- [Setup](#org34761b7)
-  - [Dependencies](#orgf0779f9)
-- [HTML](#orgfd480df)
-- [JavaScript](#orga4bcf54)
-    - [canvas](#org22ccbb1)
-    - [variables](#orgdd3db2f)
-    - [INTERFACE and HANDLERS](#org2be9a54)
-    - [UPDATER](#orgc1573b2)
-    - [functions](#org8f01748)
-    - [MAIN FUNCTION](#org11ff26b)
+- [Diagram](#org4dac928)
+- [Diagram Explanation](#orge97a57c)
+  - [GLOBAL](#orgb712f4f)
+  - [PROGRAM](#org80b7478)
+  - [WORLD](#org1aefae8)
+  - [ORDER](#org08e964f)
+- [Setup](#org5d83934)
+  - [Dependencies](#org61bb2eb)
+- [HTML](#org4d8eaa3)
+- [JavaScript](#orge53a33c)
+    - [canvas](#orgc440cff)
+    - [variables](#orgdd8e37e)
+    - [INTERFACE and HANDLERS](#org3d86742)
+    - [UPDATER](#orgffbce89)
+    - [functions](#orgb5b66ca)
+    - [MAIN FUNCTION](#org24a8cc8)
 
 
 
-<a id="org797fba0"></a>
+<a id="org4dac928"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org79ef160"></a>
+<a id="orge97a57c"></a>
 
 # Diagram Explanation
 
 
-<a id="orga35ff2c"></a>
+<a id="orgb712f4f"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org92b50d7"></a>
+<a id="org80b7478"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org9a1e789"></a>
+<a id="org1aefae8"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="orgd0519b2"></a>
+<a id="org08e964f"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org34761b7"></a>
+<a id="org5d83934"></a>
 
 # Setup
 
 
-<a id="orgf0779f9"></a>
+<a id="org61bb2eb"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orgfd480df"></a>
+<a id="org4d8eaa3"></a>
 
 # HTML
 
@@ -237,12 +237,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orga4bcf54"></a>
+<a id="orge53a33c"></a>
 
 # JavaScript
 
 
-<a id="org22ccbb1"></a>
+<a id="orgc440cff"></a>
 
 ### canvas
 
@@ -252,7 +252,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgdd3db2f"></a>
+<a id="orgdd8e37e"></a>
 
 ### variables
 
@@ -376,7 +376,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org2be9a54"></a>
+<a id="org3d86742"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -481,12 +481,12 @@ const ctx = canvas.getContext("2d");
       switch (action) {
         case "walk":
           newState = nextMove;
-          updater(newState);
+          updater(newState,"walk");
           break;
     
         case "attack":
           newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
-          updater(newState);
+          updater(newState, "attack");
           break;
     
         case "collision detection":
@@ -497,7 +497,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgc1573b2"></a>
+<a id="orgffbce89"></a>
 
 ### UPDATER
 
@@ -558,7 +558,7 @@ state.forEach(function (elem) {
 ```
 
 
-<a id="org8f01748"></a>
+<a id="orgb5b66ca"></a>
 
 ### functions
 
@@ -827,7 +827,7 @@ state.forEach(function (elem) {
         ```
 
 
-<a id="org11ff26b"></a>
+<a id="org24a8cc8"></a>
 
 ### MAIN FUNCTION
 
@@ -987,12 +987,12 @@ function eventHandler(event) {
   switch (action) {
     case "walk":
       newState = nextMove;
-      updater(newState);
+      updater(newState,"walk");
       break;
 
     case "attack":
       newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
-      updater(newState);
+      updater(newState, "attack");
       break;
 
     case "collision detection":

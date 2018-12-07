@@ -145,12 +145,12 @@ function eventHandler(event) {
   switch (action) {
     case "walk":
       newState = nextMove;
-      updater(newState);
+      updater(newState, "walk");
       break;
 
     case "attack":
       newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
-      updater(newState);
+      updater(newState, "attack");
       break;
 
     case "collision detection":
