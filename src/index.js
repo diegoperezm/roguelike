@@ -114,9 +114,10 @@ function eventHandler(event) {
   let didSomethingDie =
     state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
 
+  // remove dead object
   if (didSomethingDie) {
-    newState = { remove: true };
-    updater(newState);
+    newState = state.filter(ele => ele.HP != 0);
+    updater(newState, "remove");
   }
 
   newState = move(event.id, event.input);
@@ -131,10 +132,9 @@ function eventHandler(event) {
   }
 }
 
-function updater(newState) {
-  // remove dead object
-  if (newState.remove) {
-    state = state.filter(ele => ele.HP != 0);
+function updater(newState, action) {
+  if (action === "remove") {
+    state = newState;
   }
 
   if (Array.isArray(newState)) {
