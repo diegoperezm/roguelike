@@ -1,35 +1,35 @@
-- [Diagram](#orga529db7)
-- [Diagram Explanation](#orgc5ce5cf)
-  - [GLOBAL](#org7eab49a)
-  - [PROGRAM](#orgcbf75ff)
-  - [WORLD](#org0d27af0)
-  - [ORDER](#org140c41d)
-- [Setup](#orgb87f3a0)
-  - [Dependencies](#orgd4bf183)
-- [HTML](#org4db1bd5)
-- [JavaScript](#orga75d32e)
-    - [canvas](#orgf93cc8f)
-    - [variables](#orgaa3d6ec)
-    - [INTERFACE and HANDLERS](#org9293a83)
-    - [UPDATER](#orge02f527)
-    - [functions](#orgd258d07)
-    - [MAIN FUNCTION](#org1e647be)
+- [Diagram](#orgb4d5ed4)
+- [Diagram Explanation](#org7a465ef)
+  - [GLOBAL](#org862764f)
+  - [PROGRAM](#orgf8640b1)
+  - [WORLD](#org92a2bf0)
+  - [ORDER](#org2d2db2f)
+- [Setup](#orgb1e22fa)
+  - [Dependencies](#org44caf25)
+- [HTML](#orgeb0b9eb)
+- [JavaScript](#orgca4b8a6)
+    - [canvas](#orgb1b0c22)
+    - [variables](#orgb55c4ff)
+    - [INTERFACE and HANDLERS](#orgfec6841)
+    - [UPDATER](#org241c362)
+    - [functions](#orgebda567)
+    - [MAIN FUNCTION](#orgaad2679)
 
 
 
-<a id="orga529db7"></a>
+<a id="orgb4d5ed4"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="orgc5ce5cf"></a>
+<a id="org7a465ef"></a>
 
 # Diagram Explanation
 
 
-<a id="org7eab49a"></a>
+<a id="org862764f"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgcbf75ff"></a>
+<a id="orgf8640b1"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org0d27af0"></a>
+<a id="org92a2bf0"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org140c41d"></a>
+<a id="org2d2db2f"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgb87f3a0"></a>
+<a id="orgb1e22fa"></a>
 
 # Setup
 
 
-<a id="orgd4bf183"></a>
+<a id="org44caf25"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org4db1bd5"></a>
+<a id="orgeb0b9eb"></a>
 
 # HTML
 
@@ -250,12 +250,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orga75d32e"></a>
+<a id="orgca4b8a6"></a>
 
 # JavaScript
 
 
-<a id="orgf93cc8f"></a>
+<a id="orgb1b0c22"></a>
 
 ### canvas
 
@@ -265,7 +265,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgaa3d6ec"></a>
+<a id="orgb55c4ff"></a>
 
 ### variables
 
@@ -365,33 +365,44 @@ const ctx = canvas.getContext("2d");
      list of objects  and his positions x y
      */
     
-    let state = [{
-         "id": "player",
-         "type":"player",
-         "pos": {
-           "x": 6,
-           "y": 5
-          },
-          "width": 10,
-          "height": 10,
-          "HP":100
+    let state = [
+      {
+        id: 1, // wall
+        color: "RGBA(200, 200, 200, 1)",
+        pos: {
+          x: 0,
+          y: 0
+        },
       },
       {
-         "id": "monster",
-         "type": "monster",
-         "pos": {
-           "x": 12,
-           "y": 3 
-          },
-          "width": 10,
-          "height": 10,
-          "HP": 3
-       }
+        id: "player",
+        type: "player",
+        color: "rgba(255,0,0,1)",
+        pos: {
+          x: 6,
+          y: 5
+        },
+        width: 10,
+        height: 10,
+        HP: 100
+      },
+      {
+        id: "monster",
+        type: "monster",
+        color: "rgba(0,0,255,1)",
+        pos: {
+          x: 12,
+          y: 3
+        },
+        width: 10,
+        height: 10,
+        HP: 3
+      }
     ];
     ```
 
 
-<a id="org9293a83"></a>
+<a id="orgfec6841"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -483,7 +494,7 @@ const ctx = canvas.getContext("2d");
        if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
         action   = "walk";
     
-      } else if (map[nextMove.pos.y][nextMove.pos.x] === "M") {
+      } else if (typeof map[nextMove.pos.y][nextMove.pos.x] === "string") {
         action   = "attack";
     
       } else {
@@ -513,7 +524,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orge02f527"></a>
+<a id="org241c362"></a>
 
 ### UPDATER
 
@@ -554,8 +565,9 @@ function updater(newState, action) {
 
   // update map
   state.forEach(function(elem) {
-    let symbol = elem.id === "player" ? "P" : "M";
-    map[elem.pos.y][elem.pos.x] = symbol;
+    if (elem.id != 1 ) { 
+   map[elem.pos.y][elem.pos.x] = elem.id;
+   }
   });
 
   // draw map with the current state
@@ -570,7 +582,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="orgd258d07"></a>
+<a id="orgebda567"></a>
 
 ### functions
 
@@ -587,8 +599,9 @@ function updater(newState, action) {
         
         // Add  player and monster using state
         state.forEach(function (elem) {
-          let symbol = elem.id === "player" ? "P" : "M"
-          map[elem.pos.y][elem.pos.x] = symbol;
+          if (elem.id != 1 ) { 
+             map[elem.pos.y][elem.pos.x] = elem.id;
+          }
         });
         
         
@@ -620,8 +633,9 @@ function updater(newState, action) {
         
         // Add  player and monster using state
         state.forEach(function (elem) {
-          let symbol = elem.id === "player" ? "P" : "M"
-          map[elem.pos.y][elem.pos.x] = symbol;
+          if (elem.id != 1 ) { 
+             map[elem.pos.y][elem.pos.x] = elem.id;
+          }
         });
         
         
@@ -853,37 +867,19 @@ function updater(newState, action) {
     
         ```js
         function drawMap (){
-          ctx.clearRect(0, 0, w, h);
-          let color;
+            ctx.clearRect(0, 0, w, h);
+            map.forEach(function(row,i){
+        	row.forEach(function(tile,j){
         
-          map.forEach(function(row,i){
-            row.forEach(function(tile,j){
+        	 if(tile != 0) {
+        	    let index = state.findIndex(ele => ele.id === tile);
+        	    let color = state[index].color;
+        	    ctx.fillStyle = color;
+        	    drawTile(j,i);
+        	 }
         
-              if(tile !== 0){ //if tile is not walkable
-        
-              switch (tile) {
-        
-              // Player 
-               case "P":
-        	color="rgba(255,0,0,1)";
-               break;
-        
-              // Monster 
-               case "M":
-        	color="rgba(0,0,255,1)";
-               break;
-        
-              // Wall
-               default:
-        	color=  "RGBA(200, 200, 200, 1)";
-              }
-               ctx.fillStyle = color;
-               drawTile(j,i); //draw a rectangle at j,i
-              }
-        
-            });
-          });
-        } 
+        	})});
+          } 
         ```
 
 7.  drawTile
@@ -900,7 +896,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="org1e647be"></a>
+<a id="orgaad2679"></a>
 
 ### MAIN FUNCTION
 
@@ -960,28 +956,39 @@ var map = [
  list of objects  and his positions x y
  */
 
-let state = [{
-     "id": "player",
-     "type":"player",
-     "pos": {
-       "x": 6,
-       "y": 5
-      },
-      "width": 10,
-      "height": 10,
-      "HP":100
+let state = [
+  {
+    id: 1, // wall
+    color: "RGBA(200, 200, 200, 1)",
+    pos: {
+      x: 0,
+      y: 0
+    },
   },
   {
-     "id": "monster",
-     "type": "monster",
-     "pos": {
-       "x": 12,
-       "y": 3 
-      },
-      "width": 10,
-      "height": 10,
-      "HP": 3
-   }
+    id: "player",
+    type: "player",
+    color: "rgba(255,0,0,1)",
+    pos: {
+      x: 6,
+      y: 5
+    },
+    width: 10,
+    height: 10,
+    HP: 100
+  },
+  {
+    id: "monster",
+    type: "monster",
+    color: "rgba(0,0,255,1)",
+    pos: {
+      x: 12,
+      y: 3
+    },
+    width: 10,
+    height: 10,
+    HP: 3
+  }
 ];
 
 
@@ -1049,7 +1056,7 @@ function eventHandler(event) {
    if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
     action   = "walk";
 
-  } else if (map[nextMove.pos.y][nextMove.pos.x] === "M") {
+  } else if (typeof map[nextMove.pos.y][nextMove.pos.x] === "string") {
     action   = "attack";
 
   } else {
@@ -1109,8 +1116,9 @@ function updater(newState, action) {
 
   // update map
   state.forEach(function(elem) {
-    let symbol = elem.id === "player" ? "P" : "M";
-    map[elem.pos.y][elem.pos.x] = symbol;
+    if (elem.id != 1 ) { 
+   map[elem.pos.y][elem.pos.x] = elem.id;
+   }
   });
 
   // draw map with the current state
@@ -1124,37 +1132,19 @@ function updater(newState, action) {
 }
 
 function drawMap (){
-  ctx.clearRect(0, 0, w, h);
-  let color;
+    ctx.clearRect(0, 0, w, h);
+    map.forEach(function(row,i){
+	row.forEach(function(tile,j){
 
-  map.forEach(function(row,i){
-    row.forEach(function(tile,j){
+	 if(tile != 0) {
+	    let index = state.findIndex(ele => ele.id === tile);
+	    let color = state[index].color;
+	    ctx.fillStyle = color;
+	    drawTile(j,i);
+	 }
 
-      if(tile !== 0){ //if tile is not walkable
-
-      switch (tile) {
-
-      // Player 
-       case "P":
-	color="rgba(255,0,0,1)";
-       break;
-
-      // Monster 
-       case "M":
-	color="rgba(0,0,255,1)";
-       break;
-
-      // Wall
-       default:
-	color=  "RGBA(200, 200, 200, 1)";
-      }
-       ctx.fillStyle = color;
-       drawTile(j,i); //draw a rectangle at j,i
-      }
-
-    });
-  });
-}
+	})});
+  }
 
 function drawTile (x,y){
   ctx.fillRect(
@@ -1322,8 +1312,9 @@ function start() {
 
 // Add  player and monster using state
 state.forEach(function (elem) {
-  let symbol = elem.id === "player" ? "P" : "M"
-  map[elem.pos.y][elem.pos.x] = symbol;
+  if (elem.id != 1 ) { 
+     map[elem.pos.y][elem.pos.x] = elem.id;
+  }
 });
 
 

@@ -54,8 +54,17 @@ var map = [
 
 let state = [
   {
+    id: 1, // wall
+    color: "RGBA(200, 200, 200, 1)",
+    pos: {
+      x: 0,
+      y: 0
+    }
+  },
+  {
     id: "player",
     type: "player",
+    color: "rgba(255,0,0,1)",
     pos: {
       x: 6,
       y: 5
@@ -67,6 +76,7 @@ let state = [
   {
     id: "monster",
     type: "monster",
+    color: "rgba(0,0,255,1)",
     pos: {
       x: 12,
       y: 3
@@ -136,7 +146,7 @@ function eventHandler(event) {
 
   if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
     action = "walk";
-  } else if (map[nextMove.pos.y][nextMove.pos.x] === "M") {
+  } else if (typeof map[nextMove.pos.y][nextMove.pos.x] === "string") {
     action = "attack";
   } else {
     action = "collision detection";
@@ -152,6 +162,7 @@ function eventHandler(event) {
       break;
 
     case "attack":
+      console.log("case attack: ", "action", action);
       newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
       updater(newState, "attack");
       break;
@@ -194,8 +205,9 @@ function updater(newState, action) {
 
   // update map
   state.forEach(function(elem) {
-    let symbol = elem.id === "player" ? "P" : "M";
-    map[elem.pos.y][elem.pos.x] = symbol;
+    if (elem.id != 1) {
+      map[elem.pos.y][elem.pos.x] = elem.id;
+    }
   });
 
   // draw map with the current state
@@ -210,30 +222,13 @@ function updater(newState, action) {
 
 function drawMap() {
   ctx.clearRect(0, 0, w, h);
-  let color;
-
   map.forEach(function(row, i) {
     row.forEach(function(tile, j) {
-      if (tile !== 0) {
-        //if tile is not walkable
-
-        switch (tile) {
-          // Player
-          case "P":
-            color = "rgba(255,0,0,1)";
-            break;
-
-          // Monster
-          case "M":
-            color = "rgba(0,0,255,1)";
-            break;
-
-          // Wall
-          default:
-            color = "RGBA(200, 200, 200, 1)";
-        }
+      if (tile != 0) {
+        let index = state.findIndex(ele => ele.id === tile);
+        let color = state[index].color;
         ctx.fillStyle = color;
-        drawTile(j, i); //draw a rectangle at j,i
+        drawTile(j, i);
       }
     });
   });
@@ -384,8 +379,9 @@ function start() {
 
   // Add  player and monster using state
   state.forEach(function(elem) {
-    let symbol = elem.id === "player" ? "P" : "M";
-    map[elem.pos.y][elem.pos.x] = symbol;
+    if (elem.id != 1) {
+      map[elem.pos.y][elem.pos.x] = elem.id;
+    }
   });
 
   drawMap();
