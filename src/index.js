@@ -55,16 +55,18 @@ var map = [
 let state = [
   {
     id: "player",
+    type: "player",
     pos: {
       x: 6,
       y: 5
     },
     width: 10,
     height: 10,
-    HP: 10
+    HP: 100
   },
   {
     id: "monster",
+    type: "monster",
     pos: {
       x: 12,
       y: 3
@@ -163,6 +165,7 @@ function eventHandler(event) {
 function updater(newState, action) {
   switch (action) {
     case "remove":
+      monsterInfoFn();
       state = newState;
       break;
 
@@ -259,21 +262,67 @@ function playerInfo() {
 }
 
 function monsterInfoFn() {
-  let monsterInfo = document.getElementById("monsterInfo");
-  let monsterInfoList = document.getElementById("monsterInfoList");
-  let monsterId = document.getElementById("monsterId");
-  let monsterPosX = document.getElementById("monsterPosX");
-  let monsterPosY = document.getElementById("monsterPosY");
-  let monsterHP = document.getElementById("monsterHP");
+  let allIndx = (arr, val) => {
+    var indexes = [];
+    for (let i = 0; i < arr.length; i++)
+      if (arr[i].type === val) indexes.push(i);
+    return indexes;
+  };
 
-  if (state[1] !== undefined) {
-    monsterId.textContent = `id: ${state[1].id}`;
-    monsterPosX.textContent = ` x: ${state[1].pos.x}`;
-    monsterPosY.textContent = ` y: ${state[1].pos.y}`;
-    monsterHP.textContent = `HP: ${state[1].HP}`;
-  } else if (monsterInfoList != null) {
-    monsterInfoList.remove();
-  }
+  let monstersIndex = allIndx(state, "monster");
+
+  monstersIndex.forEach(index => {
+    let monster = state[index];
+
+    if (monster != undefined) {
+      let monsterTable = document.getElementById("monsterTable");
+      let monsterDOM = document.getElementById(monster.id);
+
+      let row = document.createElement("tr");
+
+      let monsterId = document.createElement("td");
+      let monsterPosX = document.createElement("td");
+      let monsterPosY = document.createElement("td");
+      let monsterHP = document.createElement("td");
+
+      if (monsterDOM === null) {
+        monsterId.id = `${monster.id}ID`;
+        monsterPosX.id = `${monster.id}X`;
+        monsterPosY.id = `${monster.id}Y`;
+        monsterHP.id = `${monster.id}HP`;
+
+        row.id = monster.id;
+
+        row.appendChild(monsterId);
+        row.appendChild(monsterPosX);
+        row.appendChild(monsterPosY);
+        row.appendChild(monsterHP);
+
+        monsterId.textContent = monster.id;
+        monsterPosX.textContent = monster.pos.x;
+        monsterPosY.textContent = monster.pos.y;
+        monsterHP.textContent = monster.HP;
+        monsterTable.appendChild(row);
+      }
+
+      if (monsterId != null) {
+        let tdId = document.getElementById(`${monster.id}ID`);
+        let tdX = document.getElementById(`${monster.id}X`);
+        let tdY = document.getElementById(`${monster.id}Y`);
+        let tdHP = document.getElementById(`${monster.id}HP`);
+
+        if (tdHP.textContent === "0") {
+          let removeRow = document.getElementById(monster.id);
+          removeRow.remove();
+        }
+
+        tdId.textContent = monster.id;
+        tdX.textContent = monster.pos.x;
+        tdY.textContent = monster.pos.y;
+        tdHP.textContent = monster.HP;
+      }
+    }
+  });
 }
 
 function move(id, direction) {

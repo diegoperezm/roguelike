@@ -1,35 +1,35 @@
-- [Diagram](#orgce6dc06)
-- [Diagram Explanation](#org6254ab4)
-  - [GLOBAL](#org080ed19)
-  - [PROGRAM](#org11d5c73)
-  - [WORLD](#org4b220df)
-  - [ORDER](#orgb7f1598)
-- [Setup](#orgeb8cdb8)
-  - [Dependencies](#orgbcb772b)
-- [HTML](#org3084f1f)
-- [JavaScript](#orgf62f982)
-    - [canvas](#org41079cb)
-    - [variables](#org2fe7275)
-    - [INTERFACE and HANDLERS](#orgad21d00)
-    - [UPDATER](#org34c7df0)
-    - [functions](#org19a2aac)
-    - [MAIN FUNCTION](#org4ca3e4b)
+- [Diagram](#orga529db7)
+- [Diagram Explanation](#orgc5ce5cf)
+  - [GLOBAL](#org7eab49a)
+  - [PROGRAM](#orgcbf75ff)
+  - [WORLD](#org0d27af0)
+  - [ORDER](#org140c41d)
+- [Setup](#orgb87f3a0)
+  - [Dependencies](#orgd4bf183)
+- [HTML](#org4db1bd5)
+- [JavaScript](#orga75d32e)
+    - [canvas](#orgf93cc8f)
+    - [variables](#orgaa3d6ec)
+    - [INTERFACE and HANDLERS](#org9293a83)
+    - [UPDATER](#orge02f527)
+    - [functions](#orgd258d07)
+    - [MAIN FUNCTION](#org1e647be)
 
 
 
-<a id="orgce6dc06"></a>
+<a id="orga529db7"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org6254ab4"></a>
+<a id="orgc5ce5cf"></a>
 
 # Diagram Explanation
 
 
-<a id="org080ed19"></a>
+<a id="org7eab49a"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org11d5c73"></a>
+<a id="orgcbf75ff"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org4b220df"></a>
+<a id="org0d27af0"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="orgb7f1598"></a>
+<a id="org140c41d"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgeb8cdb8"></a>
+<a id="orgb87f3a0"></a>
 
 # Setup
 
 
-<a id="orgbcb772b"></a>
+<a id="orgd4bf183"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org3084f1f"></a>
+<a id="org4db1bd5"></a>
 
 # HTML
 
@@ -206,7 +206,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 	 max-height: 100%; 
 	 min-height: 300px; 
 	 border: 10px solid black;
-
+	 overflow-y: auto; 
     } 
 
     </style>
@@ -234,12 +234,14 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
      </div>
       <div class="worldInfo"  id="worldInfo">
 	<div class="monsterInfo" id="monsterInfo">
-	 <ul id="monsterInfoList">
-	  <li id="monsterId"></li>
-	  <li id="monsterPosX"></li>
-	  <li id="monsterPosY"></li>
-	  <li id="monsterHP"></li>
-	 </ul>
+	 <table id="monsterTable">
+	  <tr>
+	   <th>id</th>
+	   <th>X</th>
+	   <th>Y</th>
+	   <th>HP</th>
+	  </tr>
+	 </table>
 	</div> 
       </div>
      </body>
@@ -248,12 +250,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgf62f982"></a>
+<a id="orga75d32e"></a>
 
 # JavaScript
 
 
-<a id="org41079cb"></a>
+<a id="orgf93cc8f"></a>
 
 ### canvas
 
@@ -263,7 +265,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org2fe7275"></a>
+<a id="orgaa3d6ec"></a>
 
 ### variables
 
@@ -365,16 +367,18 @@ const ctx = canvas.getContext("2d");
     
     let state = [{
          "id": "player",
+         "type":"player",
          "pos": {
            "x": 6,
            "y": 5
           },
           "width": 10,
           "height": 10,
-          "HP":10
+          "HP":100
       },
       {
          "id": "monster",
+         "type": "monster",
          "pos": {
            "x": 12,
            "y": 3 
@@ -387,7 +391,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgad21d00"></a>
+<a id="org9293a83"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -509,7 +513,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org34c7df0"></a>
+<a id="orge02f527"></a>
 
 ### UPDATER
 
@@ -521,6 +525,7 @@ const ctx = canvas.getContext("2d");
 function updater(newState, action) {
   switch (action) {
     case "remove":
+      monsterInfoFn();
       state = newState;
       break;
 
@@ -565,7 +570,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="org19a2aac"></a>
+<a id="orgd258d07"></a>
 
 ### functions
 
@@ -670,25 +675,82 @@ function updater(newState, action) {
         ```js
         function monsterInfoFn()  {
         
-        let monsterInfo = document.getElementById("monsterInfo");
-        let monsterInfoList = document.getElementById("monsterInfoList");
-        let monsterId   = document.getElementById("monsterId");
-        let monsterPosX = document.getElementById("monsterPosX");
-        let monsterPosY = document.getElementById("monsterPosY");
-        let monsterHP = document.getElementById("monsterHP");
+         let allIndx  = (arr, val ) => {
         
-        if(state[1] !== undefined) {
-           monsterId.textContent   =   `id: ${state[1].id}`;
-           monsterPosX.textContent =   ` x: ${state[1].pos.x}`;
-           monsterPosY.textContent =   ` y: ${state[1].pos.y}`;
-           monsterHP.textContent   =   `HP: ${state[1].HP}`;
-        
-        } else if (monsterInfoList != null) {
-           monsterInfoList.remove();
-        }
+            var indexes = [];
+            for(let i = 0; i < arr.length; i++)
+        	if (arr[i].type === val)
+        	    indexes.push(i);
+             return indexes;
         
         }
         
+         let monstersIndex  = allIndx(state, "monster");
+        
+        
+         monstersIndex.forEach( index => {
+        
+         let monster = state[index];
+        
+         if (monster != undefined ) { 
+        
+          let monsterTable   = document.getElementById("monsterTable");
+          let monsterDOM     = document.getElementById(monster.id);
+        
+          let row = document.createElement('tr');
+        
+          let monsterId   = document.createElement('td');
+          let monsterPosX = document.createElement('td');
+          let monsterPosY = document.createElement('td');
+          let monsterHP   = document.createElement('td');
+        
+        
+          if(monsterDOM === null) {
+        
+            monsterId.id    = `${monster.id}ID`;  
+            monsterPosX.id  = `${monster.id}X`;
+            monsterPosY.id  = `${monster.id}Y`;
+            monsterHP.id    = `${monster.id}HP`; 
+        
+            row.id = monster.id;
+        
+            row.appendChild(monsterId); 
+            row.appendChild(monsterPosX); 
+            row.appendChild(monsterPosY); 
+            row.appendChild(monsterHP); 
+        
+            monsterId.textContent   = monster.id; 
+            monsterPosX.textContent = monster.pos.x ;
+            monsterPosY.textContent = monster.pos.y;
+            monsterHP.textContent   = monster.HP;
+            monsterTable.appendChild(row);
+          } 
+        
+        
+         if (monsterId != null) {
+        
+          let tdId = document.getElementById(`${monster.id}ID`);
+          let tdX  = document.getElementById(`${monster.id}X`);
+          let tdY  = document.getElementById(`${monster.id}Y`);
+          let tdHP = document.getElementById(`${monster.id}HP`);
+        
+          if (tdHP.textContent === '0') {
+           let removeRow = document.getElementById(monster.id);
+           removeRow.remove();
+          } 
+        
+        
+          tdId.textContent    = monster.id; 
+          tdX.textContent     = monster.pos.x ;
+          tdY.textContent     = monster.pos.y;
+          tdHP.textContent    = monster.HP;
+        
+        
+           }
+          } 
+         });
+        
+         }
         ```
 
 4.  move
@@ -838,7 +900,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="org4ca3e4b"></a>
+<a id="org1e647be"></a>
 
 ### MAIN FUNCTION
 
@@ -900,16 +962,18 @@ var map = [
 
 let state = [{
      "id": "player",
+     "type":"player",
      "pos": {
        "x": 6,
        "y": 5
       },
       "width": 10,
       "height": 10,
-      "HP":10
+      "HP":100
   },
   {
      "id": "monster",
+     "type": "monster",
      "pos": {
        "x": 12,
        "y": 3 
@@ -1016,6 +1080,7 @@ function eventHandler(event) {
 function updater(newState, action) {
   switch (action) {
     case "remove":
+      monsterInfoFn();
       state = newState;
       break;
 
@@ -1120,25 +1185,82 @@ playerHP.textContent   =   player.HP;
 
 function monsterInfoFn()  {
 
-let monsterInfo = document.getElementById("monsterInfo");
-let monsterInfoList = document.getElementById("monsterInfoList");
-let monsterId   = document.getElementById("monsterId");
-let monsterPosX = document.getElementById("monsterPosX");
-let monsterPosY = document.getElementById("monsterPosY");
-let monsterHP = document.getElementById("monsterHP");
+ let allIndx  = (arr, val ) => {
 
-if(state[1] !== undefined) {
-   monsterId.textContent   =   `id: ${state[1].id}`;
-   monsterPosX.textContent =   ` x: ${state[1].pos.x}`;
-   monsterPosY.textContent =   ` y: ${state[1].pos.y}`;
-   monsterHP.textContent   =   `HP: ${state[1].HP}`;
-
-} else if (monsterInfoList != null) {
-   monsterInfoList.remove();
-}
+    var indexes = [];
+    for(let i = 0; i < arr.length; i++)
+	if (arr[i].type === val)
+	    indexes.push(i);
+     return indexes;
 
 }
 
+ let monstersIndex  = allIndx(state, "monster");
+
+
+ monstersIndex.forEach( index => {
+
+ let monster = state[index];
+
+ if (monster != undefined ) { 
+
+  let monsterTable   = document.getElementById("monsterTable");
+  let monsterDOM     = document.getElementById(monster.id);
+
+  let row = document.createElement('tr');
+
+  let monsterId   = document.createElement('td');
+  let monsterPosX = document.createElement('td');
+  let monsterPosY = document.createElement('td');
+  let monsterHP   = document.createElement('td');
+
+
+  if(monsterDOM === null) {
+
+    monsterId.id    = `${monster.id}ID`;  
+    monsterPosX.id  = `${monster.id}X`;
+    monsterPosY.id  = `${monster.id}Y`;
+    monsterHP.id    = `${monster.id}HP`; 
+
+    row.id = monster.id;
+
+    row.appendChild(monsterId); 
+    row.appendChild(monsterPosX); 
+    row.appendChild(monsterPosY); 
+    row.appendChild(monsterHP); 
+
+    monsterId.textContent   = monster.id; 
+    monsterPosX.textContent = monster.pos.x ;
+    monsterPosY.textContent = monster.pos.y;
+    monsterHP.textContent   = monster.HP;
+    monsterTable.appendChild(row);
+  } 
+
+
+ if (monsterId != null) {
+
+  let tdId = document.getElementById(`${monster.id}ID`);
+  let tdX  = document.getElementById(`${monster.id}X`);
+  let tdY  = document.getElementById(`${monster.id}Y`);
+  let tdHP = document.getElementById(`${monster.id}HP`);
+
+  if (tdHP.textContent === '0') {
+   let removeRow = document.getElementById(monster.id);
+   removeRow.remove();
+  } 
+
+
+  tdId.textContent    = monster.id; 
+  tdX.textContent     = monster.pos.x ;
+  tdY.textContent     = monster.pos.y;
+  tdHP.textContent    = monster.HP;
+
+
+   }
+  } 
+ });
+
+ }
 
 function move (id, direction) {
 let x;

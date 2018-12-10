@@ -38,7 +38,7 @@
 	 max-height: 100%; 
 	 min-height: 300px; 
 	 border: 10px solid black;
-
+	 overflow-y: auto; 
     } 
 
     </style>
@@ -66,12 +66,14 @@
      </div>
       <div class="worldInfo"  id="worldInfo">
 	<div class="monsterInfo" id="monsterInfo">
-	 <ul id="monsterInfoList">
-	  <li id="monsterId"></li>
-	  <li id="monsterPosX"></li>
-	  <li id="monsterPosY"></li>
-	  <li id="monsterHP"></li>
-	 </ul>
+	 <table id="monsterTable">
+	  <tr>
+	   <th>id</th>
+	   <th>X</th>
+	   <th>Y</th>
+	   <th>HP</th>
+	  </tr>
+	 </table>
 	</div> 
       </div>
      </body>
