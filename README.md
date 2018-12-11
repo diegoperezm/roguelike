@@ -1,35 +1,35 @@
-- [Diagram](#orgb4d5ed4)
-- [Diagram Explanation](#org7a465ef)
-  - [GLOBAL](#org862764f)
-  - [PROGRAM](#orgf8640b1)
-  - [WORLD](#org92a2bf0)
-  - [ORDER](#org2d2db2f)
-- [Setup](#orgb1e22fa)
-  - [Dependencies](#org44caf25)
-- [HTML](#orgeb0b9eb)
-- [JavaScript](#orgca4b8a6)
-    - [canvas](#orgb1b0c22)
-    - [variables](#orgb55c4ff)
-    - [INTERFACE and HANDLERS](#orgfec6841)
-    - [UPDATER](#org241c362)
-    - [functions](#orgebda567)
-    - [MAIN FUNCTION](#orgaad2679)
+- [Diagram](#org30281be)
+- [Diagram Explanation](#org4c28519)
+  - [GLOBAL](#org0e203e8)
+  - [PROGRAM](#orgfeb842b)
+  - [WORLD](#org1ddbd1c)
+  - [ORDER](#orgcbae314)
+- [Setup](#org411a7c9)
+  - [Dependencies](#orgb754fe3)
+- [HTML](#org2d7681e)
+- [JavaScript](#org88bca76)
+    - [canvas](#orgedc4e6e)
+    - [variables](#org2f064b9)
+    - [INTERFACE and HANDLERS](#org6f8112b)
+    - [UPDATER](#org6a67e99)
+    - [functions](#orge1f3919)
+    - [MAIN FUNCTION](#orga186dc7)
 
 
 
-<a id="orgb4d5ed4"></a>
+<a id="org30281be"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org7a465ef"></a>
+<a id="org4c28519"></a>
 
 # Diagram Explanation
 
 
-<a id="org862764f"></a>
+<a id="org0e203e8"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgf8640b1"></a>
+<a id="orgfeb842b"></a>
 
 ## PROGRAM
 
@@ -100,7 +100,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org92a2bf0"></a>
+<a id="org1ddbd1c"></a>
 
 ## WORLD
 
@@ -113,7 +113,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org2d2db2f"></a>
+<a id="orgcbae314"></a>
 
 ## ORDER
 
@@ -145,12 +145,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgb1e22fa"></a>
+<a id="org411a7c9"></a>
 
 # Setup
 
 
-<a id="org44caf25"></a>
+<a id="orgb754fe3"></a>
 
 ## Dependencies
 
@@ -161,7 +161,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orgeb0b9eb"></a>
+<a id="org2d7681e"></a>
 
 # HTML
 
@@ -250,12 +250,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgca4b8a6"></a>
+<a id="org88bca76"></a>
 
 # JavaScript
 
 
-<a id="orgb1b0c22"></a>
+<a id="orgedc4e6e"></a>
 
 ### canvas
 
@@ -265,7 +265,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgb55c4ff"></a>
+<a id="org2f064b9"></a>
 
 ### variables
 
@@ -368,7 +368,7 @@ const ctx = canvas.getContext("2d");
     let state = [
       {
         id: 1, // wall
-        color: "RGBA(200, 200, 200, 1)",
+        color: "rgba(200, 200, 200, 1)",
         pos: {
           x: 0,
           y: 0
@@ -385,24 +385,12 @@ const ctx = canvas.getContext("2d");
         width: 10,
         height: 10,
         HP: 100
-      },
-      {
-        id: "monster",
-        type: "monster",
-        color: "rgba(0,0,255,1)",
-        pos: {
-          x: 12,
-          y: 3
-        },
-        width: 10,
-        height: 10,
-        HP: 3
       }
     ];
     ```
 
 
-<a id="orgfec6841"></a>
+<a id="org6f8112b"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -479,7 +467,7 @@ const ctx = canvas.getContext("2d");
        */ 
     
       if (didSomethingDie) {
-        action = "remove"
+        action = "remove";
         newState = state.filter(ele => ele.HP != 0);
         updater(newState, action);
       } 
@@ -524,7 +512,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org241c362"></a>
+<a id="org6a67e99"></a>
 
 ### UPDATER
 
@@ -582,7 +570,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="orgebda567"></a>
+<a id="orge1f3919"></a>
 
 ### functions
 
@@ -592,23 +580,32 @@ function updater(newState, action) {
     
         ```js
         function start() {
-        // LISTENER
-         document.addEventListener("keydown", function(keyDown) {
-           interface("player",keyDown.keyCode);
+          // LISTENER
+          document.addEventListener("keydown", function(keyDown) {
+            interface("player", keyDown.keyCode);
           });
         
-        // Add  player and monster using state
-        state.forEach(function (elem) {
-          if (elem.id != 1 ) { 
-             map[elem.pos.y][elem.pos.x] = elem.id;
-          }
-        });
+          // Create monsters (no more than 12) 
+          let monsters = createMonsters(8);
         
+          // Add monsters to state
+          monsters.forEach(function(elem) {
+            state.push(elem);
+          });
         
-         drawMap();
-         playerInfo();
-         monsterInfoFn();
+          // Add  player and monsters to map using state
+          state.forEach(function(elem) {
+            if (elem.id != 1) {
+              map[elem.pos.y][elem.pos.x] = elem.id;
+            }
+          });
+        
+          drawMap();
+          playerInfo();
+          monsterInfoFn();
         }
+        
+        
         ```
     
     2.  Test
@@ -626,23 +623,32 @@ function updater(newState, action) {
         const draw      = sinon.spy();
         
         function start() {
-        // LISTENER
-         document.addEventListener("keydown", function(keyDown) {
-           interface("player",keyDown.keyCode);
+          // LISTENER
+          document.addEventListener("keydown", function(keyDown) {
+            interface("player", keyDown.keyCode);
           });
         
-        // Add  player and monster using state
-        state.forEach(function (elem) {
-          if (elem.id != 1 ) { 
-             map[elem.pos.y][elem.pos.x] = elem.id;
-          }
-        });
+          // Create monsters (no more than 12) 
+          let monsters = createMonsters(8);
         
+          // Add monsters to state
+          monsters.forEach(function(elem) {
+            state.push(elem);
+          });
         
-         drawMap();
-         playerInfo();
-         monsterInfoFn();
+          // Add  player and monsters to map using state
+          state.forEach(function(elem) {
+            if (elem.id != 1) {
+              map[elem.pos.y][elem.pos.x] = elem.id;
+            }
+          });
+        
+          drawMap();
+          playerInfo();
+          monsterInfoFn();
         }
+        
+        
         
         START();
         
@@ -824,8 +830,10 @@ function updater(newState, action) {
          playerHP  -= 1; 
          monsterHP -= 1;
         
-         let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
+         let newStatePlayer =   Object.assign({}, player, {"HP": playerHP}); 
+        
          let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
+        
          return [newStatePlayer,newStateMonster];
         
          }; 
@@ -847,8 +855,10 @@ function updater(newState, action) {
          playerHP  -= 1; 
          monsterHP -= 1;
         
-         let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
+         let newStatePlayer =   Object.assign({}, player, {"HP": playerHP}); 
+        
          let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
+        
          return [newStatePlayer,newStateMonster];
         
          }; 
@@ -896,7 +906,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="orgaad2679"></a>
+<a id="orga186dc7"></a>
 
 ### MAIN FUNCTION
 
@@ -909,6 +919,22 @@ const ctx = canvas.getContext("2d");
 let w = 400;
 let h = 400;
 let tileSize = 13;
+
+const objects = [
+   {
+     id: "monster",
+     type: "monster",
+     color: "rgba(0,0,255,1)",
+     pos: {
+       x: 0, 
+       y: 0
+     },
+     width: 10,
+     height: 10,
+     HP: 3
+    }
+
+  ]; 
 
 /* GLOBAL */
 /*
@@ -959,7 +985,7 @@ var map = [
 let state = [
   {
     id: 1, // wall
-    color: "RGBA(200, 200, 200, 1)",
+    color: "rgba(200, 200, 200, 1)",
     pos: {
       x: 0,
       y: 0
@@ -976,18 +1002,6 @@ let state = [
     width: 10,
     height: 10,
     HP: 100
-  },
-  {
-    id: "monster",
-    type: "monster",
-    color: "rgba(0,0,255,1)",
-    pos: {
-      x: 12,
-      y: 3
-    },
-    width: 10,
-    height: 10,
-    HP: 3
   }
 ];
 
@@ -1041,7 +1055,7 @@ function eventHandler(event) {
    */ 
 
   if (didSomethingDie) {
-    action = "remove"
+    action = "remove";
     newState = state.filter(ele => ele.HP != 0);
     updater(newState, action);
   } 
@@ -1155,6 +1169,43 @@ function drawTile (x,y){
 
 
 /* FUNCTIONS */
+
+function createMonsters(thisManyMonsters) {
+    let min = 2;
+    let max = 29;
+    let monsters = [];
+    let y = randomY([],thisManyMonsters);
+
+    for (let i = 0; i < thisManyMonsters; i++) {
+     let x = Math.floor(Math.random() * (max - min) + min);
+      monsters.push(
+	Object.assign(
+	  {},
+	  objects[0],
+	  { id: "monster" + i },
+	  { pos: { x: x, y: y[i] } }
+	)
+      );
+    };
+    return monsters;
+ }
+
+function randomY(arr, thisManyMonsters ) {
+    let min = 9;
+    let max = 29;
+    let y = arr;
+
+    while (y.length < thisManyMonsters) {
+      let n = Math.floor(Math.random() * (max - min) + min);
+      if (!y.includes(n)) {
+	y.push( n);
+      } else {
+	randomY(y, y.length);
+      }
+    }
+
+     return y;
+}
 
 function playerInfo()  {
 
@@ -1298,30 +1349,41 @@ function attackEnemy (id,x,y) {
  playerHP  -= 1; 
  monsterHP -= 1;
 
- let newStatePlayer = Object.assign({}, player, {"HP": playerHP}); 
+ let newStatePlayer =   Object.assign({}, player, {"HP": playerHP}); 
+
  let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
+
  return [newStatePlayer,newStateMonster];
 
  };
 
 function start() {
-// LISTENER
- document.addEventListener("keydown", function(keyDown) {
-   interface("player",keyDown.keyCode);
+  // LISTENER
+  document.addEventListener("keydown", function(keyDown) {
+    interface("player", keyDown.keyCode);
   });
 
-// Add  player and monster using state
-state.forEach(function (elem) {
-  if (elem.id != 1 ) { 
-     map[elem.pos.y][elem.pos.x] = elem.id;
-  }
-});
+  // Create monsters (no more than 12) 
+  let monsters = createMonsters(8);
 
+  // Add monsters to state
+  monsters.forEach(function(elem) {
+    state.push(elem);
+  });
 
- drawMap();
- playerInfo();
- monsterInfoFn();
+  // Add  player and monsters to map using state
+  state.forEach(function(elem) {
+    if (elem.id != 1) {
+      map[elem.pos.y][elem.pos.x] = elem.id;
+    }
+  });
+
+  drawMap();
+  playerInfo();
+  monsterInfoFn();
 }
+
+
 
 
 start();

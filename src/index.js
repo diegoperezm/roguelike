@@ -7,6 +7,21 @@ let w = 400;
 let h = 400;
 let tileSize = 13;
 
+const objects = [
+  {
+    id: "monster",
+    type: "monster",
+    color: "rgba(0,0,255,1)",
+    pos: {
+      x: 0,
+      y: 0
+    },
+    width: 10,
+    height: 10,
+    HP: 3
+  }
+];
+
 /* GLOBAL */
 /*
   0 : walkable
@@ -55,7 +70,7 @@ var map = [
 let state = [
   {
     id: 1, // wall
-    color: "RGBA(200, 200, 200, 1)",
+    color: "rgba(200, 200, 200, 1)",
     pos: {
       x: 0,
       y: 0
@@ -72,18 +87,6 @@ let state = [
     width: 10,
     height: 10,
     HP: 100
-  },
-  {
-    id: "monster",
-    type: "monster",
-    color: "rgba(0,0,255,1)",
-    pos: {
-      x: 12,
-      y: 3
-    },
-    width: 10,
-    height: 10,
-    HP: 3
   }
 ];
 
@@ -162,7 +165,6 @@ function eventHandler(event) {
       break;
 
     case "attack":
-      console.log("case attack: ", "action", action);
       newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
       updater(newState, "attack");
       break;
@@ -239,6 +241,43 @@ function drawTile(x, y) {
 }
 
 /* FUNCTIONS */
+
+function createMonsters(thisManyMonsters) {
+  let min = 2;
+  let max = 29;
+  let monsters = [];
+  let y = randomY([], thisManyMonsters);
+
+  for (let i = 0; i < thisManyMonsters; i++) {
+    let x = Math.floor(Math.random() * (max - min) + min);
+    monsters.push(
+      Object.assign(
+        {},
+        objects[0],
+        { id: "monster" + i },
+        { pos: { x: x, y: y[i] } }
+      )
+    );
+  }
+  return monsters;
+}
+
+function randomY(arr, thisManyMonsters) {
+  let min = 9;
+  let max = 29;
+  let y = arr;
+
+  while (y.length < thisManyMonsters) {
+    let n = Math.floor(Math.random() * (max - min) + min);
+    if (!y.includes(n)) {
+      y.push(n);
+    } else {
+      randomY(y, y.length);
+    }
+  }
+
+  return y;
+}
 
 function playerInfo() {
   let playerIndex = state.findIndex(element => element.id === "player");
@@ -367,7 +406,9 @@ function attackEnemy(id, x, y) {
   monsterHP -= 1;
 
   let newStatePlayer = Object.assign({}, player, { HP: playerHP });
+
   let newStateMonster = Object.assign({}, monster, { HP: monsterHP });
+
   return [newStatePlayer, newStateMonster];
 }
 
@@ -377,7 +418,15 @@ function start() {
     interface("player", keyDown.keyCode);
   });
 
-  // Add  player and monster using state
+  // Create monsters (no more than 12)
+  let monsters = createMonsters(8);
+
+  // Add monsters to state
+  monsters.forEach(function(elem) {
+    state.push(elem);
+  });
+
+  // Add  player and monsters to map using state
   state.forEach(function(elem) {
     if (elem.id != 1) {
       map[elem.pos.y][elem.pos.x] = elem.id;
