@@ -1,35 +1,35 @@
-- [Diagram](#orgbc1c346)
-- [Diagram Explanation](#org7dc74cc)
-  - [GLOBAL](#orgc6b0315)
-  - [PROGRAM](#org4eb5dba)
-  - [WORLD](#org27ae99f)
-  - [ORDER](#org9f7ad12)
-- [Setup](#org875e657)
-  - [Dependencies](#orgaea30d1)
-- [HTML](#org307ef62)
-- [JavaScript](#orgd2e4598)
-    - [canvas](#org39e2495)
-    - [variables](#org2618700)
-    - [INTERFACE and HANDLERS](#orgd74621f)
-    - [UPDATER](#org7f41f02)
-    - [functions](#org3c10535)
-    - [MAIN FUNCTION](#orgb8fd560)
+- [Diagram](#org50e2521)
+- [Diagram Explanation](#org0cd2fce)
+  - [GLOBAL](#orgf2034ad)
+  - [PROGRAM](#orgafe6bd2)
+  - [WORLD](#orge67e2c9)
+  - [ORDER](#org4cb2b24)
+- [Setup](#org338f0c1)
+  - [Dependencies](#org7dfcbf6)
+- [HTML](#org13dc441)
+- [JavaScript](#org2c4b96a)
+    - [canvas](#org22ba7a5)
+    - [variables](#org5896fe2)
+    - [INTERFACE and HANDLERS](#org9207ee5)
+    - [UPDATER](#orgde306a3)
+    - [functions](#org771ab42)
+    - [MAIN FUNCTION](#org5a87a79)
 
 
 
-<a id="orgbc1c346"></a>
+<a id="org50e2521"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org7dc74cc"></a>
+<a id="org0cd2fce"></a>
 
 # Diagram Explanation
 
 
-<a id="orgc6b0315"></a>
+<a id="orgf2034ad"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org4eb5dba"></a>
+<a id="orgafe6bd2"></a>
 
 ## PROGRAM
 
@@ -106,7 +106,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org27ae99f"></a>
+<a id="orge67e2c9"></a>
 
 ## WORLD
 
@@ -119,7 +119,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org9f7ad12"></a>
+<a id="org4cb2b24"></a>
 
 ## ORDER
 
@@ -151,12 +151,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org875e657"></a>
+<a id="org338f0c1"></a>
 
 # Setup
 
 
-<a id="orgaea30d1"></a>
+<a id="org7dfcbf6"></a>
 
 ## Dependencies
 
@@ -167,7 +167,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org307ef62"></a>
+<a id="org13dc441"></a>
 
 # HTML
 
@@ -256,12 +256,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgd2e4598"></a>
+<a id="org2c4b96a"></a>
 
 # JavaScript
 
 
-<a id="org39e2495"></a>
+<a id="org22ba7a5"></a>
 
 ### canvas
 
@@ -271,7 +271,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org2618700"></a>
+<a id="org5896fe2"></a>
 
 ### variables
 
@@ -396,7 +396,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgd74621f"></a>
+<a id="org9207ee5"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -518,7 +518,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org7f41f02"></a>
+<a id="orgde306a3"></a>
 
 ### UPDATER
 
@@ -576,7 +576,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="org3c10535"></a>
+<a id="org771ab42"></a>
 
 ### functions
 
@@ -611,63 +611,6 @@ function updater(newState, action) {
           monsterInfoFn();
         }
         
-        
-        ```
-    
-    2.  Test
-    
-        ```js
-        var test = require("tape");
-        const jsdom = require("jsdom");
-        const sinon = require("sinon");
-        const { JSDOM } = jsdom;
-        const dom = new JSDOM(`<!doctype html><html><head></head><body></body></html>`);
-        const document = dom.window.document;
-        const ArrowUp = new dom.window.KeyboardEvent('keydown', {keyCode: 38});
-        
-        const INTERFACE = sinon.spy(); 
-        const draw      = sinon.spy();
-        
-        function start() {
-          // LISTENER
-          document.addEventListener("keydown", function(keyDown) {
-            interface("player", keyDown.keyCode);
-          });
-        
-          // Create monsters (no more than 12) 
-          let monsters = createMonsters(8);
-        
-          // Add monsters to state
-          monsters.forEach(function(elem) {
-            state.push(elem);
-          });
-        
-          // Add  player and monsters to map using state
-          state.forEach(function(elem) {
-            if (elem.id != 1) {
-              map[elem.pos.y][elem.pos.x] = elem.id;
-            }
-          });
-        
-          drawMap();
-          playerInfo();
-          monsterInfoFn();
-        }
-        
-        
-        
-        START();
-        
-        dom.window.document.dispatchEvent(ArrowUp);
-        
-        
-        
-        test("START test", function(t){
-          t.plan(2);
-          t.equal(INTERFACE.callCount, 1,"START() should call INTERFACE only once" );
-          t.equal(draw.callCount, 1,"START() should call draw only once" );
-          t.end();
-        });
         
         ```
 
@@ -844,38 +787,6 @@ function updater(newState, action) {
         
          }; 
         ```
-    
-    2.  Test
-    
-        ```js
-        function attackEnemy (id,x,y) { 
-        
-         let playerIndex =  state.findIndex(element => element.id===id); 
-         let player = state[playerIndex];
-         let playerHP =  player.HP;
-        
-         let monsterIndex = state.findIndex(el => el.pos.x === x &&  el.pos.y === y); 
-         let monster = state[monsterIndex];
-         let monsterHP = monster.HP;
-        
-         playerHP  -= 1; 
-         monsterHP -= 1;
-        
-         let newStatePlayer =   Object.assign({}, player, {"HP": playerHP}); 
-        
-         let newStateMonster =  Object.assign({}, monster,{"HP": monsterHP});
-        
-         return [newStatePlayer,newStateMonster];
-        
-         }; 
-        var test = require("tape");
-        
-        test("attackEnemy test", function(t){
-            t.plan(1);
-            t.equal(typeof attackEnemy(),"number","attackEnemy() should return a number." );
-            t.end();
-        });
-        ```
 
 6.  drawMap
 
@@ -912,7 +823,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="orgb8fd560"></a>
+<a id="org5a87a79"></a>
 
 ### MAIN FUNCTION
 
