@@ -1,35 +1,35 @@
-- [Diagram](#org30281be)
-- [Diagram Explanation](#org4c28519)
-  - [GLOBAL](#org0e203e8)
-  - [PROGRAM](#orgfeb842b)
-  - [WORLD](#org1ddbd1c)
-  - [ORDER](#orgcbae314)
-- [Setup](#org411a7c9)
-  - [Dependencies](#orgb754fe3)
-- [HTML](#org2d7681e)
-- [JavaScript](#org88bca76)
-    - [canvas](#orgedc4e6e)
-    - [variables](#org2f064b9)
-    - [INTERFACE and HANDLERS](#org6f8112b)
-    - [UPDATER](#org6a67e99)
-    - [functions](#orge1f3919)
-    - [MAIN FUNCTION](#orga186dc7)
+- [Diagram](#orgbc1c346)
+- [Diagram Explanation](#org7dc74cc)
+  - [GLOBAL](#orgc6b0315)
+  - [PROGRAM](#org4eb5dba)
+  - [WORLD](#org27ae99f)
+  - [ORDER](#org9f7ad12)
+- [Setup](#org875e657)
+  - [Dependencies](#orgaea30d1)
+- [HTML](#org307ef62)
+- [JavaScript](#orgd2e4598)
+    - [canvas](#org39e2495)
+    - [variables](#org2618700)
+    - [INTERFACE and HANDLERS](#orgd74621f)
+    - [UPDATER](#org7f41f02)
+    - [functions](#org3c10535)
+    - [MAIN FUNCTION](#orgb8fd560)
 
 
 
-<a id="org30281be"></a>
+<a id="orgbc1c346"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org4c28519"></a>
+<a id="org7dc74cc"></a>
 
 # Diagram Explanation
 
 
-<a id="org0e203e8"></a>
+<a id="orgc6b0315"></a>
 
 ## GLOBAL
 
@@ -52,7 +52,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgfeb842b"></a>
+<a id="org4eb5dba"></a>
 
 ## PROGRAM
 
@@ -75,23 +75,29 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 
 -   EVENTHANDLER
     -   Apply the rules for:
+        -   object persistence
+        
         -   move
         
         -   attack
         
         -   collision detection
     
-    -   Send a new state to UPDATER
+    -   Send a new state and an action to UPDATER
     
     -   Input:
         -   Object
     
     -   Ouput:
-        -   Object || Array of Objects
+        -   Object , string || Array of Objects, string
 
 -   UPDATER
     -   Update:
         -   STATE
+        
+        -   MAP
+        
+        -   DOM
         
         -   CANVAS
 
@@ -100,7 +106,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org1ddbd1c"></a>
+<a id="org27ae99f"></a>
 
 ## WORLD
 
@@ -113,7 +119,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="orgcbae314"></a>
+<a id="org9f7ad12"></a>
 
 ## ORDER
 
@@ -145,12 +151,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="org411a7c9"></a>
+<a id="org875e657"></a>
 
 # Setup
 
 
-<a id="orgb754fe3"></a>
+<a id="orgaea30d1"></a>
 
 ## Dependencies
 
@@ -161,7 +167,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org2d7681e"></a>
+<a id="org307ef62"></a>
 
 # HTML
 
@@ -250,12 +256,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org88bca76"></a>
+<a id="orgd2e4598"></a>
 
 # JavaScript
 
 
-<a id="orgedc4e6e"></a>
+<a id="org39e2495"></a>
 
 ### canvas
 
@@ -265,7 +271,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org2f064b9"></a>
+<a id="org2618700"></a>
 
 ### variables
 
@@ -390,7 +396,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org6f8112b"></a>
+<a id="orgd74621f"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -512,7 +518,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org6a67e99"></a>
+<a id="org7f41f02"></a>
 
 ### UPDATER
 
@@ -570,7 +576,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="orge1f3919"></a>
+<a id="org3c10535"></a>
 
 ### functions
 
@@ -906,7 +912,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="orga186dc7"></a>
+<a id="orgb8fd560"></a>
 
 ### MAIN FUNCTION
 
