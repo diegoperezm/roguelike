@@ -1,36 +1,36 @@
-- [Diagram](#orgb455136)
-- [Diagram Explanation](#orgb597ec3)
-  - [GLOBAL](#orgb444c5a)
-  - [PROGRAM](#org510c3f4)
-  - [WORLD](#org0d26cec)
-  - [ORDER](#orgc547777)
-- [Setup](#orga48b56b)
-  - [Dependencies](#org9c078d9)
-- [HTML](#orge1ba8b3)
-- [JavaScript](#orgbb5c68a)
-    - [canvas](#orgb4e704b)
-    - [variables](#orga96d0e0)
-    - [INTERFACE and HANDLERS](#org2197850)
-    - [UPDATER](#org4fdc96b)
-    - [functions](#orgf53152b)
-    - [MAIN FUNCTION](#org8d7ad31)
-- [Demo](#org8999763)
+- [Diagram](#org852df73)
+- [Diagram Explanation](#orgd640719)
+  - [GLOBAL](#org99b6215)
+  - [PROGRAM](#orga4dd8d4)
+  - [WORLD](#org9f49715)
+  - [ORDER](#org9ffcb87)
+- [Setup](#orgb74eece)
+  - [Dependencies](#org65f6d43)
+- [HTML](#org8cae35a)
+- [JavaScript](#org1104613)
+    - [canvas](#orgd61bdd8)
+    - [variables](#orgae45924)
+    - [INTERFACE and HANDLERS](#org8823c91)
+    - [UPDATER](#org9c19fe0)
+    - [functions](#org66d9ef9)
+    - [MAIN FUNCTION](#org5ed1248)
+- [Demo](#org82b7a7e)
 
 
 
-<a id="orgb455136"></a>
+<a id="org852df73"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="orgb597ec3"></a>
+<a id="orgd640719"></a>
 
 # Diagram Explanation
 
 
-<a id="orgb444c5a"></a>
+<a id="org99b6215"></a>
 
 ## GLOBAL
 
@@ -53,7 +53,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org510c3f4"></a>
+<a id="orga4dd8d4"></a>
 
 ## PROGRAM
 
@@ -107,7 +107,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org0d26cec"></a>
+<a id="org9f49715"></a>
 
 ## WORLD
 
@@ -120,7 +120,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="orgc547777"></a>
+<a id="org9ffcb87"></a>
 
 ## ORDER
 
@@ -152,12 +152,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orga48b56b"></a>
+<a id="orgb74eece"></a>
 
 # Setup
 
 
-<a id="org9c078d9"></a>
+<a id="org65f6d43"></a>
 
 ## Dependencies
 
@@ -168,7 +168,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orge1ba8b3"></a>
+<a id="org8cae35a"></a>
 
 # HTML
 
@@ -257,12 +257,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgbb5c68a"></a>
+<a id="org1104613"></a>
 
 # JavaScript
 
 
-<a id="orgb4e704b"></a>
+<a id="orgd61bdd8"></a>
 
 ### canvas
 
@@ -272,7 +272,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orga96d0e0"></a>
+<a id="orgae45924"></a>
 
 ### variables
 
@@ -380,24 +380,12 @@ const ctx = canvas.getContext("2d");
           x: 0,
           y: 0
         },
-      },
-      {
-        id: "player",
-        type: "player",
-        color: "rgba(255,0,0,1)",
-        pos: {
-          x: 6,
-          y: 5
-        },
-        width: 10,
-        height: 10,
-        HP: 100
       }
     ];
     ```
 
 
-<a id="org2197850"></a>
+<a id="org8823c91"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -519,7 +507,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org4fdc96b"></a>
+<a id="org9c19fe0"></a>
 
 ### UPDATER
 
@@ -577,7 +565,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="orgf53152b"></a>
+<a id="org66d9ef9"></a>
 
 ### functions
 
@@ -599,6 +587,9 @@ function updater(newState, action) {
           monsters.forEach(function(elem) {
             state.push(elem);
           });
+        
+          // Add player to state
+          state.push(objects.player);   
         
           // Add  player and monsters to map using state
           state.forEach(function(elem) {
@@ -824,7 +815,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="org8d7ad31"></a>
+<a id="org5ed1248"></a>
 
 ### MAIN FUNCTION
 
@@ -838,8 +829,8 @@ let w = 400;
 let h = 400;
 let tileSize = 13;
 
-const objects = [
-   {
+const objects = {
+    "monster" : {
      id: "monster",
      type: "monster",
      color: "rgba(0,0,255,1)",
@@ -850,9 +841,21 @@ const objects = [
      width: 10,
      height: 10,
      HP: 3
-    }
-
-  ]; 
+    },
+    "player": 
+    {
+    id: "player",
+    type: "player",
+    color: "rgba(255,0,0,1)",
+    pos: {
+      x: 6,
+      y: 5
+    },
+    width: 10,
+    height: 10,
+    HP: 100
+  }
+};
 
 /* GLOBAL */
 /*
@@ -908,18 +911,6 @@ let state = [
       x: 0,
       y: 0
     },
-  },
-  {
-    id: "player",
-    type: "player",
-    color: "rgba(255,0,0,1)",
-    pos: {
-      x: 6,
-      y: 5
-    },
-    width: 10,
-    height: 10,
-    HP: 100
   }
 ];
 
@@ -1099,7 +1090,7 @@ function createMonsters(thisManyMonsters) {
       monsters.push(
 	Object.assign(
 	  {},
-	  objects[0],
+	  objects.monster,
 	  { id: "monster" + i },
 	  { pos: { x: x, y: y[i] } }
 	)
@@ -1289,6 +1280,9 @@ function start() {
     state.push(elem);
   });
 
+  // Add player to state
+  state.push(objects.player);   
+
   // Add  player and monsters to map using state
   state.forEach(function(elem) {
     if (elem.id != 1) {
@@ -1309,7 +1303,7 @@ start();
 ```
 
 
-<a id="org8999763"></a>
+<a id="org82b7a7e"></a>
 
 # Demo
 

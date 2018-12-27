@@ -7,8 +7,8 @@ let w = 400;
 let h = 400;
 let tileSize = 13;
 
-const objects = [
-  {
+const objects = {
+  monster: {
     id: "monster",
     type: "monster",
     color: "rgba(0,0,255,1)",
@@ -19,8 +19,20 @@ const objects = [
     width: 10,
     height: 10,
     HP: 3
+  },
+  player: {
+    id: "player",
+    type: "player",
+    color: "rgba(255,0,0,1)",
+    pos: {
+      x: 6,
+      y: 5
+    },
+    width: 10,
+    height: 10,
+    HP: 100
   }
-];
+};
 
 /* GLOBAL */
 /*
@@ -75,18 +87,6 @@ let state = [
       x: 0,
       y: 0
     }
-  },
-  {
-    id: "player",
-    type: "player",
-    color: "rgba(255,0,0,1)",
-    pos: {
-      x: 6,
-      y: 5
-    },
-    width: 10,
-    height: 10,
-    HP: 100
   }
 ];
 
@@ -253,7 +253,7 @@ function createMonsters(thisManyMonsters) {
     monsters.push(
       Object.assign(
         {},
-        objects[0],
+        objects.monster,
         { id: "monster" + i },
         { pos: { x: x, y: y[i] } }
       )
@@ -425,6 +425,9 @@ function start() {
   monsters.forEach(function(elem) {
     state.push(elem);
   });
+
+  // Add player to state
+  state.push(objects.player);
 
   // Add  player and monsters to map using state
   state.forEach(function(elem) {
