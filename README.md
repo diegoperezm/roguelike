@@ -1,36 +1,36 @@
-- [Diagram](#org2c280be)
-- [Diagram Explanation](#org6513e31)
-  - [GLOBAL](#org9ef90ed)
-  - [PROGRAM](#org426b04a)
-  - [WORLD](#org960448f)
-  - [ORDER](#orga164eb5)
-- [Setup](#orgab9bc40)
-  - [Dependencies](#orge4540f2)
-- [HTML](#orgc80c6d9)
-- [JavaScript](#org5ce50d6)
-    - [canvas](#orgb2d3c8f)
-    - [variables](#org5399c2c)
-    - [INTERFACE and HANDLERS](#orgc49b0fb)
-    - [UPDATER](#org623ebd2)
-    - [functions](#orgfdb536b)
-    - [MAIN FUNCTION](#org737d28e)
-- [Demo](#orgba13379)
+- [Diagram](#orgf6dbdb4)
+- [Diagram Explanation](#org9721ab4)
+  - [GLOBAL](#org49a2bd1)
+  - [PROGRAM](#orgb39a83f)
+  - [WORLD](#org02c0b01)
+  - [ORDER](#org7ec1137)
+- [Setup](#orga647955)
+  - [Dependencies](#orgcd0ac46)
+- [HTML](#org1cff4d7)
+- [JavaScript](#org5ce4f79)
+    - [canvas](#org5351e10)
+    - [variables](#orgc7509fb)
+    - [INTERFACE and HANDLERS](#org4442527)
+    - [UPDATER](#org525511e)
+    - [functions](#org2368382)
+    - [MAIN FUNCTION](#org213259c)
+- [Demo](#org72eee66)
 
 
 
-<a id="org2c280be"></a>
+<a id="orgf6dbdb4"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org6513e31"></a>
+<a id="org9721ab4"></a>
 
 # Diagram Explanation
 
 
-<a id="org9ef90ed"></a>
+<a id="org49a2bd1"></a>
 
 ## GLOBAL
 
@@ -53,7 +53,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org426b04a"></a>
+<a id="orgb39a83f"></a>
 
 ## PROGRAM
 
@@ -107,7 +107,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org960448f"></a>
+<a id="org02c0b01"></a>
 
 ## WORLD
 
@@ -120,7 +120,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="orga164eb5"></a>
+<a id="org7ec1137"></a>
 
 ## ORDER
 
@@ -152,12 +152,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgab9bc40"></a>
+<a id="orga647955"></a>
 
 # Setup
 
 
-<a id="orge4540f2"></a>
+<a id="orgcd0ac46"></a>
 
 ## Dependencies
 
@@ -168,7 +168,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="orgc80c6d9"></a>
+<a id="org1cff4d7"></a>
 
 # HTML
 
@@ -257,12 +257,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org5ce50d6"></a>
+<a id="org5ce4f79"></a>
 
 # JavaScript
 
 
-<a id="orgb2d3c8f"></a>
+<a id="org5351e10"></a>
 
 ### canvas
 
@@ -272,7 +272,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="org5399c2c"></a>
+<a id="orgc7509fb"></a>
 
 ### variables
 
@@ -372,20 +372,12 @@ const ctx = canvas.getContext("2d");
      list of objects  and his positions x y
      */
     
-    let state = [
-      {
-        id: 1, // wall
-        color: "rgba(200, 200, 200, 1)",
-        pos: {
-          x: 0,
-          y: 0
-        },
-      }
-    ];
+    let state = [];
+    
     ```
 
 
-<a id="orgc49b0fb"></a>
+<a id="org4442527"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -507,7 +499,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org623ebd2"></a>
+<a id="org525511e"></a>
 
 ### UPDATER
 
@@ -565,7 +557,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="orgfdb536b"></a>
+<a id="org2368382"></a>
 
 ### functions
 
@@ -579,6 +571,11 @@ function updater(newState, action) {
           document.addEventListener("keydown", function(keyDown) {
             interface("player", keyDown.keyCode);
           });
+        
+          /* Add wall id to state.
+             At the moment the walls are hardcoded (map) 
+          */
+          state.push(objects.wall);
         
           // Create monsters (no more than 12) 
           let monsters = createMonsters(8);
@@ -815,7 +812,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="org737d28e"></a>
+<a id="org213259c"></a>
 
 ### MAIN FUNCTION
 
@@ -838,6 +835,14 @@ let h = 400;
 let tileSize = 13;
 
 const objects = {
+    "wall": {
+      id: 1, // wall
+      color: "rgba(200, 200, 200, 1)",
+      pos: {
+	x: 0,
+	y: 0
+      },
+    },
     "monster" : {
      id: "monster",
      type: "monster",
@@ -911,16 +916,8 @@ var map = [
  list of objects  and his positions x y
  */
 
-let state = [
-  {
-    id: 1, // wall
-    color: "rgba(200, 200, 200, 1)",
-    pos: {
-      x: 0,
-      y: 0
-    },
-  }
-];
+let state = [];
+
 
 
 /*
@@ -1296,6 +1293,11 @@ function start() {
     interface("player", keyDown.keyCode);
   });
 
+  /* Add wall id to state.
+     At the moment the walls are hardcoded (map) 
+  */
+  state.push(objects.wall);
+
   // Create monsters (no more than 12) 
   let monsters = createMonsters(8);
 
@@ -1340,7 +1342,7 @@ start();
 ```
 
 
-<a id="orgba13379"></a>
+<a id="org72eee66"></a>
 
 # Demo
 

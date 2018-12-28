@@ -15,6 +15,14 @@ let h = 400;
 let tileSize = 13;
 
 const objects = {
+  wall: {
+    id: 1, // wall
+    color: "rgba(200, 200, 200, 1)",
+    pos: {
+      x: 0,
+      y: 0
+    }
+  },
   monster: {
     id: "monster",
     type: "monster",
@@ -86,16 +94,7 @@ var map = [
  list of objects  and his positions x y
  */
 
-let state = [
-  {
-    id: 1, // wall
-    color: "rgba(200, 200, 200, 1)",
-    pos: {
-      x: 0,
-      y: 0
-    }
-  }
-];
+let state = [];
 
 /*
     _ __  _ __ ___   __ _ _ __ __ _ _ __ ___  
@@ -438,6 +437,11 @@ function start() {
   document.addEventListener("keydown", function(keyDown) {
     interface("player", keyDown.keyCode);
   });
+
+  /* Add wall id to state.
+     At the moment the walls are hardcoded (map) 
+  */
+  state.push(objects.wall);
 
   // Create monsters (no more than 12)
   let monsters = createMonsters(8);
