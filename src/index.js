@@ -59,6 +59,12 @@ const objects = {
 */
 
 /*
+ list of objects  and his positions x y
+ */
+
+let state = [];
+
+/*
   0 : walkable
   1 : not walkable (a wall)
  */
@@ -97,12 +103,6 @@ var map = [
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
-
-/*
- list of objects  and his positions x y
- */
-
-let state = [];
 
 /*
     _ __  _ __ ___   __ _ _ __ __ _ _ __ ___  
