@@ -1,4 +1,11 @@
-/* Variables */
+/* 
+                    _       _     _           
+                   (_)     | |   | |          
+   __   ____ _ _ __ _  __ _| |__ | | ___  ___ 
+   \ \ / / _` | '__| |/ _` | '_ \| |/ _ \/ __|
+    \ V / (_| | |  | | (_| | |_) | |  __/\__ \
+     \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
+*/
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -90,7 +97,14 @@ let state = [
   }
 ];
 
-/* PROGRAM */
+/*
+    _ __  _ __ ___   __ _ _ __ __ _ _ __ ___  
+   | '_ \| '__/ _ \ / _` | '__/ _` | '_ ` _ \ 
+   | |_) | | | (_) | (_| | | | (_| | | | | | |
+   | .__/|_|  \___/ \__, |_|  \__,_|_| |_| |_|
+   | |               __/ |                    
+   |_|              |___/     
+*/
 
 function interface(id, keyCode) {
   let input = Object.assign({ id: id }, { keyCode: keyCode }, {});
@@ -240,7 +254,14 @@ function drawTile(x, y) {
   ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
 }
 
-/* FUNCTIONS */
+/*
+     __                  _   _                 
+    / _|                | | (_)                
+   | |_ _   _ _ __   ___| |_ _  ___  _ __  ___ 
+   |  _| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+   | | | |_| | | | | (__| |_| | (_) | | | \__ \
+   |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+ */
 
 function createMonsters(thisManyMonsters) {
   let min = 2;
@@ -440,5 +461,14 @@ function start() {
   playerInfo();
   monsterInfoFn();
 }
+
+/*
+    _____ _____ ___  ______ _____ 
+   /  ___|_   _/ _ \ | ___ \_   _|
+   \ `--.  | |/ /_\ \| |_/ / | |  
+    `--. \ | ||  _  ||    /  | |  
+   /\__/ / | || | | || |\ \  | |  
+   \____/  \_/\_| |_/\_| \_| \_/  
+*/
 
 start();
