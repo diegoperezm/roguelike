@@ -1,36 +1,36 @@
-- [Diagram](#org3dc9cae)
-- [Diagram Explanation](#org914d8b5)
-  - [GLOBAL](#org8f34f85)
-  - [PROGRAM](#org4427500)
-  - [WORLD](#org6ee2363)
-  - [ORDER](#orga65ce87)
-- [Setup](#orgdf03b13)
-  - [Dependencies](#orgfa005d0)
-- [HTML](#org5b98c2d)
-- [JavaScript](#org5870a8b)
-    - [canvas](#orgd8eda89)
-    - [variables](#orgc3346df)
-    - [INTERFACE and HANDLERS](#org44aacd2)
-    - [UPDATER](#org7631b25)
-    - [functions](#org6db2454)
-    - [MAIN FUNCTION](#orgea7e809)
-- [Demo](#org84c3a1b)
+- [Diagram](#orgda58cc5)
+- [Diagram Explanation](#orgf95b455)
+  - [GLOBAL](#org4834c86)
+  - [PROGRAM](#orgba98528)
+  - [WORLD](#orgd6a4f1f)
+  - [ORDER](#org8e5cd09)
+- [Setup](#orgb66b7a0)
+  - [Dependencies](#orgcb82087)
+- [HTML](#org49b256b)
+- [JavaScript](#orgbfc993c)
+    - [canvas](#orga434a08)
+    - [variables](#orgffb0d42)
+    - [INTERFACE and HANDLERS](#orga6d7e72)
+    - [UPDATER](#orgc39b684)
+    - [functions](#orgdeeb7fa)
+    - [MAIN FUNCTION](#orgb70e0f4)
+- [Demo](#org5f5f4d6)
 
 
 
-<a id="org3dc9cae"></a>
+<a id="orgda58cc5"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org914d8b5"></a>
+<a id="orgf95b455"></a>
 
 # Diagram Explanation
 
 
-<a id="org8f34f85"></a>
+<a id="org4834c86"></a>
 
 ## GLOBAL
 
@@ -53,7 +53,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="org4427500"></a>
+<a id="orgba98528"></a>
 
 ## PROGRAM
 
@@ -107,7 +107,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org6ee2363"></a>
+<a id="orgd6a4f1f"></a>
 
 ## WORLD
 
@@ -120,7 +120,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="orga65ce87"></a>
+<a id="org8e5cd09"></a>
 
 ## ORDER
 
@@ -152,12 +152,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgdf03b13"></a>
+<a id="orgb66b7a0"></a>
 
 # Setup
 
 
-<a id="orgfa005d0"></a>
+<a id="orgcb82087"></a>
 
 ## Dependencies
 
@@ -168,7 +168,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org5b98c2d"></a>
+<a id="org49b256b"></a>
 
 # HTML
 
@@ -257,12 +257,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org5870a8b"></a>
+<a id="orgbfc993c"></a>
 
 # JavaScript
 
 
-<a id="orgd8eda89"></a>
+<a id="orga434a08"></a>
 
 ### canvas
 
@@ -272,7 +272,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgc3346df"></a>
+<a id="orgffb0d42"></a>
 
 ### variables
 
@@ -377,7 +377,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org44aacd2"></a>
+<a id="orga6d7e72"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -417,7 +417,16 @@ const ctx = canvas.getContext("2d");
         input = "left"; 
        break;
     
+      case 72:
+        input = "left"; 
+       break;
+    
       case 38:
+        input = "up";
+       break;
+    
+    
+      case 75:
         input = "up";
        break;
     
@@ -425,7 +434,15 @@ const ctx = canvas.getContext("2d");
        input = "right";
        break;
     
+      case 76:
+       input = "right";
+       break;
+    
       case 40:
+        input = "down";
+       break;
+    
+      case 74:
         input = "down";
        break;
     
@@ -499,7 +516,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org7631b25"></a>
+<a id="orgc39b684"></a>
 
 ### UPDATER
 
@@ -557,7 +574,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="org6db2454"></a>
+<a id="orgdeeb7fa"></a>
 
 ### functions
 
@@ -812,7 +829,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="orgea7e809"></a>
+<a id="orgb70e0f4"></a>
 
 ### MAIN FUNCTION
 
@@ -957,7 +974,16 @@ let id = inputObj.id;
     input = "left"; 
    break;
 
+  case 72:
+    input = "left"; 
+   break;
+
   case 38:
+    input = "up";
+   break;
+
+
+  case 75:
     input = "up";
    break;
 
@@ -965,7 +991,15 @@ let id = inputObj.id;
    input = "right";
    break;
 
+  case 76:
+   input = "right";
+   break;
+
   case 40:
+    input = "down";
+   break;
+
+  case 74:
     input = "down";
    break;
 
@@ -1353,7 +1387,7 @@ start();
 ```
 
 
-<a id="org84c3a1b"></a>
+<a id="org5f5f4d6"></a>
 
 # Demo
 

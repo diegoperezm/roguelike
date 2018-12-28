@@ -127,7 +127,15 @@ function inputHandler(inputObj) {
       input = "left";
       break;
 
+    case 72:
+      input = "left";
+      break;
+
     case 38:
+      input = "up";
+      break;
+
+    case 75:
       input = "up";
       break;
 
@@ -135,7 +143,15 @@ function inputHandler(inputObj) {
       input = "right";
       break;
 
+    case 76:
+      input = "right";
+      break;
+
     case 40:
+      input = "down";
+      break;
+
+    case 74:
       input = "down";
       break;
   }
