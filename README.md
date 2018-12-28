@@ -1,36 +1,36 @@
-- [Diagram](#orgda58cc5)
-- [Diagram Explanation](#orgf95b455)
-  - [GLOBAL](#org4834c86)
-  - [PROGRAM](#orgba98528)
-  - [WORLD](#orgd6a4f1f)
-  - [ORDER](#org8e5cd09)
-- [Setup](#orgb66b7a0)
-  - [Dependencies](#orgcb82087)
-- [HTML](#org49b256b)
-- [JavaScript](#orgbfc993c)
-    - [canvas](#orga434a08)
-    - [variables](#orgffb0d42)
-    - [INTERFACE and HANDLERS](#orga6d7e72)
-    - [UPDATER](#orgc39b684)
-    - [functions](#orgdeeb7fa)
-    - [MAIN FUNCTION](#orgb70e0f4)
-- [Demo](#org5f5f4d6)
+- [Diagram](#orgfea0c7f)
+- [Diagram Explanation](#org2efcaa8)
+  - [GLOBAL](#org8693a44)
+  - [PROGRAM](#org58bda65)
+  - [WORLD](#orgca1a478)
+  - [ORDER](#orgc94ac6a)
+- [Setup](#orgb43a2ed)
+  - [Dependencies](#org1986ce5)
+- [HTML](#orgc884507)
+- [JavaScript](#orgd887cd5)
+    - [canvas](#org36fe5b2)
+    - [variables](#org41966e5)
+    - [INTERFACE and HANDLERS](#org442e60e)
+    - [UPDATER](#org194f9e0)
+    - [functions](#org6773e02)
+    - [MAIN FUNCTION](#org57b3ee1)
+- [Demo](#org2805582)
 
 
 
-<a id="orgda58cc5"></a>
+<a id="orgfea0c7f"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="orgf95b455"></a>
+<a id="org2efcaa8"></a>
 
 # Diagram Explanation
 
 
-<a id="org4834c86"></a>
+<a id="org8693a44"></a>
 
 ## GLOBAL
 
@@ -53,7 +53,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgba98528"></a>
+<a id="org58bda65"></a>
 
 ## PROGRAM
 
@@ -107,7 +107,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="orgd6a4f1f"></a>
+<a id="orgca1a478"></a>
 
 ## WORLD
 
@@ -120,7 +120,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org8e5cd09"></a>
+<a id="orgc94ac6a"></a>
 
 ## ORDER
 
@@ -152,12 +152,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orgb66b7a0"></a>
+<a id="orgb43a2ed"></a>
 
 # Setup
 
 
-<a id="orgcb82087"></a>
+<a id="org1986ce5"></a>
 
 ## Dependencies
 
@@ -168,7 +168,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org49b256b"></a>
+<a id="orgc884507"></a>
 
 # HTML
 
@@ -257,12 +257,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="orgbfc993c"></a>
+<a id="orgd887cd5"></a>
 
 # JavaScript
 
 
-<a id="orga434a08"></a>
+<a id="org36fe5b2"></a>
 
 ### canvas
 
@@ -272,7 +272,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgffb0d42"></a>
+<a id="org41966e5"></a>
 
 ### variables
 
@@ -377,7 +377,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orga6d7e72"></a>
+<a id="org442e60e"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -516,7 +516,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="orgc39b684"></a>
+<a id="org194f9e0"></a>
 
 ### UPDATER
 
@@ -574,7 +574,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="orgdeeb7fa"></a>
+<a id="org6773e02"></a>
 
 ### functions
 
@@ -829,19 +829,22 @@ function updater(newState, action) {
         ```
 
 
-<a id="orgb70e0f4"></a>
+<a id="org57b3ee1"></a>
 
 ### MAIN FUNCTION
 
 ```js
-/* 
+/******************************************************************************* 
+
 		    _       _     _           
 		   (_)     | |   | |          
    __   ____ _ _ __ _  __ _| |__ | | ___  ___ 
    \ \ / / _` | '__| |/ _` | '_ \| |/ _ \/ __|
     \ V / (_| | |  | | (_| | |_) | |  __/\__ \
      \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
-*/                                           
+
+
+********************************************************************************/
 
 
 const canvas = document.getElementById("canvas");
@@ -887,14 +890,17 @@ const objects = {
   }
 };
 
-/* 
+/******************************************************************************* 
+
     _____  _     ___________  ___   _     
    |  __ \| |   |  _  | ___ \/ _ \ | |    
    | |  \/| |   | | | | |_/ / /_\ \| |    
    | | __ | |   | | | | ___ \  _  || |    
    | |_\ \| |___\ \_/ / |_/ / | | || |____
     \____/\_____/\___/\____/\_| |_/\_____/
-*/
+
+
+********************************************************************************/
 
 
 /*
@@ -948,14 +954,18 @@ var map = [
 
 
 
-/*
+/******************************************************************************* 
+
+
     _ __  _ __ ___   __ _ _ __ __ _ _ __ ___  
    | '_ \| '__/ _ \ / _` | '__/ _` | '_ ` _ \ 
    | |_) | | | (_) | (_| | | | (_| | | | | | |
    | .__/|_|  \___/ \__, |_|  \__,_|_| |_| |_|
    | |               __/ |                    
    |_|              |___/     
-*/
+
+
+********************************************************************************/
 
 
 function interface(id, keyCode ) {
@@ -1135,15 +1145,18 @@ function drawTile (x,y){
 }
 
 
-/*
+/******************************************************************************* 
+
+
      __                  _   _                 
     / _|                | | (_)                
    | |_ _   _ _ __   ___| |_ _  ___  _ __  ___ 
    |  _| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
    | | | |_| | | | | (__| |_| | (_) | | | \__ \
    |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
- */                                          
 
+
+********************************************************************************/
 
 function createMonsters(thisManyMonsters) {
     let min = 2;
@@ -1387,7 +1400,7 @@ start();
 ```
 
 
-<a id="org5f5f4d6"></a>
+<a id="org2805582"></a>
 
 # Demo
 
