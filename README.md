@@ -1,36 +1,36 @@
-- [Diagram](#orgf6dbdb4)
-- [Diagram Explanation](#org9721ab4)
-  - [GLOBAL](#org49a2bd1)
-  - [PROGRAM](#orgb39a83f)
-  - [WORLD](#org02c0b01)
-  - [ORDER](#org7ec1137)
-- [Setup](#orga647955)
-  - [Dependencies](#orgcd0ac46)
-- [HTML](#org1cff4d7)
-- [JavaScript](#org5ce4f79)
-    - [canvas](#org5351e10)
-    - [variables](#orgc7509fb)
-    - [INTERFACE and HANDLERS](#org4442527)
-    - [UPDATER](#org525511e)
-    - [functions](#org2368382)
-    - [MAIN FUNCTION](#org213259c)
-- [Demo](#org72eee66)
+- [Diagram](#org25bd221)
+- [Diagram Explanation](#org12b90da)
+  - [GLOBAL](#orge98a503)
+  - [PROGRAM](#org052f0c8)
+  - [WORLD](#orgc1c29b0)
+  - [ORDER](#org4d17b82)
+- [Setup](#org552dfb3)
+  - [Dependencies](#orgc7f3d3b)
+- [HTML](#orgc387661)
+- [JavaScript](#org4e1abe0)
+    - [canvas](#orgd60102a)
+    - [variables](#orgafcfd0f)
+    - [INTERFACE and HANDLERS](#org46a5837)
+    - [UPDATER](#org1954866)
+    - [functions](#org92172e9)
+    - [MAIN FUNCTION](#org0aa7896)
+- [Demo](#org4cbee5e)
 
 
 
-<a id="orgf6dbdb4"></a>
+<a id="org25bd221"></a>
 
 # Diagram
 
 ![img](diagram.png)
 
 
-<a id="org9721ab4"></a>
+<a id="org12b90da"></a>
 
 # Diagram Explanation
 
 
-<a id="org49a2bd1"></a>
+<a id="orge98a503"></a>
 
 ## GLOBAL
 
@@ -53,7 +53,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > In information technology and computer science, a program is described as stateful if it is designed to remember preceding events or user interactions;[1] the remembered information is called the state of the system.
 
 
-<a id="orgb39a83f"></a>
+<a id="org052f0c8"></a>
 
 ## PROGRAM
 
@@ -107,7 +107,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
         -   Draw canvas
 
 
-<a id="org02c0b01"></a>
+<a id="orgc1c29b0"></a>
 
 ## WORLD
 
@@ -120,7 +120,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 > The Canvas API provides a means for drawing graphics via JavaScript and the HTML <canvas> element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.
 
 
-<a id="org7ec1137"></a>
+<a id="org4d17b82"></a>
 
 ## ORDER
 
@@ -152,12 +152,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   [7] CANVAS
 
 
-<a id="orga647955"></a>
+<a id="org552dfb3"></a>
 
 # Setup
 
 
-<a id="orgcd0ac46"></a>
+<a id="orgc7f3d3b"></a>
 
 ## Dependencies
 
@@ -168,7 +168,7 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 -   tape
 
 
-<a id="org1cff4d7"></a>
+<a id="orgc387661"></a>
 
 # HTML
 
@@ -257,12 +257,12 @@ From [Wikipedia:](https://en.wikipedia.org/wiki/Global_variable)
 ```
 
 
-<a id="org5ce4f79"></a>
+<a id="org4e1abe0"></a>
 
 # JavaScript
 
 
-<a id="org5351e10"></a>
+<a id="orgd60102a"></a>
 
 ### canvas
 
@@ -272,7 +272,7 @@ const ctx = canvas.getContext("2d");
 ```
 
 
-<a id="orgc7509fb"></a>
+<a id="orgafcfd0f"></a>
 
 ### variables
 
@@ -377,7 +377,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org4442527"></a>
+<a id="org46a5837"></a>
 
 ### INTERFACE and HANDLERS
 
@@ -499,7 +499,7 @@ const ctx = canvas.getContext("2d");
     ```
 
 
-<a id="org525511e"></a>
+<a id="org1954866"></a>
 
 ### UPDATER
 
@@ -557,7 +557,7 @@ function updater(newState, action) {
 ```
 
 
-<a id="org2368382"></a>
+<a id="org92172e9"></a>
 
 ### functions
 
@@ -812,7 +812,7 @@ function updater(newState, action) {
         ```
 
 
-<a id="org213259c"></a>
+<a id="org0aa7896"></a>
 
 ### MAIN FUNCTION
 
@@ -870,7 +870,15 @@ const objects = {
   }
 };
 
-/* GLOBAL */
+/* 
+    _____  _     ___________  ___   _     
+   |  __ \| |   |  _  | ___ \/ _ \ | |    
+   | |  \/| |   | | | | |_/ / /_\ \| |    
+   | | __ | |   | | | | ___ \  _  || |    
+   | |_\ \| |___\ \_/ / |_/ / | | || |____
+    \____/\_____/\___/\____/\_| |_/\_____/
+*/
+
 /*
   0 : walkable
   1 : not walkable (a wall)
@@ -1342,7 +1350,7 @@ start();
 ```
 
 
-<a id="org72eee66"></a>
+<a id="org4cbee5e"></a>
 
 # Demo
 
