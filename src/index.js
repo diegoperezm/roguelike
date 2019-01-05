@@ -17,9 +17,25 @@ let w = 400;
 let h = 400;
 let tileSize = 13;
 
+/******************************************************************************* 
+
+    _____  _     ___________  ___   _     
+   |  __ \| |   |  _  | ___ \/ _ \ | |    
+   | |  \/| |   | | | | |_/ / /_\ \| |    
+   | | __ | |   | | | | ___ \  _  || |    
+   | |_\ \| |___\ \_/ / |_/ / | | || |____
+    \____/\_____/\___/\____/\_| |_/\_____/
+
+
+********************************************************************************/
+
+let worldData = [];
+
+var nextAttack;
+
 const objects = {
   wall: {
-    id: 1, // wall
+    id: 1,
     color: "rgba(200, 200, 200, 1)",
     pos: {
       x: 0,
@@ -36,7 +52,7 @@ const objects = {
     },
     width: 10,
     height: 10,
-    HP: 3
+    HP: 1
   },
   player: {
     id: "player",
@@ -51,24 +67,6 @@ const objects = {
     HP: 100
   }
 };
-
-/******************************************************************************* 
-
-    _____  _     ___________  ___   _     
-   |  __ \| |   |  _  | ___ \/ _ \ | |    
-   | |  \/| |   | | | | |_/ / /_\ \| |    
-   | | __ | |   | | | | ___ \  _  || |    
-   | |_\ \| |___\ \_/ / |_/ / | | || |____
-    \____/\_____/\___/\____/\_| |_/\_____/
-
-
-********************************************************************************/
-
-/*
- list of objects  and his positions x y
- */
-
-let state = [];
 
 /*
   0 : walkable
@@ -123,6 +121,102 @@ var map = [
 
 ********************************************************************************/
 
+var fsm = {
+  currentState: "IDLE",
+  states: {
+    IDLE: {
+      left: "COLLISIONDETECTION",
+      up: "COLLISIONDETECTION",
+      right: "COLLISIONDETECTION",
+      down: "COLLISIONDETECTION"
+    },
+    COLLISIONDETECTION: {
+      left: "COLLISIONDETECTION",
+      up: "COLLISIONDETECTION",
+      right: "COLLISIONDETECTION",
+      down: "COLLISIONDETECTION",
+      walk: "MOVING",
+      attack: "ISALIVE"
+    },
+
+    MOVING: {
+      left: "COLLISIONDETECTION",
+      up: "COLLISIONDETECTION",
+      right: "COLLISIONDETECTION",
+      down: "COLLISIONDETECTION",
+      walk: "IDLE"
+    },
+
+    ISALIVE: {
+      yes: "ATTACKING",
+      no: "REMOVE"
+    },
+
+    ATTACKING: {
+      x: "ISALIVE"
+    },
+
+    REMOVE: {
+      left: "COLLISIONDETECTION",
+      up: "COLLISIONDETECTION",
+      right: "COLLISIONDETECTION",
+      down: "COLLISIONDETECTION"
+    }
+  }
+};
+
+function transition(nextMove, currentState, action, id) {
+  console.log("transition ^", nextMove, currentState, action, id);
+
+  var state = currentState;
+  let newState;
+
+  if (fsm.states[state][action]) {
+    var nextState = fsm.states[state][action];
+    fsm.currentState = nextState;
+
+    switch (nextState) {
+      case "IDLE":
+        console.log("STATE IDLE");
+
+        break;
+
+      case "COLLISIONDETECTION":
+        console.log("COLLISIONDETECTION state ");
+        collisionDetection(action, id);
+        break;
+
+      case "MOVING":
+        console.log("MOVING state ");
+        newState = nextMove;
+        updater(newState, "walk");
+        break;
+
+      case "ISALIVE":
+        console.log("ISALIVE state nextMove ", nextMove, nextAttack);
+
+        nextAttack =
+          (Object.keys(nextMove).length === 0) &
+          (nextMove.constructor === Object)
+            ? nextAttack
+            : nextMove;
+
+        isAlive(nextAttack);
+        break;
+
+      case "ATTACKING":
+        console.log("ATTACKING STATE ", nextMove);
+        updater(nextMove, "attack");
+        break;
+
+      case "REMOVE":
+        console.log("REMOVE state", nextMove);
+        updater(nextMove, "remove");
+        break;
+    }
+  }
+}
+
 function interface(id, keyCode) {
   let input = Object.assign({ id: id }, { keyCode: keyCode }, {});
   inputHandler(input);
@@ -164,81 +258,60 @@ function inputHandler(inputObj) {
     case 74:
       input = "down";
       break;
+
+    case 88:
+      input = "x";
+      break;
   }
 
   let event = Object.assign({ id: id }, { input: input }, {});
-  eventHandler(event);
+
+  transition({}, fsm.currentState, event.input, event.id);
 }
 
-function eventHandler(event) {
-  let newState;
-  let nextMove;
-  let action;
+function collisionDetection(input, id) {
+  let nextMove = move(id, input);
 
-  let didSomethingDie =
-    state.findIndex(ele => ele.HP === 0) != -1 ? true : false;
+  switch (fsm.currentState) {
+    case "COLLISIONDETECTION":
+      if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
+        transition(nextMove, fsm.currentState, "walk", {});
 
-  /*
-   * Check for dead object
-   */
+        break;
+      } else if (typeof map[nextMove.pos.y][nextMove.pos.x] === "string") {
+        transition(nextMove, fsm.currentState, "attack", {});
 
-  if (didSomethingDie) {
-    action = "remove";
-    newState = state.filter(ele => ele.HP != 0);
-    updater(newState, action);
-  }
-
-  /*
-   * Select action  based on nextMove
-   */
-
-  nextMove = move(event.id, event.input);
-
-  if (map[nextMove.pos.y][nextMove.pos.x] === 0) {
-    action = "walk";
-  } else if (typeof map[nextMove.pos.y][nextMove.pos.x] === "string") {
-    action = "attack";
-  } else {
-    action = "collision detection";
-  }
-
-  /*
-   * send newState  based on action
-   */
-  switch (action) {
-    case "walk":
-      newState = nextMove;
-      updater(newState, "walk");
-      break;
-
-    case "attack":
-      newState = attackEnemy(nextMove.id, nextMove.pos.x, nextMove.pos.y);
-      updater(newState, "attack");
-      break;
-
-    case "collision detection":
-      console.log("collision detected");
-      break;
+        break;
+      } else {
+        console.log("collision detected");
+        break;
+      }
   }
 }
 
 function updater(newState, action) {
-  switch (action) {
-    case "remove":
-      monsterInfoFn();
-      state = newState;
-      break;
+  console.log("updater", newState, action);
 
+  switch (action) {
     case "walk":
-      let indx = state.findIndex(ele => ele.id === newState.id);
-      state[indx] = newState;
+      let index = worldData.findIndex(elem => elem.id === newState.id);
+      worldData[index] = newState;
       break;
 
     case "attack":
       newState.forEach(function(elem) {
-        let indx = state.findIndex(ele => ele.id === elem.id);
-        state[indx] = elem;
+        let index = worldData.findIndex(ele => ele.id === elem.id);
+        worldData[index] = elem;
       });
+      break;
+
+    case "remove":
+      console.log("remove remove  ", newState);
+
+      let removeMonsterInfo = differenceArray(worldData, newState);
+
+      monsterInfoRemove(removeMonsterInfo);
+      worldData = newState;
       break;
   }
 
@@ -253,7 +326,7 @@ function updater(newState, action) {
   });
 
   // update map
-  state.forEach(function(elem) {
+  worldData.forEach(function(elem) {
     if (elem.id != 1) {
       map[elem.pos.y][elem.pos.x] = elem.id;
     }
@@ -266,7 +339,7 @@ function updater(newState, action) {
   playerInfo();
 
   // update monster info with current state
-  monsterInfoFn();
+  monsterInfoUpdate();
 }
 
 function drawMap() {
@@ -274,8 +347,8 @@ function drawMap() {
   map.forEach(function(row, i) {
     row.forEach(function(tile, j) {
       if (tile != 0) {
-        let index = state.findIndex(ele => ele.id === tile);
-        let color = state[index].color;
+        let index = worldData.findIndex(ele => ele.id === tile);
+        let color = worldData[index].color;
         ctx.fillStyle = color;
         drawTile(j, i);
       }
@@ -300,6 +373,22 @@ function drawTile(x, y) {
 
 ********************************************************************************/
 
+function playerInfo() {
+  let playerIndex = worldData.findIndex(elem => elem.id === "player");
+  let player = worldData[playerIndex];
+
+  let playerInfo = document.getElementById("playerInfo");
+  let playerId = document.getElementById("playerId");
+  let playerPosX = document.getElementById("playerPosX");
+  let playerPosY = document.getElementById("playerPosY");
+  let playerHP = document.getElementById("playerHP");
+
+  playerId.textContent = player.id;
+  playerPosX.textContent = player.pos.x;
+  playerPosY.textContent = player.pos.y;
+  playerHP.textContent = player.HP;
+}
+
 function createMonsters(thisManyMonsters) {
   let min = 2;
   let max = 29;
@@ -320,6 +409,162 @@ function createMonsters(thisManyMonsters) {
   return monsters;
 }
 
+function monsterInfoCreateDOM() {
+  console.log("monsterInfoCreateDOM");
+
+  let monstersIndex = allIndxTypeMonster(worldData, "monster");
+  console.log("monsterInfoCreateDOM", monstersIndex);
+
+  monstersIndex.forEach(index => {
+    let monster = worldData[index];
+
+    let monsterTable = document.getElementById("monsterTable");
+    let monsterDOM = document.getElementById(monster.id);
+
+    let row = document.createElement("tr");
+    let monsterId = document.createElement("td");
+    let monsterPosX = document.createElement("td");
+    let monsterPosY = document.createElement("td");
+    let monsterHP = document.createElement("td");
+
+    monsterId.id = `${monster.id}ID`;
+    monsterPosX.id = `${monster.id}X`;
+    monsterPosY.id = `${monster.id}Y`;
+    monsterHP.id = `${monster.id}HP`;
+
+    row.id = monster.id;
+
+    row.appendChild(monsterId);
+    row.appendChild(monsterPosX);
+    row.appendChild(monsterPosY);
+    row.appendChild(monsterHP);
+
+    monsterId.textContent = monster.id;
+    monsterPosX.textContent = monster.pos.x;
+    monsterPosY.textContent = monster.pos.y;
+    monsterHP.textContent = monster.HP;
+
+    monsterTable.appendChild(row);
+  });
+}
+
+function monsterInfoUpdate() {
+  console.log("monsterinfoUpdate");
+
+  let monstersIndex = allIndxTypeMonster(worldData, "monster");
+
+  monstersIndex.forEach(index => {
+    let monster = worldData[index];
+    let monsterTable = document.getElementById("monsterTable");
+    let monsterDOM = document.getElementById(monster.id);
+
+    let tdId = document.getElementById(`${monster.id}ID`);
+    let tdX = document.getElementById(`${monster.id}X`);
+    let tdY = document.getElementById(`${monster.id}Y`);
+    let tdHP = document.getElementById(`${monster.id}HP`);
+
+    tdId.textContent = monster.id;
+    tdX.textContent = monster.pos.x;
+    tdY.textContent = monster.pos.y;
+    tdHP.textContent = monster.HP;
+  });
+}
+
+function monsterInfoRemove(removeMonster) {
+  let monsterId = removeMonster[0].id;
+  let monsterToRemove = document.getElementById(monsterId);
+
+  monsterToRemove.remove();
+}
+
+function move(id, direction) {
+  let x;
+  let y;
+  let indexId = worldData.findIndex(element => element.id === id);
+
+  switch (direction) {
+    case "left":
+      x = worldData[indexId].pos.x - 1;
+      y = worldData[indexId].pos.y;
+      break;
+
+    case "up":
+      x = worldData[indexId].pos.x;
+      y = worldData[indexId].pos.y - 1;
+      break;
+
+    case "right":
+      x = worldData[indexId].pos.x + 1;
+      y = worldData[indexId].pos.y;
+      break;
+
+    case "down":
+      x = worldData[indexId].pos.x;
+      y = worldData[indexId].pos.y + 1;
+      break;
+  }
+
+  let newState = Object.assign({}, worldData[indexId], {
+    id: id,
+    pos: { x: x, y: y }
+  });
+  return newState;
+}
+
+function attackEnemy(id, x, y) {
+  let playerIndex = worldData.findIndex(elem => elem.id === id);
+  let player = worldData[playerIndex];
+  let playerHP = player.HP;
+
+  let monsterIndex = worldData.findIndex(
+    elem => elem.pos.x === x && elem.pos.y === y
+  );
+  let monster = worldData[monsterIndex];
+  let monsterHP = monster.HP;
+
+  playerHP -= 1;
+  monsterHP -= 1;
+
+  let newStatePlayer = Object.assign({}, player, { HP: playerHP });
+
+  let newStateMonster = Object.assign({}, monster, { HP: monsterHP });
+
+  return [newStatePlayer, newStateMonster];
+}
+
+function isAlive(input) {
+  console.log("isAlive input ", input);
+
+  let notAliveIndex = worldData.findIndex(elem => elem.HP <= 0);
+
+  console.log("isAlive notAlive", notAliveIndex);
+
+  if (notAliveIndex === -1) {
+    let nextAttack = attackEnemy(input.id, input.pos.x, input.pos.y);
+    transition(nextAttack, fsm.currentState, "yes", {});
+  } else {
+    let newState = worldData.filter(
+      elem => elem.id != worldData[notAliveIndex].id
+    );
+    transition(newState, fsm.currentState, "no", {});
+  }
+}
+
+function differenceArray(a, b) {
+  return a.filter(function(elem) {
+    return b.indexOf(elem) < 0;
+  });
+}
+
+function allIndxTypeMonster(arr, val) {
+  let indexes = [];
+
+  for (let index = 0; index < arr.length; index++)
+    if (arr[index].type === val) indexes.push(index);
+
+  return indexes;
+}
+
 function randomY(arr, thisManyMonsters) {
   let min = 9;
   let max = 29;
@@ -337,139 +582,6 @@ function randomY(arr, thisManyMonsters) {
   return y;
 }
 
-function playerInfo() {
-  let playerIndex = state.findIndex(element => element.id === "player");
-  let player = state[playerIndex];
-
-  let playerInfo = document.getElementById("playerInfo");
-  let playerId = document.getElementById("playerId");
-  let playerPosX = document.getElementById("playerPosX");
-  let playerPosY = document.getElementById("playerPosY");
-  let playerHP = document.getElementById("playerHP");
-
-  playerId.textContent = player.id;
-  playerPosX.textContent = player.pos.x;
-  playerPosY.textContent = player.pos.y;
-  playerHP.textContent = player.HP;
-}
-
-function monsterInfoFn() {
-  let allIndx = (arr, val) => {
-    var indexes = [];
-    for (let i = 0; i < arr.length; i++)
-      if (arr[i].type === val) indexes.push(i);
-    return indexes;
-  };
-
-  let monstersIndex = allIndx(state, "monster");
-
-  monstersIndex.forEach(index => {
-    let monster = state[index];
-
-    if (monster != undefined) {
-      let monsterTable = document.getElementById("monsterTable");
-      let monsterDOM = document.getElementById(monster.id);
-
-      let row = document.createElement("tr");
-
-      let monsterId = document.createElement("td");
-      let monsterPosX = document.createElement("td");
-      let monsterPosY = document.createElement("td");
-      let monsterHP = document.createElement("td");
-
-      if (monsterDOM === null) {
-        monsterId.id = `${monster.id}ID`;
-        monsterPosX.id = `${monster.id}X`;
-        monsterPosY.id = `${monster.id}Y`;
-        monsterHP.id = `${monster.id}HP`;
-
-        row.id = monster.id;
-
-        row.appendChild(monsterId);
-        row.appendChild(monsterPosX);
-        row.appendChild(monsterPosY);
-        row.appendChild(monsterHP);
-
-        monsterId.textContent = monster.id;
-        monsterPosX.textContent = monster.pos.x;
-        monsterPosY.textContent = monster.pos.y;
-        monsterHP.textContent = monster.HP;
-        monsterTable.appendChild(row);
-      }
-
-      if (monsterId != null) {
-        let tdId = document.getElementById(`${monster.id}ID`);
-        let tdX = document.getElementById(`${monster.id}X`);
-        let tdY = document.getElementById(`${monster.id}Y`);
-        let tdHP = document.getElementById(`${monster.id}HP`);
-
-        if (tdHP.textContent === "0") {
-          let removeRow = document.getElementById(monster.id);
-          removeRow.remove();
-        }
-
-        tdId.textContent = monster.id;
-        tdX.textContent = monster.pos.x;
-        tdY.textContent = monster.pos.y;
-        tdHP.textContent = monster.HP;
-      }
-    }
-  });
-}
-
-function move(id, direction) {
-  let x;
-  let y;
-  let indexId = state.findIndex(element => element.id === id);
-
-  switch (direction) {
-    case "left":
-      x = state[indexId].pos.x - 1;
-      y = state[indexId].pos.y;
-      break;
-
-    case "up":
-      x = state[indexId].pos.x;
-      y = state[indexId].pos.y - 1;
-      break;
-
-    case "right":
-      x = state[indexId].pos.x + 1;
-      y = state[indexId].pos.y;
-      break;
-
-    case "down":
-      x = state[indexId].pos.x;
-      y = state[indexId].pos.y + 1;
-      break;
-  }
-
-  let newState = Object.assign({}, state[indexId], {
-    id: id,
-    pos: { x: x, y: y }
-  });
-  return newState;
-}
-
-function attackEnemy(id, x, y) {
-  let playerIndex = state.findIndex(element => element.id === id);
-  let player = state[playerIndex];
-  let playerHP = player.HP;
-
-  let monsterIndex = state.findIndex(el => el.pos.x === x && el.pos.y === y);
-  let monster = state[monsterIndex];
-  let monsterHP = monster.HP;
-
-  playerHP -= 1;
-  monsterHP -= 1;
-
-  let newStatePlayer = Object.assign({}, player, { HP: playerHP });
-
-  let newStateMonster = Object.assign({}, monster, { HP: monsterHP });
-
-  return [newStatePlayer, newStateMonster];
-}
-
 function start() {
   // LISTENER
   document.addEventListener("keydown", function(keyDown) {
@@ -479,21 +591,21 @@ function start() {
   /* Add wall id to state.
      At the moment the walls are hardcoded (map) 
   */
-  state.push(objects.wall);
+  worldData.push(objects.wall);
 
   // Create monsters (no more than 12)
   let monsters = createMonsters(8);
 
   // Add monsters to state
   monsters.forEach(function(elem) {
-    state.push(elem);
+    worldData.push(elem);
   });
 
   // Add player to state
-  state.push(objects.player);
+  worldData.push(objects.player);
 
   // Add  player and monsters to map using state
-  state.forEach(function(elem) {
+  worldData.forEach(function(elem) {
     if (elem.id != 1) {
       map[elem.pos.y][elem.pos.x] = elem.id;
     }
@@ -501,7 +613,7 @@ function start() {
 
   drawMap();
   playerInfo();
-  monsterInfoFn();
+  monsterInfoCreateDOM();
 }
 
 /*
