@@ -1,3 +1,5 @@
+#+PROPERTY: header-args :results verbatim
+
 * JS 
 
 ** canvas    
@@ -144,7 +146,6 @@ const  fsm =  Machine (
     x: 6, y: 5
   },
   nextAttack:[], 
-  action: '', 
   isAlive: ''
  },
 
@@ -198,66 +199,68 @@ const  fsm =  Machine (
   },
   
   moving: {
-   onEntry: ['movingFn'], 
+   invoke: {
+     src: (ctx, event) => (callback, onEvent) => {
+      callback('WALK');
+   }
+ },
   on: {
-    '': {
+    WALK: {
        target: 'idle',  actions: ['log', 'updater']
     }
    },
   },
 
  isAlive: {
-  onEntry: ['entryIsAlive', 'isAliveFn'],
+  invoke: {
+    src: (ctx, event) => (callback, onEvent) => {
+      const isAliveResult = isAlive();
+      callback(isAliveResult);
+    }
+  },
+
   on: {
-    "": [
+    YES: 
     {
       target: 'attacking', 
-        cond: (ctx, event) => { return (ctx.isAlive === "YES");},
      actions: 'nextAttackFn' 
     },
-    { 
-      target: 'remove',
-        cond: (ctx, event) => { return (ctx.isAlive === "NO");}
-     }
-     ]
-    }
+    NO: {target: 'remove'}
+  }
  
-   },
+ },
  
  attacking: {
-   onEntry: ['entryAttacking', 'attackingFn'],
    on: {
-       X: { 
+       ATTACK: { 
        target: 'isAlive'
          } 
        },
-     onExit: ['exitAttacking','updater']
+     onExit: 'updater'
    },
 
  remove: {
-   onEntry: ['log','removingFn'],
+  invoke: {
+   src: (ctx,event) => (callback, onEvent) =>{
+     callback('REMOVE');  
+   }
+  },
    on: {
-     '': {target: 'idle'}
-     }
+     REMOVE: {
+        target: 'idle'
+      }
+     },
+     onExit: 'updater'
     },
   }
   },
   {
    actions: {
-     nextMoveFn:   assign({  nextMove: (ctx, event) => move(ctx, event)}),
-      isAliveFn:   assign({   isAlive: (ctx, event) => isAlive(ctx, event) }),
-       movingFn:   assign({    action: (ctx, event) => 'WALK'}),
-    attackingFn:   assign({    action: (ctx, event) => 'ATTACK'}),
-     removingFn:   assign({    action: (ctx, event) => 'REMOVE'}),
-     nextAttackFn: assign({nextAttack: (ctx, event) =>  attackEnemy(ctx, event)}),
-    collisionDetection: assign({ collisionResult: (ctx, event) => collisionDetection(ctx,event)}), 
+    nextMoveFn:   assign({  nextMove: (ctx, event) => move(ctx, event)}),
+    nextAttackFn: assign({nextAttack: (ctx, event) => attackEnemy(ctx, event)}),
     attackEnemy,
     updater,
     move,
-    entryIsAlive:   (ctx, event) => console.log('entry isAlive') ,
-    entryAttacking: (ctx, event) => console.log('entry attacking') ,
-    exitIsAlive:    (ctx, event) => console.log('exit  isAlive') ,
-    exitAttacking:  (ctx, event) => console.log('exit attacking') ,
     log: log( (ctx,event) => 
     `
     nextMove:
@@ -270,10 +273,14 @@ const  fsm =  Machine (
 
   }); 
 
+
+
+
 const fsmService = interpret(fsm).onTransition( state => {
   console.log("fsmService state.value ", state.value);
 });
-fsmService.start();
+
+
 
 #+END_SRC
 
@@ -409,9 +416,10 @@ console.log('attackEnemy', extendedState.nextAttack);
 #+BEGIN_SRC  js
 function updater(extendedState, event) {
 
-console.log("updater fn ",extendedState, event);
 
- let action = event.type || extendedState.action;
+ let action = event.type;
+
+console.log("updater fn ",extendedState, event, action);
 
   switch(action) {
 
@@ -514,7 +522,7 @@ let id = inputObj.id;
    break;
    
   case 88:
-    input = "X";
+    input = "ATTACK";
    break;
   
 } 
@@ -915,12 +923,16 @@ let tileSize = 13;
    \____/  \_/\_| |_/\_| \_| \_/  
 */                              
 
+fsmService.start();
+
 start();
 
 #+END_SRC
 
 
-#+BEGIN_SRC  sh :exports none  :dir ~/Desktop/roguelike
+* prettier
+
+#+BEGIN_SRC  sh :exports none  :dir ~/Desktop/roguelike 
 npm run prettier;
 #+END_SRC
 
@@ -929,13 +941,9 @@ npm run prettier;
 : > roguelike@1.0.0 prettier /home/erretres/Desktop/roguelike
 : > gulp prettier
 : 
-: [12:43:46] Using gulpfile ~/Desktop/roguelike/gulpfile.js
-: [12:43:46] Starting 'prettier'...
-: [12:43:46] Finished 'prettier' after 418 ms
-
-
-
-
+: [12:02:39] Using gulpfile ~/Desktop/roguelike/gulpfile.js
+: [12:02:39] Starting 'prettier'...
+: [12:02:40] Finished 'prettier' after 403 ms
 
 
 
