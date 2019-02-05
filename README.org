@@ -1,11 +1,13 @@
 #+PROPERTY: header-args :results verbatim
 
 * Diagram 
+
+[[file:chart.png]]
   
 
 * Diagram Explanation 
 
-
+  
 * Setup
 
 ** Dependencies
@@ -22,3 +24,6 @@
 * Demo 
 
  [[https://diegoperezm.github.io/roguelike/src/index.html][Live link]]
+
+
+

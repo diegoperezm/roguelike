@@ -1,30 +1,29 @@
-
-# Table of Contents
-
-1.  [Diagram](#org38eec80)
-2.  [Diagram Explanation](#orgf8810c0)
-3.  [Setup](#orgd42f06b)
-    1.  [Dependencies](#orga096ff5)
-4.  [Demo](#orgbbfad9c)
+- [Diagram](#org9ff0967)
+- [Diagram Explanation](#orgc0aa1c7)
+- [Setup](#org9408b37)
+  - [Dependencies](#org9aba5ff)
+- [Demo](#org046dbf3)
 
 
 
-<a id="org38eec80"></a>
+<a id="org9ff0967"></a>
 
 # Diagram
 
+![img](chart.png)
 
-<a id="orgf8810c0"></a>
+
+<a id="orgc0aa1c7"></a>
 
 # Diagram Explanation
 
 
-<a id="orgd42f06b"></a>
+<a id="org9408b37"></a>
 
 # Setup
 
 
-<a id="orga096ff5"></a>
+<a id="org9aba5ff"></a>
 
 ## Dependencies
 
@@ -37,9 +36,8 @@
 -   tape
 
 
-<a id="orgbbfad9c"></a>
+<a id="org046dbf3"></a>
 
 # Demo
 
 [Live link](https://diegoperezm.github.io/roguelike/src/index.html)
-
