@@ -1,0 +1,90 @@
+#+PROPERTY: header-args :results verbatim
+
+* HTML
+ 
+
+#+BEGIN_SRC html :tangle  ~/Desktop/roguelike/src/index.html
+<!doctype html>
+<html lang="en">
+    <head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Roguelike</title>
+    </head>
+    <style>
+     body {
+      overflow: hidden;
+     }
+      *, *:after, *:before {
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	 box-sizing: border-box;
+      }
+     .container {
+	 max-width: 1024px;
+	 margin: 0 auto;
+	 display: grid;
+	 grid-template-columns: repeat(12, [col-start] 1fr);
+	 row-gap: 10px;
+	 column-gap: 50px;
+      }
+
+     .canvas {
+	 grid-column: col-start 3/span 4;
+     } 
+     .playerInfo {
+	 grid-column: col-start 8/span 4;
+	 max-width: 100%; 
+	 border: 10px solid black;
+     }
+     .worldInfo {
+	 grid-column: col-start 3/span 9;
+	 grid-row: 3/6;
+	 max-width: 100%; 
+	 max-height: 100%; 
+	 min-height: 300px; 
+	 border: 10px solid black;
+	 overflow-y: auto; 
+    } 
+
+    </style>
+    <body>
+     <div class="container">
+     <canvas id="canvas" class="canvas" width="400" height="400"></canvas>
+     <div class="playerInfo" id="playerInfo">
+      <table>
+       <tr>
+ 	 <td id="playerId"></td>
+       </tr>
+       <tr>
+	 <th>X:</th>
+         <td id="playerPosX"></td>
+       </tr>
+       <tr>
+	 <th>Y:</th>
+ 	 <td id="playerPosY"></td>
+       </tr>
+       <tr>
+	 <th>HP</th>
+         <td id="playerHP"></td>
+       </tr>
+     </table>
+     </div>
+      <div class="worldInfo"  id="worldInfo">
+	<div class="monsterInfo" id="monsterInfo">
+	 <table id="monsterTable">
+	  <tr>
+	   <th>id</th>
+	   <th>X</th>
+	   <th>Y</th>
+	   <th>HP</th>
+	  </tr>
+	 </table>
+	</div> 
+      </div>
+     </body>
+       <script src="./xstate.js"></script>
+       <script src="./xstate.interpreter.js"></script>
+       <script src="index.js"></script>
+</html>
+#+END_SRC
