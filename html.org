@@ -52,3 +52,10 @@
        <script src="index.js"></script>
 </html>
 #+END_SRC
+
+* CHECK 
+  
+#+BEGIN_SRC sh :results  verbatim :dir ./src/ 
+curl -H "Content-Type: text/html; charset=utf-8" --data-binary @index.html  https://validator.w3.org/nu/?out=text  
+#+END_SRC
+
