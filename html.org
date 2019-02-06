@@ -18,6 +18,7 @@
      <div class="playerInfo" id="playerInfo">
       <table>
        <tr>
+	 <th></th>
  	 <td id="playerId"></td>
        </tr>
        <tr>
