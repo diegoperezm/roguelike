@@ -930,6 +930,14 @@ start();
 #+END_SRC
 
 
+* CHECK 
+
+#+BEGIN_SRC sh :dir ./src/
+jshint index.js;
+echo '';
+#+END_SRC
+
+
 * prettier
 
 #+BEGIN_SRC  sh :exports none  :dir ~/Desktop/roguelike 
