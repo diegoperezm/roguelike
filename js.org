@@ -274,13 +274,7 @@ const  fsm =  Machine (
   }); 
 
 
-
-
-const fsmService = interpret(fsm).onTransition( state => {
-  console.log("fsmService state.value ", state.value);
-});
-
-
+const fsmService = interpret(fsm);
 
 #+END_SRC
 
@@ -291,13 +285,9 @@ const fsmService = interpret(fsm).onTransition( state => {
 #+BEGIN_SRC js
 function isAlive() {
  let index = worldData.findIndex(elem => elem.HP <= 0 ); 
- console.log('calling fn isAlive ' , worldData[index], index);
-
   if( index === -1) {
-     console.log("yes");
-      return 'YES';
+     return 'YES';
   } else {
-    console.log("no");
      return 'NO';
   } 
  }
@@ -309,11 +299,7 @@ function isAlive() {
 #+BEGIN_SRC js
 function collisionDetection(extendedState, event) {
 
-console.log('COLLISIONdETECTION fn', extendedState, event);
-
-
 let nextMove = extendedState.nextMove;
-
 
 let x = nextMove.x; 
 let y = nextMove.y; 
@@ -340,8 +326,6 @@ if( map[y][x] === 0) {
 #+NAME: move
 #+BEGIN_SRC js
 function move (extendedState, event) {
-
-console.log('move fn ', extendedState, event );
 
 let direction = event.type;
 
@@ -386,7 +370,6 @@ return {x:x,y:y};
 #+BEGIN_SRC js 
 function attackEnemy (extendedState) { 
 
-console.log('attackEnemy', extendedState.nextAttack);
  let playerIndex =  worldData.findIndex(elem => elem.id === 'player'); 
  let player = worldData[playerIndex];
  let playerHP =  player.HP;
@@ -419,7 +402,6 @@ function updater(extendedState, event) {
 
  let action = event.type;
 
-console.log("updater fn ",extendedState, event, action);
 
   switch(action) {
 
@@ -434,7 +416,6 @@ console.log("updater fn ",extendedState, event, action);
        let index = worldData.findIndex(ele => ele.id === elem.id);
 	worldData[index] = elem;
       });
-      console.log('updater case ATTACK ' , worldData);
       break;
 
     case "REMOVE":
@@ -634,10 +615,8 @@ function  allIndxTypeMonster (arr, val )  {
 #+BEGIN_SRC js
 
 function monsterInfoCreateDOM () {
- console.log("monsterInfoCreateDOM");
 
  let monstersIndex  = allIndxTypeMonster(worldData, "monster");
- console.log("monsterInfoCreateDOM", monstersIndex  );
 
  monstersIndex.forEach( index => {
 
@@ -684,7 +663,6 @@ function monsterInfoCreateDOM () {
 #+NAME:   monsterinfoupdate 
 #+BEGIN_SRC js
 function monsterInfoUpdate()  {
- console.log("monsterinfoUpdate");
    
  let monstersIndex  = allIndxTypeMonster(worldData, "monster");
 
@@ -949,9 +927,9 @@ npm run prettier;
 : > roguelike@1.0.0 prettier /home/erretres/Desktop/roguelike
 : > gulp prettier
 : 
-: [13:59:16] Using gulpfile ~/Desktop/roguelike/gulpfile.js
-: [13:59:16] Starting 'prettier'...
-: [13:59:16] Finished 'prettier' after 478 ms
+: [15:02:30] Using gulpfile ~/Desktop/roguelike/gulpfile.js
+: [15:02:30] Starting 'prettier'...
+: [15:02:31] Finished 'prettier' after 461 ms
 
 
 

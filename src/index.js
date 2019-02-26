@@ -251,9 +251,7 @@ const fsm = Machine(
   }
 );
 
-const fsmService = interpret(fsm).onTransition(state => {
-  console.log("fsmService state.value ", state.value);
-});
+const fsmService = interpret(fsm);
 
 function interface(id, keyCode) {
   let input = Object.assign({ id: id }, { keyCode: keyCode }, {});
@@ -306,8 +304,6 @@ function inputHandler(inputObj) {
 }
 
 function collisionDetection(extendedState, event) {
-  console.log("COLLISIONdETECTION fn", extendedState, event);
-
   let nextMove = extendedState.nextMove;
 
   let x = nextMove.x;
@@ -325,8 +321,6 @@ function collisionDetection(extendedState, event) {
 function updater(extendedState, event) {
   let action = event.type;
 
-  console.log("updater fn ", extendedState, event, action);
-
   switch (action) {
     case "WALK":
       let index = worldData.findIndex(elem => elem.id === "player");
@@ -339,7 +333,6 @@ function updater(extendedState, event) {
         let index = worldData.findIndex(ele => ele.id === elem.id);
         worldData[index] = elem;
       });
-      console.log("updater case ATTACK ", worldData);
       break;
 
     case "REMOVE":
@@ -447,10 +440,7 @@ function createMonsters(thisManyMonsters) {
 }
 
 function monsterInfoCreateDOM() {
-  console.log("monsterInfoCreateDOM");
-
   let monstersIndex = allIndxTypeMonster(worldData, "monster");
-  console.log("monsterInfoCreateDOM", monstersIndex);
 
   monstersIndex.forEach(index => {
     let monster = worldData[index];
@@ -486,8 +476,6 @@ function monsterInfoCreateDOM() {
 }
 
 function monsterInfoUpdate() {
-  console.log("monsterinfoUpdate");
-
   let monstersIndex = allIndxTypeMonster(worldData, "monster");
 
   monstersIndex.forEach(index => {
@@ -515,8 +503,6 @@ function monsterInfoRemove(removeMonster) {
 }
 
 function move(extendedState, event) {
-  console.log("move fn ", extendedState, event);
-
   let direction = event.type;
 
   let x;
@@ -550,7 +536,6 @@ function move(extendedState, event) {
 }
 
 function attackEnemy(extendedState) {
-  console.log("attackEnemy", extendedState.nextAttack);
   let playerIndex = worldData.findIndex(elem => elem.id === "player");
   let player = worldData[playerIndex];
   let playerHP = player.HP;
@@ -575,13 +560,9 @@ function attackEnemy(extendedState) {
 
 function isAlive() {
   let index = worldData.findIndex(elem => elem.HP <= 0);
-  console.log("calling fn isAlive ", worldData[index], index);
-
   if (index === -1) {
-    console.log("yes");
     return "YES";
   } else {
-    console.log("no");
     return "NO";
   }
 }
