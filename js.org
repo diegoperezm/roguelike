@@ -133,7 +133,7 @@ const objects = {
 #+BEGIN_SRC js 
 const { Machine, actions }  = window.XState;
 const { interpret }         = window.XStateInterpreter;
-const { assign , log}           = actions; 
+const { assign , log}       = actions; 
 
 const  fsm =  Machine (
 {
@@ -170,12 +170,11 @@ const  fsm =  Machine (
 	 }
      },
 
-    onExit: ['log', 'nextMoveFn']
+    onExit: ['nextMoveFn']
    
    },
 
  collisiondetection: {
-   onEntry: ['log'],
    invoke: {
      src: (ctx, event) => (callback, onEvent) => {
       const result = collisionDetection(ctx, event);
@@ -184,16 +183,13 @@ const  fsm =  Machine (
  },
    on: {
     WALK: {
-       target: 'moving', 
-       actions: 'log'
+       target: 'moving'
      },
     WALL: {
-      target: 'idle', 
-      actions: 'log'
+      target: 'idle'
     },
     MONSTER: {
-      target: 'isAlive',
-      actions: 'log'
+      target: 'isAlive'
    } 
    }  
   },
@@ -206,7 +202,7 @@ const  fsm =  Machine (
  },
   on: {
     WALK: {
-       target: 'idle',  actions: ['log', 'updater']
+       target: 'idle',  actions: ['updater']
     }
    },
   },
@@ -260,18 +256,9 @@ const  fsm =  Machine (
     nextAttackFn: assign({nextAttack: (ctx, event) => attackEnemy(ctx, event)}),
     attackEnemy,
     updater,
-    move,
-    log: log( (ctx,event) => 
-    `
-    nextMove:
-      x:  ${ctx.nextMove.x}
-      y:  ${ctx.nextMove.y}
-     isAlive: ${ctx.isAlive}
-      action: ${ctx.action}
-    event: ${event.type}`, 'label')
-   },
-
-  }); 
+    move
+  }
+}); 
 
 
 const fsmService = interpret(fsm);
@@ -927,9 +914,9 @@ npm run prettier;
 : > roguelike@1.0.0 prettier /home/erretres/Desktop/roguelike
 : > gulp prettier
 : 
-: [15:02:30] Using gulpfile ~/Desktop/roguelike/gulpfile.js
-: [15:02:30] Starting 'prettier'...
-: [15:02:31] Finished 'prettier' after 461 ms
+: [15:07:19] Using gulpfile ~/Desktop/roguelike/gulpfile.js
+: [15:07:19] Starting 'prettier'...
+: [15:07:19] Finished 'prettier' after 394 ms
 
 
 

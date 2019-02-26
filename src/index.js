@@ -145,11 +145,10 @@ const fsm = Machine(
           }
         },
 
-        onExit: ["log", "nextMoveFn"]
+        onExit: ["nextMoveFn"]
       },
 
       collisiondetection: {
-        onEntry: ["log"],
         invoke: {
           src: (ctx, event) => (callback, onEvent) => {
             const result = collisionDetection(ctx, event);
@@ -158,16 +157,13 @@ const fsm = Machine(
         },
         on: {
           WALK: {
-            target: "moving",
-            actions: "log"
+            target: "moving"
           },
           WALL: {
-            target: "idle",
-            actions: "log"
+            target: "idle"
           },
           MONSTER: {
-            target: "isAlive",
-            actions: "log"
+            target: "isAlive"
           }
         }
       },
@@ -181,7 +177,7 @@ const fsm = Machine(
         on: {
           WALK: {
             target: "idle",
-            actions: ["log", "updater"]
+            actions: ["updater"]
           }
         }
       },
@@ -235,18 +231,7 @@ const fsm = Machine(
       }),
       attackEnemy,
       updater,
-      move,
-      log: log(
-        (ctx, event) =>
-          `
-    nextMove:
-      x:  ${ctx.nextMove.x}
-      y:  ${ctx.nextMove.y}
-     isAlive: ${ctx.isAlive}
-      action: ${ctx.action}
-    event: ${event.type}`,
-        "label"
-      )
+      move
     }
   }
 );
