@@ -620,9 +620,12 @@ function randomY(arr, thisManyMonsters) {
 
 function start() {
   // LISTENER
-  document.addEventListener("keydown", function(keyDown) {
-    interface("player", keyDown.keyCode);
-  });
+  document.addEventListener(
+    "keydown",
+    _.throttle(keyDown => interface("player", keyDown.keyCode), 100, {
+      trailing: false
+    })
+  );
 
   /* Add wall id to state.
      At the moment the walls are hardcoded (map) 

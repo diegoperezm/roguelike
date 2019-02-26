@@ -2,6 +2,18 @@
 
 * JS 
 
+** interface 
+#+NAME: interface
+#+BEGIN_SRC js 
+function interface(id, keyCode ) {
+   let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
+   inputHandler(input); 
+ }
+#+END_SRC
+
+
+
+
 ** canvas    
 
 #+NAME: canvas 
@@ -109,18 +121,6 @@ const objects = {
     HP: 100
   }
 };
-#+END_SRC
-
-
-
-
-** interface 
-#+NAME: interface
-#+BEGIN_SRC js 
-function interface(id, keyCode ) {
-   let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
-   inputHandler(input); 
- }
 #+END_SRC
 
 
@@ -548,10 +548,10 @@ function differenceArray (a, b) {
 #+NAME: start
 #+BEGIN_SRC js
 function start() {
+
+   
   // LISTENER
-  document.addEventListener("keydown", function(keyDown) {
-    interface("player", keyDown.keyCode);
-  });
+  document.addEventListener("keydown", _.throttle((keyDown) => interface("player", keyDown.keyCode), 100, {'trailing': false}));
 
   /* Add wall id to state.
      At the moment the walls are hardcoded (map) 
@@ -949,10 +949,11 @@ npm run prettier;
 : > roguelike@1.0.0 prettier /home/erretres/Desktop/roguelike
 : > gulp prettier
 : 
-: [12:02:39] Using gulpfile ~/Desktop/roguelike/gulpfile.js
-: [12:02:39] Starting 'prettier'...
-: [12:02:40] Finished 'prettier' after 403 ms
+: [13:59:16] Using gulpfile ~/Desktop/roguelike/gulpfile.js
+: [13:59:16] Starting 'prettier'...
+: [13:59:16] Finished 'prettier' after 478 ms
 
 
 
  
+
