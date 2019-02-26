@@ -314,8 +314,8 @@ function updater(extendedState, event) {
       break;
 
     case "ATTACK":
-      extendedState.nextAttack.forEach(function(elem) {
-        let index = worldData.findIndex(ele => ele.id === elem.id);
+      extendedState.nextAttack.forEach(elem => {
+        let index = worldData.findIndex(elem2 => elem2.id === elem.id);
         worldData[index] = elem;
       });
       break;

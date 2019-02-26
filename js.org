@@ -11,9 +11,6 @@ function interface(id, keyCode ) {
  }
 #+END_SRC
 
-
-
-
 ** canvas    
 
 #+NAME: canvas 
@@ -399,9 +396,9 @@ function updater(extendedState, event) {
       break;
 
     case "ATTACK":
-      extendedState.nextAttack.forEach( function(elem) {
-       let index = worldData.findIndex(ele => ele.id === elem.id);
-	worldData[index] = elem;
+      extendedState.nextAttack.forEach( elem =>  {
+       let index = worldData.findIndex(elem2 => elem2.id === elem.id);
+       worldData[index] = elem;
       });
       break;
 
@@ -914,9 +911,9 @@ npm run prettier;
 : > roguelike@1.0.0 prettier /home/erretres/Desktop/roguelike
 : > gulp prettier
 : 
-: [15:07:19] Using gulpfile ~/Desktop/roguelike/gulpfile.js
-: [15:07:19] Starting 'prettier'...
-: [15:07:19] Finished 'prettier' after 394 ms
+: [15:24:23] Using gulpfile ~/Desktop/roguelike/gulpfile.js
+: [15:24:23] Starting 'prettier'...
+: [15:24:23] Finished 'prettier' after 393 ms
 
 
 
