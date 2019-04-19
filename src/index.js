@@ -359,8 +359,9 @@ function updater(extendedState, event) {
 
 function drawMap() {
   ctx.clearRect(0, 0, w, h);
-  map.forEach(function(row, i) {
-    row.forEach(function(tile, j) {
+
+  map.forEach((row, i) => {
+    row.forEach((tile, j) => {
       if (tile != 0) {
         let index = worldData.findIndex(ele => ele.id === tile);
         let color = worldData[index].color;
