@@ -238,7 +238,7 @@ const fsm = Machine(
 
 const fsmService = interpret(fsm);
 
-function interface(id, keyCode) {
+function intersection(id, keyCode) {
   let input = Object.assign({ id: id }, { keyCode: keyCode }, {});
   inputHandler(input);
 }
@@ -588,7 +588,7 @@ function start() {
   // LISTENER
   document.addEventListener(
     "keydown",
-    _.throttle(keyDown => interface("player", keyDown.keyCode), 100, {
+    _.throttle(keyDown => intersection("player", keyDown.keyCode), 100, {
       trailing: false
     })
   );

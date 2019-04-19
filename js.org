@@ -2,14 +2,16 @@
 
 * JS 
 
-** interface 
-#+NAME: interface
+** intersection 
+
+#+NAME: intersection
 #+BEGIN_SRC js 
-function interface(id, keyCode ) {
+function intersection(id, keyCode ) {
    let input = Object.assign({"id":id}, {"keyCode": keyCode}, {});
    inputHandler(input); 
  }
 #+END_SRC
+
 
 ** canvas    
 
@@ -516,7 +518,7 @@ function start() {
 
    
   // LISTENER
-  document.addEventListener("keydown", _.throttle((keyDown) => interface("player", keyDown.keyCode), 100, {'trailing': false}));
+  document.addEventListener("keydown", _.throttle((keyDown) => intersection("player", keyDown.keyCode), 100, {'trailing': false}));
 
   /* Add wall id to state.
      At the moment the walls are hardcoded (map) 
@@ -824,7 +826,7 @@ let tileSize = 13;
 ********************************************************************************/
 <<fsm>> 
 
-<<interface>>
+<<intersection>>
 
 <<inputhandler>>
 
@@ -906,14 +908,7 @@ echo '';
 npm run prettier;
 #+END_SRC
 
-#+RESULTS:
-: 
-: > roguelike@1.0.0 prettier /home/erretres/Desktop/roguelike
-: > gulp prettier
-: 
-: [15:24:23] Using gulpfile ~/Desktop/roguelike/gulpfile.js
-: [15:24:23] Starting 'prettier'...
-: [15:24:23] Finished 'prettier' after 393 ms
+
 
 
 
